@@ -311,6 +311,10 @@
     .kiosk-party span { display: grid; min-height: 50px; place-items: center; border: 1px solid #cfcfcf; border-radius: 8px; background: #fff; font-size: 1.2rem; font-weight: 800; }
     .kiosk-party strong { font-size: 1.2rem; text-align: center; }
     .kiosk-submit { margin-top: auto; min-height: 54px; font-size: .92rem; }
+    .kiosk-privacy-note { margin: 7px 0 0; color: #777; font-size: .57rem; line-height: 1.45; }
+    .kiosk-privacy-note a { color: #555; font-weight: 850; text-decoration: underline; }
+    .survey-optin { display: flex; align-items: center; gap: 6px; margin-top: 6px; color: #555; font-size: .61rem; font-weight: 750; }
+    .survey-optin::before { content: ""; width: 15px; height: 15px; flex: 0 0 15px; border: 1.5px solid #888; border-radius: 3px; background: #fff; }
     .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-content: end; }
     .numpad span { display: grid; min-height: 56px; place-items: center; border: 1px solid #d2d2d2; border-radius: 8px; background: #f7f7f7; font-size: 1.15rem; font-weight: 780; }
     .numpad .key-muted { color: #747474; font-size: .8rem; }
@@ -442,6 +446,35 @@
     .map-legend .use { background: var(--blue); }
     .map-legend .over { background: var(--red); }
     .seat-map-note { margin-top: 8px; color: var(--muted); font-size: .62rem; line-height: 1.45; text-align: center; }
+    .canvas-screen { position: relative; padding: 0; background: #edf2ef; }
+    .canvas-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: #edf2ef;
+      background-image: linear-gradient(rgb(110 126 118 / 10%) 1px, transparent 1px), linear-gradient(90deg, rgb(110 126 118 / 10%) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .canvas-topbar { position: absolute; z-index: 6; top: 38px; right: 12px; left: 12px; display: grid; grid-template-columns: 52px 1fr 52px; gap: 7px; align-items: center; }
+    .canvas-topbar span { display: grid; min-height: 42px; place-items: center; border: 1px solid rgb(0 0 0 / 10%); border-radius: 10px; background: rgb(255 255 255 / 94%); box-shadow: var(--shadow-sm); font-size: .66rem; font-weight: 850; }
+    .canvas-topbar b { padding: 9px 6px; border-radius: 10px; background: rgb(255 255 255 / 94%); box-shadow: var(--shadow-sm); font-size: .72rem; text-align: center; }
+    .canvas-topbar .save { border-color: var(--blue); color: #fff; background: var(--blue); }
+    .canvas-hint { position: absolute; z-index: 4; top: 91px; left: 12px; padding: 7px 9px; border-radius: 8px; color: #46504b; background: rgb(255 255 255 / 88%); box-shadow: var(--shadow-sm); font-size: .58rem; font-weight: 750; }
+    .canvas-zoom { position: absolute; z-index: 5; top: 91px; right: 12px; display: grid; overflow: hidden; border: 1px solid rgb(0 0 0 / 12%); border-radius: 9px; background: #fff; box-shadow: var(--shadow-sm); }
+    .canvas-zoom span { display: grid; width: 40px; height: 40px; place-items: center; border-bottom: 1px solid var(--line); font-size: 1rem; font-weight: 900; }
+    .canvas-zoom span:last-child { border-bottom: 0; }
+    .canvas-seat { position: absolute; display: grid; width: 58px; height: 48px; place-items: center; border: 2px solid #8f9c96; border-radius: 11px; color: #46504b; background: #fff; font-size: .64rem; font-weight: 900; box-shadow: 0 4px 9px rgb(0 0 0 / 12%); }
+    .canvas-seat--selected { border-color: var(--blue); outline: 4px solid rgb(35 111 206 / 22%); transform: translate(8px, -7px); }
+    .canvas-seat--selected::after { content: "이동 중"; position: absolute; bottom: -20px; padding: 3px 5px; border-radius: 5px; color: #fff; background: var(--blue); font-size: .52rem; white-space: nowrap; }
+    .canvas-seat--use { border-color: var(--blue); color: #164985; background: var(--blue-soft); }
+    .canvas-seat--over { border-color: var(--red); color: #7d251e; background: var(--red-soft); }
+    .canvas-seat small { display: block; margin-top: -7px; font-size: .52rem; }
+    .canvas-hq { position: absolute; right: 18px; bottom: 92px; left: 18px; display: grid; height: 58px; place-items: center; border-radius: 10px; color: #fff; background: #303733; font-size: .78rem; font-weight: 950; box-shadow: 0 7px 16px rgb(0 0 0 / 20%); }
+    .canvas-hq::before { content: "본진에서 바라보는 방향 ↑"; position: absolute; top: -22px; color: #46504b; font-size: .58rem; font-weight: 850; }
+    .canvas-lock-note { position: absolute; z-index: 5; right: 16px; bottom: 158px; left: 16px; padding: 7px 9px; border-radius: 7px; color: #70322d; background: rgb(255 231 228 / 94%); font-size: .57rem; font-weight: 750; text-align: center; }
+    .canvas-dock { position: absolute; z-index: 7; right: 12px; bottom: 14px; left: 12px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 6px; border: 1px solid rgb(0 0 0 / 10%); border-radius: 13px; background: rgb(255 255 255 / 95%); box-shadow: 0 10px 24px rgb(0 0 0 / 18%); }
+    .canvas-dock span { display: grid; min-height: 51px; place-items: center; padding: 4px 2px; border-radius: 8px; color: #555; font-size: .58rem; font-weight: 850; text-align: center; }
+    .canvas-dock .active { color: var(--blue); background: var(--blue-soft); }
 
     @media print {
       .toolbar { position: static; }
@@ -477,7 +510,7 @@
                   <span class="venue">축제 주점 A</span>
                   <span class="eyebrow">현재 대기</span><div class="queue-count">6<small>팀</small></div>
                   <div class="estimate">예상 대기시간<b>약 60분</b></div>
-                  <p class="privacy">입력한 연락처는 대기 안내와 호출에만 사용됩니다.</p>
+                  <p class="privacy">연락처는 대기·호출 안내에 사용됩니다. 설문은 선택한 경우에만 1회 발송됩니다.</p>
                 </aside>
                 <section class="kiosk-form">
                   <div class="kiosk-fields">
@@ -486,6 +519,8 @@
                     <span class="kiosk-label" style="margin-top:14px">대기 인원</span>
                     <div class="kiosk-party"><span>−</span><strong>2명</strong><span>＋</span></div>
                     <span class="wire-button kiosk-submit" style="background:#bdbdbd">연락처를 입력해 주세요</span>
+                    <p class="kiosk-privacy-note">대기 등록을 누르면 <a href="#">개인정보 수집·이용 안내</a>에 동의합니다.</p>
+                    <span class="survey-optin">이용 완료 후 만족도 조사 카카오톡 1회 받기 (선택)</span>
                   </div>
                   <div class="numpad" aria-label="숫자 키패드"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span class="key-muted">전체 삭제</span><span>0</span><span class="key-muted">⌫</span></div>
                 </section>
@@ -501,7 +536,7 @@
                   <span class="venue">축제 주점 A</span>
                   <span class="eyebrow">현재 대기</span><div class="queue-count">6<small>팀</small></div>
                   <div class="estimate">예상 대기시간<b>약 60분</b></div>
-                  <p class="privacy">입력한 연락처는 대기 안내와 호출에만 사용됩니다.</p>
+                  <p class="privacy">연락처는 대기·호출 안내에 사용됩니다. 설문은 선택한 경우에만 1회 발송됩니다.</p>
                 </aside>
                 <section class="kiosk-form">
                   <div class="kiosk-fields">
@@ -510,6 +545,8 @@
                     <span class="kiosk-label" style="margin-top:14px">대기 인원</span>
                     <div class="kiosk-party"><span>−</span><strong>4명</strong><span>＋</span></div>
                     <span class="wire-button kiosk-submit">4명 대기 등록</span>
+                    <p class="kiosk-privacy-note">대기 등록을 누르면 <a href="#">개인정보 수집·이용 안내</a>에 동의합니다.</p>
+                    <span class="survey-optin">이용 완료 후 만족도 조사 카카오톡 1회 받기 (선택)</span>
                   </div>
                   <div class="numpad" aria-label="숫자 키패드"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span class="key-muted">전체 삭제</span><span>0</span><span class="key-muted">⌫</span></div>
                 </section>
@@ -643,14 +680,21 @@
             <div class="device iphone"><div class="screen">
               <div class="staff-appbar"><b>영업 준비</b><span>3 / 7</span></div>
               <div class="onboarding-progress"><div class="progress-copy"><span>자리 배치</span><span>43%</span></div><div class="progress-track"><span style="width:43%"></span></div></div>
-              <div class="screen-heading"><h3>본진 앞에 자동 배치했습니다</h3><p>현장과 다를 때만 자리를 길게 눌러 옮기세요.</p></div>
-              <div class="floorplan" aria-label="본진 기준 자리 배치 편집기"><span class="floorplan-label">손님석</span><span class="seat-marker" style="left:10px;top:42px"></span><span class="seat-marker" style="left:67px;top:42px"></span><span class="seat-marker seat-marker--dragging" style="left:124px;top:42px"></span><span class="seat-marker" style="left:181px;top:42px"></span><span class="seat-marker" style="left:10px;top:96px"></span><span class="seat-marker" style="left:67px;top:96px"></span><span class="seat-marker" style="left:124px;top:96px"></span><span class="seat-marker" style="left:181px;top:96px"></span><span class="hq-anchor">본진</span></div>
-              <div class="floorplan-tools"><span>＋ 자리 추가</span><span>선택 삭제</span><span>되돌리기</span></div>
-              <p class="seat-map-note">본진은 화면 아래에 고정 · 자리 이름과 번호 입력 없음</p>
+              <div class="screen-heading"><h3>본진 앞에 자동 배치했습니다</h3><p>현장과 비슷하면 바로 사용하고, 다를 때만 전체화면에서 수정하세요.</p></div>
+              <div class="floorplan" aria-label="본진 기준 자리 배치 미리보기"><span class="floorplan-label">미리보기 · 이 화면에서는 편집하지 않음</span><span class="seat-marker" style="left:10px;top:42px"></span><span class="seat-marker" style="left:67px;top:42px"></span><span class="seat-marker" style="left:124px;top:42px"></span><span class="seat-marker" style="left:181px;top:42px"></span><span class="seat-marker" style="left:10px;top:96px"></span><span class="seat-marker" style="left:67px;top:96px"></span><span class="seat-marker" style="left:124px;top:96px"></span><span class="seat-marker" style="left:181px;top:96px"></span><span class="hq-anchor">본진</span></div>
+              <span class="wire-button wire-button--outline" style="margin-top:10px;color:var(--blue);border-color:var(--blue)">전체화면에서 배치 수정</span>
+              <p class="seat-map-note">자동 배치를 그대로 쓰면 편집기를 건너뜁니다.</p>
               <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">이 배치 사용</span></div>
             </div></div>
           </article>
-          <div class="connector"><span>배치 저장</span></div>
+          <div class="connector connector--event"><span>수정이 필요할 때만</span></div>
+          <article class="node">
+            <p class="node-label">O-03C · 전체화면 자리 편집</p>
+            <div class="device iphone"><div class="screen canvas-screen">
+              <div class="canvas-stage" aria-label="휴대폰 전체화면 자리 배치 편집기"><div class="canvas-topbar"><span>취소</span><b>자리 배치 편집 · 8자리</b><span class="save">저장</span></div><div class="canvas-hint">한 손가락으로 자리 이동 · 두 손가락으로 지도 이동</div><div class="canvas-zoom"><span>＋</span><span>−</span></div><span class="canvas-seat" style="left:18px;top:145px"></span><span class="canvas-seat" style="left:94px;top:145px"></span><span class="canvas-seat canvas-seat--selected" style="left:170px;top:145px"></span><span class="canvas-seat" style="left:18px;top:220px"></span><span class="canvas-seat" style="left:94px;top:220px"></span><span class="canvas-seat" style="left:170px;top:220px"></span><span class="canvas-seat" style="left:55px;top:295px"></span><span class="canvas-seat" style="left:132px;top:295px"></span><span class="canvas-hq">본진</span><div class="canvas-dock"><span class="active">선택·이동</span><span>＋ 자리</span><span>삭제</span><span>↶ 되돌리기</span></div></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>전체화면 저장</span></div>
           <article class="node">
             <p class="node-label">O-04 · 기본 이용시간</p>
             <div class="device iphone"><div class="screen">
@@ -808,8 +852,8 @@
           <div class="connector"><span>자리 배치도 선택</span></div>
           <article class="node">
             <p class="node-label">S-02 · 자리 배치 수정</p>
-            <div class="device iphone"><div class="screen">
-              <div class="staff-appbar"><b>자리 배치도</b><span>8자리</span></div><div class="screen-heading"><h3>현장과 다른 자리만 옮기세요</h3><p>길게 눌러 이동하고, 빈 공간을 눌러 자리를 추가합니다.</p></div><div class="floorplan" aria-label="영업 중 자리 배치 편집기"><span class="floorplan-label">이용 중 자리는 이동·삭제 잠금</span><span class="seat-marker seat-marker--empty" style="left:10px;top:42px"></span><span class="seat-marker seat-marker--use" style="left:67px;top:42px">20번<small>잠김</small></span><span class="seat-marker seat-marker--over" style="left:124px;top:42px">21번<small>잠김</small></span><span class="seat-marker seat-marker--dragging" style="left:181px;top:42px"></span><span class="seat-marker seat-marker--empty" style="left:10px;top:96px"></span><span class="seat-marker seat-marker--use" style="left:67px;top:96px">17번<small>잠김</small></span><span class="seat-marker seat-marker--empty" style="left:124px;top:96px"></span><span class="seat-marker seat-marker--empty" style="left:181px;top:96px"></span><span class="hq-anchor">본진</span></div><div class="floorplan-tools"><span>＋ 자리 추가</span><span>선택 삭제</span><span>되돌리기</span></div><div class="danger-change">손님이 이용 중인 자리는 위치를 옮기거나 삭제할 수 없습니다.</div><div class="onboarding-footer"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">배치 저장</span></div>
+            <div class="device iphone"><div class="screen canvas-screen">
+              <div class="canvas-stage" aria-label="영업 중 휴대폰 전체화면 자리 배치 편집기"><div class="canvas-topbar"><span>취소</span><b>자리 배치 편집 · 8자리</b><span class="save">저장</span></div><div class="canvas-hint">빈자리는 드래그 가능 · 두 손가락으로 확대·이동</div><div class="canvas-zoom"><span>＋</span><span>−</span></div><span class="canvas-seat" style="left:18px;top:145px"></span><span class="canvas-seat canvas-seat--use" style="left:94px;top:145px">20번<small>잠김</small></span><span class="canvas-seat canvas-seat--over" style="left:170px;top:145px">21번<small>잠김</small></span><span class="canvas-seat canvas-seat--selected" style="left:18px;top:220px"></span><span class="canvas-seat" style="left:94px;top:220px"></span><span class="canvas-seat canvas-seat--use" style="left:170px;top:220px">17번<small>잠김</small></span><span class="canvas-seat" style="left:55px;top:295px"></span><span class="canvas-seat" style="left:132px;top:295px"></span><span class="canvas-hq">본진</span><div class="canvas-lock-note">이용 중인 자리는 선택해도 이동·삭제되지 않습니다.</div><div class="canvas-dock"><span class="active">선택·이동</span><span>＋ 자리</span><span>삭제</span><span>↶ 되돌리기</span></div></div>
             </div></div>
           </article>
           <div class="connector"><span>다른 항목 예시</span></div>
