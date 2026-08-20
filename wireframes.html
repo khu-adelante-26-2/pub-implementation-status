@@ -417,9 +417,92 @@
       .board { transform: scale(.28); transform-origin: top left; }
     }
   </style>
+  <style id="figma-canvas-controls-style">
+    /* 실제 피그마 캔버스처럼: 자유 확대/축소/이동 */
+    html, body { height: 100%; overflow: hidden; }
+    body { background: #ececec; overscroll-behavior: none; }
+    .board-scroll {
+      position: fixed;
+      inset: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #ececec;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .board-scroll.is-panning { cursor: grabbing; }
+    .board {
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .fig-toolbar {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px;
+      transform: translateX(-50%);
+      border: 1px solid #e2e2e2;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgb(0 0 0 / 16%);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+    .fig-toolbar button {
+      min-width: 38px;
+      height: 34px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #191919;
+      font-size: .92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .fig-toolbar button:hover { background: #f2f2f2; }
+    .fig-toolbar button:active { background: #e6e6e6; }
+    .fig-toolbar [data-act="pct"] { min-width: 62px; font-variant-numeric: tabular-nums; }
+    .fig-toolbar .fig-div { width: 1px; height: 20px; margin: 0 3px; background: #e2e2e2; }
+    .fig-hint {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      z-index: 50;
+      padding: 7px 14px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgb(25 25 25 / 82%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      pointer-events: none;
+      transition: opacity .5s ease;
+    }
+    @media print {
+      .fig-toolbar, .fig-hint { display: none !important; }
+      html, body, .board-scroll { position: static; overflow: visible; }
+      .board { transform: none !important; }
+    }
+  </style>
 </head>
 <body>
-  <main class="board-scroll">
+  <div class="fig-hint">드래그로 이동 · 스크롤로 상하좌우 · ⌘/Ctrl+스크롤 또는 두 손가락으로 확대·축소</div>
+  <div class="fig-toolbar" role="toolbar" aria-label="캔버스 조작">
+    <button type="button" data-act="out" title="축소 (−)" aria-label="축소">−</button>
+    <button type="button" data-act="pct" title="100%로 맞추기">100%</button>
+    <button type="button" data-act="in" title="확대 (+)" aria-label="확대">+</button>
+    <span class="fig-div"></span>
+    <button type="button" data-act="fit" title="화면에 맞춤">맞춤</button>
+  </div>
+<main class="board-scroll">
     <div class="board">
       <section class="lane lane--ipad">
         <header class="lane-label"><h2><span></span>손님용 iPad</h2><p>주점 앞 고정 기기<br>주점 선택 없음</p></header>
@@ -832,5 +915,128 @@
       </section>
     </div>
   </main>
+  <script id="figma-canvas-controls">
+  (function () {
+    var scroll = document.querySelector(".board-scroll");
+    var board = document.querySelector(".board");
+    if (!scroll || !board) return;
+
+    var scale = 1, tx = 0, ty = 0;
+    var MIN = 0.08, MAX = 4;
+    var pctBtn = document.querySelector('.fig-toolbar [data-act="pct"]');
+    var hint = document.querySelector(".fig-hint");
+
+    function clamp(s) { return Math.min(MAX, Math.max(MIN, s)); }
+    function apply() {
+      board.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
+      if (pctBtn) pctBtn.textContent = Math.round(scale * 100) + "%";
+    }
+    function zoomAt(px, py, factor) {
+      var ns = clamp(scale * factor);
+      factor = ns / scale;
+      tx = px - (px - tx) * factor;
+      ty = py - (py - ty) * factor;
+      scale = ns;
+      apply();
+    }
+    function fit() {
+      var pad = 56;
+      var vw = scroll.clientWidth, vh = scroll.clientHeight;
+      var bw = board.offsetWidth, bh = board.offsetHeight;
+      scale = clamp(Math.min((vw - pad) / bw, (vh - pad) / bh));
+      tx = Math.max(24, (vw - bw * scale) / 2);
+      ty = Math.max(24, (vh - bh * scale) / 2);
+      apply();
+    }
+
+    // 휠: 이동 / ⌘·Ctrl(트랙패드 핀치 포함): 확대·축소
+    scroll.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      if (e.ctrlKey || e.metaKey) {
+        zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0015));
+      } else {
+        tx -= e.deltaX;
+        ty -= e.deltaY;
+        apply();
+      }
+    }, { passive: false });
+
+    // 포인터: 1개=이동, 2개=핀치 확대·축소 (마우스·트랙패드·터치 공용)
+    var pts = new Map();
+    var pinch = null;
+    scroll.addEventListener("pointerdown", function (e) {
+      scroll.setPointerCapture(e.pointerId);
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      scroll.classList.add("is-panning");
+      pinch = null;
+    });
+    scroll.addEventListener("pointermove", function (e) {
+      if (!pts.has(e.pointerId)) return;
+      var prev = pts.get(e.pointerId);
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pts.size === 1) {
+        tx += e.clientX - prev.x;
+        ty += e.clientY - prev.y;
+        apply();
+      } else if (pts.size === 2) {
+        var a = Array.from(pts.values());
+        var mx = (a[0].x + a[1].x) / 2, my = (a[0].y + a[1].y) / 2;
+        var dist = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
+        if (pinch) {
+          zoomAt(mx, my, dist / pinch.dist);
+          tx += mx - pinch.mx;
+          ty += my - pinch.my;
+          apply();
+        }
+        pinch = { dist: dist, mx: mx, my: my };
+      }
+    });
+    function endPointer(e) {
+      pts.delete(e.pointerId);
+      if (pts.size < 2) pinch = null;
+      if (pts.size === 0) scroll.classList.remove("is-panning");
+    }
+    scroll.addEventListener("pointerup", endPointer);
+    scroll.addEventListener("pointercancel", endPointer);
+
+    // 툴바
+    var bar = document.querySelector(".fig-toolbar");
+    if (bar) bar.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
+      switch (b.getAttribute("data-act")) {
+        case "in": zoomAt(cx, cy, 1.25); break;
+        case "out": zoomAt(cx, cy, 1 / 1.25); break;
+        case "pct": zoomAt(cx, cy, 1 / scale); break;
+        case "fit": fit(); break;
+      }
+    });
+
+    // 키보드 단축키: +/- 확대축소, 0=100%, 1=맞춤
+    window.addEventListener("keydown", function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
+      if (e.key === "+" || e.key === "=") { zoomAt(cx, cy, 1.25); e.preventDefault(); }
+      else if (e.key === "-" || e.key === "_") { zoomAt(cx, cy, 1 / 1.25); e.preventDefault(); }
+      else if (e.key === "0") { zoomAt(cx, cy, 1 / scale); }
+      else if (e.key === "1") { fit(); }
+    });
+
+    // 힌트는 잠깐 보여주고 사라짐
+    if (hint) {
+      setTimeout(function () { hint.style.opacity = "0"; }, 4200);
+      scroll.addEventListener("pointerdown", function () { hint.style.opacity = "0"; }, { once: true });
+    }
+
+    fit();
+    window.addEventListener("resize", function () {
+      // 창 크기 변화에도 보드가 화면 밖으로 사라지지 않게 최소 여백 유지
+      tx = Math.min(tx, scroll.clientWidth - 60);
+      ty = Math.min(ty, scroll.clientHeight - 60);
+      apply();
+    });
+  })();
+  </script>
 </body>
 </html>
