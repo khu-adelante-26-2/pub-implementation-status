@@ -59,8 +59,8 @@
 
     .board-scroll { overflow-x: auto; padding: 34px; }
     .board {
-      width: 4100px;
-      min-height: 2250px;
+      width: 4300px;
+      min-height: 3900px;
       padding: 34px;
       border: 1px solid #d4d4d4;
       border-radius: 18px;
@@ -374,6 +374,45 @@
     .table-list-status--free { color: var(--green); }
     .table-list-status--over { color: var(--red); }
 
+    /* 계정 발급 뒤 최초 영업 준비: 한 화면 한 결정, 완료 뒤에는 설정 탭에서 재진입 */
+    .onboarding-progress { margin-bottom: 18px; }
+    .onboarding-progress .progress-copy { display: flex; justify-content: space-between; margin-bottom: 7px; color: var(--muted); font-size: .66rem; font-weight: 750; }
+    .progress-track { height: 4px; overflow: hidden; border-radius: 999px; background: #e3e3e3; }
+    .progress-track span { display: block; height: 100%; background: var(--blue); }
+    .readonly-card { margin: 14px 0; border-block: 1px solid var(--line); background: #fff; }
+    .readonly-row { display: grid; grid-template-columns: 62px 1fr; gap: 8px; min-height: 48px; align-items: center; border-bottom: 1px solid #ededed; }
+    .readonly-row:last-child { border-bottom: 0; }
+    .readonly-row span { color: var(--muted); font-size: .68rem; }
+    .readonly-row b { font-size: .78rem; }
+    .source-note { padding: 10px 11px; border-left: 3px solid var(--blue); color: #4e4e4e; background: var(--blue-soft); font-size: .68rem; line-height: 1.55; }
+    .big-stepper { display: grid; grid-template-columns: 52px 1fr 52px; gap: 10px; align-items: center; margin: 22px 0; }
+    .big-stepper span { display: grid; min-height: 52px; place-items: center; border: 1px solid #cfcfcf; border-radius: 8px; background: #fff; font-size: 1.25rem; font-weight: 900; }
+    .big-stepper strong { font-size: 1.45rem; text-align: center; }
+    .choice-list { display: grid; gap: 9px; margin: 16px 0; }
+    .choice-card { padding: 13px; border: 1.5px solid #d2d2d2; border-radius: 9px; background: #fff; }
+    .choice-card b { display: block; margin-bottom: 3px; }
+    .choice-card small { color: var(--muted); line-height: 1.45; }
+    .choice-card--selected { border-color: var(--blue); background: var(--blue-soft); box-shadow: inset 4px 0 var(--blue); }
+    .onboarding-footer { display: grid; grid-template-columns: 76px 1fr; gap: 8px; margin-top: 16px; }
+    .onboarding-footer--single { grid-template-columns: 1fr; }
+    .review-list { margin: 14px 0; border-block: 1px solid var(--line); }
+    .review-row { display: flex; min-height: 44px; align-items: center; justify-content: space-between; border-bottom: 1px solid #ededed; }
+    .review-row:last-child { border-bottom: 0; }
+    .review-row span { color: var(--muted); }
+    .review-row b { text-align: right; }
+    .settings-list { margin: 12px -18px 0; border-block: 1px solid var(--line); background: #fff; }
+    .settings-item { display: flex; min-height: 58px; align-items: center; justify-content: space-between; padding: 10px 18px; border-bottom: 1px solid #ededed; }
+    .settings-item:last-child { border-bottom: 0; }
+    .settings-item span { display: block; color: var(--muted); font-size: .66rem; }
+    .settings-item b { display: block; margin-bottom: 2px; font-size: .82rem; }
+    .settings-item strong { color: var(--blue); font-size: .72rem; }
+    .full-phone { color: #272727; font-size: .72rem; font-weight: 850; letter-spacing: .02em; }
+    .privacy-boundary { margin: 10px 0; padding: 9px 10px; border-left: 3px solid #555; color: #555; background: #f0f0f0; font-size: .65rem; line-height: 1.5; }
+    .danger-change { margin: 11px 0; padding: 10px; border-left: 3px solid var(--red); color: #5e2520; background: var(--red-soft); font-size: .68rem; line-height: 1.5; }
+    .settings-before-after { display: grid; grid-template-columns: 1fr auto 1fr; gap: 7px; align-items: center; margin: 12px 0; }
+    .settings-before-after span { padding: 10px 5px; border: 1px solid var(--line); border-radius: 7px; background: #fff; text-align: center; }
+    .settings-before-after b { color: var(--blue); }
+
     @media print {
       .toolbar { position: static; }
       .board-scroll { overflow: visible; padding: 0; }
@@ -386,7 +425,7 @@
     <div>
       <span class="design-pill">실서비스 패턴 참고 · 디자이너 전달용</span>
       <h1>주점 대기 전체 연결 와이어프레임</h1>
-      <p class="reference-links">현장 등록 → 사용자 상태 확인 → 직원 호출·입장·테이블 운영 · 참고: <a href="https://docs.channel.io/catchtable/ko/articles/%EC%9B%A8%EC%9D%B4%ED%8C%85-%EC%B4%88%EA%B8%B0-%EC%84%B8%ED%8C%85-%EA%B0%80%EC%9D%B4%EB%93%9C-50dabf31">캐치테이블 웨이팅</a> · <a href="https://www.opentable.design/article/designing-for-hospitality-and-performance">OpenTable GuestCenter</a> · <a href="https://help.waitwhile.com/en/articles/9949637-the-customer-status-page-real-time-updates-for-your-customers">Waitwhile Status Page</a></p>
+      <p class="reference-links">계정 로그인·영업 준비 → 현장 등록 → 사용자 상태 확인 → 직원 호출·입장·설정 수정 · 참고: <a href="https://docs.channel.io/catchtable/ko/articles/%EC%9B%A8%EC%9D%B4%ED%8C%85-%EC%B4%88%EA%B8%B0-%EC%84%B8%ED%8C%85-%EA%B0%80%EC%9D%B4%EB%93%9C-50dabf31">캐치테이블 웨이팅</a> · <a href="https://www.opentable.design/article/designing-for-hospitality-and-performance">OpenTable GuestCenter</a> · <a href="https://help.waitwhile.com/en/articles/9949637-the-customer-status-page-real-time-updates-for-your-customers">Waitwhile Status Page</a></p>
     </div>
     <div class="legend" aria-label="화면 사용자 구분">
       <span class="ipad">손님용 iPad</span>
@@ -530,50 +569,123 @@
       <div class="handoff"><span>직원은 FIFO 자동 호출이 아니라 빈 테이블·인원수를 보고 팀을 직접 선택</span></div>
 
       <section class="lane lane--staff">
-        <header class="lane-label"><h2><span></span>직원 iPhone</h2><p>각자 휴대폰<br>자기 주점만 운영<br><b class="proposal-note">디자인 제안안 · 코드 미반영</b></p></header>
+        <header class="lane-label"><h2><span></span>직원 iPhone · 최초 준비</h2><p>발급 계정으로 로그인<br>이미 등록된 주점 확인<br>운영값만 직접 설정<br><b class="proposal-note">최초 1회 · 6단계</b></p></header>
         <div class="flow">
           <article class="node">
             <p class="node-label">A-01 · 로그인</p>
             <div class="device iphone"><div class="screen">
               <div class="staff-appbar"><b>축제 주점 운영</b><span>직원용</span></div>
-              <div style="margin-top:34px"><h3 class="mini-title" style="font-size:1.45rem">로그인</h3><p class="mini-copy">배정받은 주점 계정으로 로그인해 주세요.</p></div>
+              <div style="margin-top:34px"><h3 class="mini-title" style="font-size:1.45rem">로그인</h3><p class="mini-copy">총관리자에게 받은 계정으로 로그인해 주세요.</p></div>
               <span class="field-label">아이디</span><div class="field-value">pub-staff-01</div>
-              <span class="field-label">비밀번호</span><div class="field-value">••••••••••••</div>
+              <span class="field-label">초기 비밀번호</span><div class="field-value">••••••••••••</div>
               <span class="wire-button" style="margin-top:16px;background:var(--blue)">로그인</span>
-              <p class="phone-help">계정 문제는 주점 책임자에게 문의해 주세요.<br>개발용 빠른 로그인은 로컬 환경에서만 표시됩니다.</p>
+              <p class="phone-help">계정에는 운영할 주점이 이미 연결되어 있습니다.<br>다른 주점 정보는 볼 수 없습니다.</p>
             </div></div>
           </article>
           <div class="connector"><span>Redis 세션</span></div>
           <article class="node">
-            <p class="node-label">A-02 · 최초 설정</p>
+            <p class="node-label">O-01 · 초기 비밀번호 변경</p>
             <div class="device iphone"><div class="screen">
-              <div class="staff-appbar"><b>운영 설정</b><span>최초 1회</span></div>
-              <div class="screen-heading"><h3>영업 준비</h3><p>현장에서 실제 사용하는 값을 입력해 주세요.</p></div>
-              <span class="field-label">전체 테이블 수</span><div class="field-value wire-row"><b>8개</b><span class="muted">1~50개</span></div>
-              <span class="field-label">기본 이용시간</span>
-              <div class="stepper"><span>−</span><strong>60분</strong><span>＋</span></div>
-              <div class="presets"><span>30분</span><span style="border-color:var(--blue);color:var(--blue);background:var(--blue-soft)">60분</span><span>90분</span><span>120분</span></div>
-              <div class="wire-row wire-box" style="margin-top:12px"><div><b>손님 대기 등록</b><br><small class="muted">iPad 접수를 시작합니다</small></div><span class="switch"></span></div>
-              <span class="wire-button" style="margin-top:14px;background:var(--blue)">저장하고 영업 시작</span>
+              <div class="staff-appbar"><b>보안 설정</b><span>최초 1회</span></div>
+              <div class="screen-heading" style="margin-top:28px"><h3>새 비밀번호를 설정하세요</h3><p>발급받은 초기 비밀번호는 계속 사용할 수 없습니다.</p></div>
+              <span class="field-label">현재 비밀번호</span><div class="field-value">••••••••••••</div>
+              <span class="field-label">새 비밀번호</span><div class="field-value">••••••••••••</div>
+              <span class="field-label">새 비밀번호 확인</span><div class="field-value">••••••••••••</div>
+              <div class="source-note" style="margin-top:14px">변경하면 기존 로그인 세션이 종료되고 새 비밀번호로 다시 로그인합니다.</div>
+              <span class="wire-button" style="margin-top:15px;background:var(--blue)">비밀번호 변경</span>
             </div></div>
           </article>
-          <div class="connector"><span>최초 1회 설정</span></div>
+          <div class="connector"><span>다시 로그인</span></div>
           <article class="node">
-            <p class="node-label">A-03 · 대기팀 탭</p>
-            <p class="node-state">CALLED → SEATED / NO_SHOW</p>
+            <p class="node-label">O-02 · 주점 정보 확인</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>1 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>주점 확인</span><span>17%</span></div><div class="progress-track"><span style="width:17%"></span></div></div>
+              <div class="screen-heading"><h3>운영할 주점이 맞나요?</h3><p>총관리자가 계정에 연결한 정보입니다.</p></div>
+              <div class="readonly-card"><div class="readonly-row"><span>주점명</span><b>축제 주점 A</b></div><div class="readonly-row"><span>위치</span><b>청운관 앞 A-12</b></div><div class="readonly-row"><span>주최</span><b>경영대 학생회</b></div></div>
+              <div class="source-note">이 정보는 여기서 수정하지 않습니다. 잘못 연결되었다면 총관리자에게 문의하세요.</div>
+              <div class="onboarding-footer onboarding-footer--single"><span class="wire-button" style="background:var(--blue)">네, 맞습니다</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>주점 확인</span></div>
+          <article class="node">
+            <p class="node-label">O-03 · 테이블 수</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>2 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>테이블 수</span><span>33%</span></div><div class="progress-track"><span style="width:33%"></span></div></div>
+              <div class="screen-heading"><h3>사용할 테이블은 몇 개인가요?</h3><p>입장 처리할 때 선택할 테이블 목록을 만듭니다.</p></div>
+              <div class="big-stepper"><span>−</span><strong>8개</strong><span>＋</span></div>
+              <div class="source-note">1~50개까지 설정할 수 있습니다. 테이블 1부터 순서대로 생성됩니다.</div>
+              <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">다음</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>테이블 생성값</span></div>
+          <article class="node">
+            <p class="node-label">O-04 · 기본 이용시간</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>3 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>이용시간</span><span>50%</span></div><div class="progress-track"><span style="width:50%"></span></div></div>
+              <div class="screen-heading"><h3>기본 이용시간을 정해 주세요</h3><p>손님이 입장하면 이 시간을 기준으로 종료 예정 시각을 계산합니다.</p></div>
+              <div class="big-stepper"><span>−</span><strong>60분</strong><span>＋</span></div>
+              <div class="presets"><span>30분</span><span style="border-color:var(--blue);color:var(--blue);background:var(--blue-soft)">60분</span><span>90분</span><span>120분</span></div>
+              <div class="source-note" style="margin-top:14px">30~240분 사이에서 30분 단위로 설정합니다. 이용 중에도 테이블별로 30분 연장할 수 있습니다.</div>
+              <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">다음</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>종료 예정 계산</span></div>
+          <article class="node">
+            <p class="node-label">O-05 · 대기 접수 여부</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>4 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>접수 상태</span><span>67%</span></div><div class="progress-track"><span style="width:67%"></span></div></div>
+              <div class="screen-heading"><h3>대기 접수를 시작할까요?</h3><p>iPad가 준비되지 않았다면 중지 상태로 시작할 수 있습니다.</p></div>
+              <div class="choice-list"><div class="choice-card"><b>바로 접수 시작</b><small>설정 저장 직후 손님이 iPad에서 등록할 수 있습니다.</small></div><div class="choice-card choice-card--selected"><b>접수 중지 상태로 시작</b><small>운영 화면의 설정에서 준비가 끝난 뒤 켤 수 있습니다.</small></div></div>
+              <div class="source-note">안전한 초기값은 접수 중지입니다. 선택한 상태는 언제든 설정에서 바꿀 수 있습니다.</div>
+              <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">다음</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>iPad 준비</span></div>
+          <article class="node">
+            <p class="node-label">O-06 · iPad 준비 확인</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>5 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>현장 기기</span><span>83%</span></div><div class="progress-track"><span style="width:83%"></span></div></div>
+              <div class="screen-heading"><h3>손님용 iPad를 확인해 주세요</h3><p>대기 접수를 열기 전에 현장 등록 화면이 준비되어야 합니다.</p></div>
+              <div class="review-list"><div class="review-row"><span>설치 위치</span><b>주점 입구</b></div><div class="review-row"><span>표시 주점</span><b>축제 주점 A</b></div><div class="review-row"><span>화면 모드</span><b>손님 대기 등록</b></div><div class="review-row"><span>접수 상태</span><b>중지</b></div></div>
+              <div class="source-note">아직 iPad가 없어도 설정은 저장할 수 있습니다. 이 경우 접수는 중지 상태로 유지하세요.</div>
+              <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">확인했습니다</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>최종 확인</span></div>
+          <article class="node">
+            <p class="node-label">O-07 · 설정 확인</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>영업 준비</b><span>6 / 6</span></div>
+              <div class="onboarding-progress"><div class="progress-copy"><span>확인</span><span>100%</span></div><div class="progress-track"><span style="width:100%"></span></div></div>
+              <div class="screen-heading"><h3>이 설정으로 시작할까요?</h3><p>저장하기 전에 운영값을 확인해 주세요.</p></div>
+              <div class="review-list"><div class="review-row"><span>주점</span><b>축제 주점 A</b></div><div class="review-row"><span>테이블</span><b>8개</b></div><div class="review-row"><span>기본 이용시간</span><b>60분</b></div><div class="review-row"><span>대기 접수</span><b>중지</b></div></div>
+              <div class="source-note">저장 후에도 설정 탭에서 테이블 수, 이용시간과 접수 상태를 수정할 수 있습니다.</div>
+              <div class="onboarding-footer"><span class="wire-button wire-button--outline">이전</span><span class="wire-button" style="background:var(--blue)">저장하고 운영 화면으로</span></div>
+            </div></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="handoff"><span>최초 설정 저장 → 테이블 1~N 생성 · 기본 이용시간 저장 · 선택한 접수 상태 적용</span></div>
+
+      <section class="lane lane--staff">
+        <header class="lane-label"><h2><span></span>직원 iPhone · 영업 운영</h2><p>대기팀 직접 호출<br>전체 연락처 확인<br>입장·테이블 운영<br><b class="proposal-note">자기 주점 직원만 · 번호는 예시</b></p></header>
+        <div class="flow">
+          <article class="node">
+            <p class="node-label">A-03 · 대기팀 탭</p><p class="node-state">CALLED → SEATED / NO_SHOW</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">방금 동기화</span></div>
-              <div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">방금 동기화</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
               <div class="staff-summary"><span>대기<b>6팀</b></span><span>호출<b>1팀</b></span><span>빈 테이블<b>2개</b></span></div>
               <div class="section-rule"><span>호출된 팀</span><small>도착 여부 확인</small></div>
-              <div class="staff-task staff-task--urgent">
-                <div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div>
-                <div class="staff-meta"><span>010-****-5678</span><span>·</span><span>3분 전 호출</span></div>
-                <div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">입장</span><span class="wire-button wire-button--outline">미도착</span></div>
-              </div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span class="full-phone">010-1234-5678</span><span>·</span><span>3분 전 호출</span></div><div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">입장</span><span class="wire-button wire-button--outline">미도착</span></div></div>
               <div class="section-rule"><span>대기 중인 팀</span><small>직원이 직접 선택</small></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span>010-****-2814</span></div></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">19번 · 4명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>7분째 대기</span><span>·</span><span>010-****-9032</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span class="full-phone">010-2814-5620</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">19번 · 4명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>7분째 대기</span><span>·</span><span class="full-phone">010-9032-1748</span></div></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -581,12 +693,9 @@
           <article class="node">
             <p class="node-label">A-04 · 호출 확인</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div>
-              <div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
-              <div class="staff-summary"><span>대기<b>6팀</b></span><span>호출<b>1팀</b></span><span>빈 테이블<b>2개</b></span></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="tag tag--blue">대기 중</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span>010-****-2814</span></div></div>
-              <div class="modal-scrim"></div>
-              <div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>18번 팀을 호출할까요?</h4><p class="modal-subtitle">2명 · 12분째 대기 중</p></div><span class="modal-close">×</span></div><p class="modal-warning">알림톡 연동 전입니다. 상태만 변경되므로 현장에서 직접 안내해 주세요.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">호출하기</span></div></div>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="tag tag--blue">대기 중</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span class="full-phone">010-2814-5620</span></div></div>
+              <div class="modal-scrim"></div><div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>18번 팀을 호출할까요?</h4><p class="modal-subtitle">2명 · 010-2814-5620</p></div><span class="modal-close">×</span></div><p class="modal-warning">알림톡 연동 전입니다. 상태만 변경되므로 현장에서 직접 안내해 주세요.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">호출하기</span></div></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -594,11 +703,9 @@
           <article class="node">
             <p class="node-label">A-05 · 입장·테이블 선택</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div>
-              <div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
-              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span>도착 확인</span><span>·</span><span>010-****-5678</span></div></div>
-              <div class="modal-scrim"></div>
-              <div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>17번 팀 입장</h4><p class="modal-subtitle">4명이 이용할 빈 테이블을 선택하세요.</p></div><span class="modal-close">×</span></div><div class="table-choice-grid"><span class="table-choice table-choice--selected">테이블 1<br><small>선택됨</small></span><span class="table-choice">테이블 4<br><small>빈 테이블</small></span></div><span class="wire-button" style="background:var(--blue)">테이블 1에 배정</span><small class="muted">확정하면 대기팀은 입장, 테이블은 이용 중으로 변경됩니다.</small></div>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span class="full-phone">010-1234-5678</span><span>·</span><span>도착 확인</span></div></div>
+              <div class="modal-scrim"></div><div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>17번 팀 입장</h4><p class="modal-subtitle">4명이 이용할 빈 테이블을 선택하세요.</p></div><span class="modal-close">×</span></div><div class="table-choice-grid"><span class="table-choice table-choice--selected">테이블 1<br><small>선택됨</small></span><span class="table-choice">테이블 4<br><small>빈 테이블</small></span></div><span class="wire-button" style="background:var(--blue)">테이블 1에 배정</span><small class="muted">확정하면 대기팀은 입장, 테이블은 이용 중으로 변경됩니다.</small></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -606,37 +713,64 @@
           <article class="node">
             <p class="node-label">A-06 · 테이블 탭</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div>
-              <div class="staff-segment"><span>대기팀</span><span class="active">테이블</span></div>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div><div class="staff-segment"><span>대기팀</span><span class="active">테이블</span></div>
               <div class="staff-summary"><span>이용 중<b>4개</b></span><span>시간 초과<b class="overdue">1개</b></span><span>빈 테이블<b>2개</b></span></div>
-              <div class="section-rule"><span>확인이 필요한 테이블</span><small>1개</small></div>
-              <div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">테이블 3</span><span class="table-list-status table-list-status--over">5분 초과</span></div><div class="staff-meta"><span>21번 · 2명</span><span>·</span><span>19:27 종료 예정</span><span>›</span></div></div>
-              <div class="section-rule"><span>이용 중</span><small>종료 예정순</small></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 5</span><span class="table-list-status">12분 남음</span></div><div class="staff-meta"><span>20번 · 3명</span><span>·</span><span>19:44 종료</span><span>›</span></div></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><span class="table-list-status">34분 남음</span></div><div class="staff-meta"><span>17번 · 4명</span><span>·</span><span>20:06 종료</span><span>›</span></div></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 1 · 테이블 4</span><span class="table-list-status table-list-status--free">빈 테이블</span></div></div>
+              <div class="section-rule"><span>확인이 필요한 테이블</span><small>1개</small></div><div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">테이블 3</span><span class="table-list-status table-list-status--over">5분 초과</span></div><div class="staff-meta"><span>21번 · 2명</span><span>·</span><span>19:27 종료 예정</span><span>›</span></div></div>
+              <div class="section-rule"><span>이용 중</span><small>종료 예정순</small></div><div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 5</span><span class="table-list-status">12분 남음</span></div><div class="staff-meta"><span>20번 · 3명</span><span>·</span><span>19:44 종료</span><span>›</span></div></div><div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><span class="table-list-status">34분 남음</span></div><div class="staff-meta"><span>17번 · 4명</span><span>·</span><span>20:06 종료</span><span>›</span></div></div><div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 1 · 테이블 4</span><span class="table-list-status table-list-status--free">빈 테이블</span></div></div>
               <nav class="staff-nav"><span>대기팀</span><span class="active">테이블</span><span>설정</span></nav>
             </div></div>
           </article>
           <div class="connector"><span>테이블 선택</span></div>
           <article class="node">
-            <p class="node-label">A-07 · 테이블 관리 모달</p>
-            <p class="node-state">IN_USE → COMPLETED + EMPTY</p>
+            <p class="node-label">A-07 · 테이블 관리 모달</p><p class="node-state">IN_USE → COMPLETED + EMPTY</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div>
-              <div class="staff-segment"><span>대기팀</span><span class="active">테이블</span></div>
-              <div class="staff-summary"><span>이용 중<b>4개</b></span><span>시간 초과<b class="overdue">1개</b></span><span>빈 테이블<b>2개</b></span></div>
-              <div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">테이블 3</span><span class="table-list-status table-list-status--over">5분 초과</span></div></div>
-              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><span class="table-list-status">34분 남음</span></div><div class="staff-meta"><span>17번 · 4명</span><span>·</span><span>20:06 종료</span></div></div>
-              <div class="modal-scrim"></div>
-              <section class="staff-modal" aria-label="테이블 2 관리 모달">
-                <div class="staff-modal-head"><div><span class="tag tag--green">이용 중</span><h4 style="margin-top:8px">테이블 2</h4><p class="modal-subtitle">17번 · 4명</p></div><span class="modal-close">×</span></div>
-                <div class="modal-time" style="color:var(--ink)">34분 남음</div>
-                <div class="modal-detail"><span class="wire-row"><span>시작 시각</span><b>19:06</b></span><span class="wire-row"><span>종료 예정</span><b>20:06</b></span></div>
-                <p class="modal-warning">손님의 실제 퇴장을 확인한 경우에만 이용을 종료해 주세요.</p>
-                <div class="stacked-actions"><span class="wire-button wire-button--outline" style="color:var(--blue);border-color:var(--blue)">30분 연장</span><span class="wire-button wire-button--danger">퇴장 확인 · 테이블 비우기</span></div>
-              </section>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div><div class="staff-segment"><span>대기팀</span><span class="active">테이블</span></div><div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><span class="table-list-status">34분 남음</span></div><div class="staff-meta"><span>17번 · 4명</span><span>·</span><span class="full-phone">010-1234-5678</span></div></div>
+              <div class="modal-scrim"></div><section class="staff-modal" aria-label="테이블 2 관리 모달"><div class="staff-modal-head"><div><span class="tag tag--green">이용 중</span><h4 style="margin-top:8px">테이블 2</h4><p class="modal-subtitle">17번 · 4명 · 010-1234-5678</p></div><span class="modal-close">×</span></div><div class="modal-time" style="color:var(--ink)">34분 남음</div><div class="modal-detail"><span class="wire-row"><span>시작 시각</span><b>19:06</b></span><span class="wire-row"><span>종료 예정</span><b>20:06</b></span></div><p class="modal-warning">손님의 실제 퇴장을 확인한 경우에만 이용을 종료해 주세요.</p><div class="stacked-actions"><span class="wire-button wire-button--outline" style="color:var(--blue);border-color:var(--blue)">30분 연장</span><span class="wire-button wire-button--danger">퇴장 확인 · 테이블 비우기</span></div></section>
               <nav class="staff-nav"><span>대기팀</span><span class="active">테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="handoff"><span>설정 탭은 영업 중에도 열 수 있음 · 각 항목 저장 후 설정 목록으로 복귀</span></div>
+
+      <section class="lane lane--staff">
+        <header class="lane-label"><h2><span></span>직원 iPhone · 설정 수정</h2><p>온보딩 이후 재수정<br>항목별 독립 저장<br>위험 변경은 재확인<br><b class="proposal-note">주점 정보는 읽기 전용</b></p></header>
+        <div class="flow">
+          <article class="node">
+            <p class="node-label">S-01 · 설정 탭</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>축제 주점 A</b><span>설정</span></div><div class="screen-heading"><h3>운영 설정</h3><p>변경할 항목을 선택하세요.</p></div>
+              <div class="settings-list"><div class="settings-item"><div><b>전체 테이블 수</b><span>현재 운영할 테이블</span></div><strong>8개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>입장 시 종료 예정 계산</span></div><strong>60분 ›</strong></div><div class="settings-item"><div><b>대기 접수</b><span>iPad 신규 등록 허용</span></div><strong>중지 ›</strong></div><div class="settings-item"><div><b>주점 정보</b><span>총관리자가 관리</span></div><strong style="color:var(--muted)">읽기 전용</strong></div></div>
+              <div class="privacy-boundary">저장된 주점명·위치·주최 정보는 직원이 수정하지 않습니다.</div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
+            </div></div>
+          </article>
+          <div class="connector"><span>테이블 수 선택</span></div>
+          <article class="node">
+            <p class="node-label">S-02 · 테이블 수 수정</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>테이블 수</b><span>설정</span></div><div class="screen-heading"><h3>전체 테이블 수</h3><p>실제로 운영하는 테이블 수와 맞춰 주세요.</p></div><div class="settings-before-after"><span>현재<br><b>8개</b></span><b>→</b><span>변경<br><b>6개</b></span></div><div class="big-stepper"><span>−</span><strong>6개</strong><span>＋</span></div><div class="danger-change">테이블 7·8을 제거합니다. 둘 중 하나라도 이용 중이면 저장되지 않습니다.</div><div class="onboarding-footer"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">6개로 저장</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>다른 항목 예시</span></div>
+          <article class="node">
+            <p class="node-label">S-03 · 이용시간 수정</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>기본 이용시간</b><span>설정</span></div><div class="screen-heading"><h3>기본 이용시간</h3><p>새로 입장하는 테이블부터 적용됩니다.</p></div><div class="settings-before-after"><span>현재<br><b>60분</b></span><b>→</b><span>변경<br><b>90분</b></span></div><div class="big-stepper"><span>−</span><strong>90분</strong><span>＋</span></div><div class="presets"><span>30분</span><span>60분</span><span style="border-color:var(--blue);color:var(--blue);background:var(--blue-soft)">90분</span><span>120분</span></div><div class="source-note" style="margin-top:14px">이미 이용 중인 테이블의 종료 예정 시각은 바꾸지 않습니다.</div><div class="onboarding-footer"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">90분으로 저장</span></div>
+            </div></div>
+          </article>
+          <div class="connector"><span>접수 상태 선택</span></div>
+          <article class="node">
+            <p class="node-label">S-04 · 접수 상태 변경</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>대기 접수</b><span>설정</span></div><div class="screen-heading"><h3>현재 접수 중입니다</h3><p>iPad에서 신규 대기를 받고 있습니다.</p></div><div class="settings-list"><div class="settings-item"><div><b>손님 대기 등록</b><span>iPad 신규 등록 허용</span></div><span class="switch"></span></div></div><div class="modal-scrim"></div><div class="dialog staff-sheet"><div class="sheet-handle"></div><h4>대기 접수를 중지할까요?</h4><p>중지하면 새 손님은 등록할 수 없습니다. 기존 대기팀은 그대로 운영합니다.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button wire-button--danger">접수 중지</span></div></div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
+            </div></div>
+          </article>
+          <div class="connector"><span>저장 후 복귀</span></div>
+          <article class="node">
+            <p class="node-label">S-05 · 변경 완료</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="tag tag--green">저장됨</span></div><div class="screen-heading"><h3>운영 설정</h3><p>마지막 변경이 저장되었습니다.</p></div><div class="settings-list"><div class="settings-item"><div><b>전체 테이블 수</b><span>현재 운영할 테이블</span></div><strong>6개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>새 입장부터 적용</span></div><strong>90분 ›</strong></div><div class="settings-item"><div><b>대기 접수</b><span>iPad 신규 등록</span></div><strong style="color:var(--red)">중지 ›</strong></div></div><div class="source-note" style="margin-top:14px">변경 시각과 변경 전·후 값은 운영 감사 기록에 남습니다.</div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
             </div></div>
           </article>
         </div>
