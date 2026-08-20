@@ -640,10 +640,10 @@
           </div>
           <div class="connector connector--event"><span>취소하지 않은 팀은<br>이후 직원 호출</span></div>
           <article class="node">
-            <p class="node-label">U-03 · 호출 알림톡</p>
+            <p class="node-label">U-03 · 호출 알림톡</p><p class="node-state">WAITING → CALLED · 테이블 미배정</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · 축제 주점</div>
-              <div class="bubble"><b>[입장 안내]</b><br>17번 손님, 지금 주점 입구로 와주세요.<br><span class="link-button">내 대기 현황 보기</span></div>
+              <div class="bubble"><b>[대기 호출 안내]</b><br>17번 손님, 지금 주점 입구로 와주세요.<br>도착 후 직원이 테이블을 안내합니다.<br><span class="link-button">내 대기 현황 보기</span></div>
             </div></div>
           </article>
           <div class="connector"><span>같은 링크</span></div>
@@ -653,17 +653,17 @@
               <div class="status-page">
                 <div class="page-appbar"><b>축제 주점 A</b><span class="live">● 자동 확인 중</span></div>
                 <p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div>
-                <div class="status-banner status-banner--called"><strong>입장 안내를 받았습니다</strong><p>주점 입구로 와서 직원에게 17번이라고 말씀해 주세요.</p></div>
+                <div class="status-banner status-banner--called"><strong>직원이 호출했습니다</strong><p>주점 입구로 와서 직원에게 17번이라고 말씀해 주세요.</p></div>
                 <div class="info-list"><div class="info-row"><span>등록 인원</span><b>4명</b></div><div class="info-row"><span>호출 시각</span><b>19:32</b></div></div>
                 <div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div>
                 <p class="status-footnote">도착하면 직원이 빈 테이블 번호를 선택해 안내합니다.<br>이 화면에서 별도 인증은 하지 않습니다.</p>
               </div>
             </div></div>
           </article>
-          <div class="connector"><span>입장/종료</span></div>
+          <div class="connector"><span>도착 확인 → 테이블 배정</span></div>
           <div class="branch-stack">
             <article class="node compact-node">
-              <div><p class="node-label">U-05 · 입장</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span class="live">● 입장</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>3번 테이블로 안내받았습니다</strong><p>입구 직원의 안내에 따라 입장해 주세요.</p></div><div class="info-list"><div class="info-row"><span>등록 인원</span><b>4명</b></div><div class="info-row"><span>테이블 번호</span><b>3번</b></div><div class="info-row"><span>입장 시각</span><b>19:36</b></div></div><div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div></div></div></div></div>
+              <div><p class="node-label">U-05 · 입장</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span class="live">● 입장</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>입장이 확인됐습니다</strong><p>현재 테이블을 이용 중입니다.</p></div><div class="info-list"><div class="info-row"><span>등록 인원</span><b>4명</b></div><div class="info-row"><span>호출 시각</span><b>19:32</b></div></div><div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div><p class="status-footnote">테이블 번호는 도착 확인 후 입구 직원이 현장에서 안내합니다.</p></div></div></div></div>
             </article>
             <article class="node compact-node">
               <div><p class="node-label">U-06 · 완료/미도착</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span>최종 상태</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>이용이 완료됐습니다</strong><p>이용해 주셔서 감사합니다.</p></div><div class="info-list"><div class="info-row"><span>상태</span><b>이용 완료</b></div><div class="info-row"><span>다른 종료 결과</span><b>미도착</b></div></div><p class="status-footnote">미도착 처리된 경우 입구 직원에게 문의하도록 안내합니다.</p></div></div></div></div>
@@ -675,7 +675,7 @@
         </div>
       </section>
 
-      <div class="handoff"><span>직원은 FIFO 자동 호출이 아니라 빈 테이블 번호·인원수를 보고 팀을 직접 선택</span></div>
+      <div class="handoff"><span>직원은 호출할 팀만 직접 선택 · 테이블 번호는 손님 도착 확인 후 선택</span></div>
 
       <section class="lane lane--staff">
         <header class="lane-label"><h2><span></span>직원 iPhone · 최초 준비</h2><p>발급 계정으로 로그인<br>현장 테이블 수 입력<br>1번부터 자동 생성<br><b class="proposal-note">최초 1회 · 7단계</b></p></header>
@@ -837,7 +837,7 @@
           </article>
           <div class="connector"><span>CALLED</span></div>
           <article class="node">
-            <p class="node-label">A-05 · 입장·테이블 번호 선택</p>
+            <p class="node-label">A-05 · 도착 확인·테이블 번호 선택</p>
             <div class="device iphone"><div class="screen staff-screen">
               <div class="staff-appbar"><b>17번 팀 입장</b><span>4명</span></div>
               <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span class="full-phone">010-1234-5678</span><span>·</span><span>도착 확인</span></div></div>
