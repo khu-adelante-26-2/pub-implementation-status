@@ -35,7 +35,7 @@
 
     .board-scroll { overflow-x: auto; padding: 34px; }
     .board {
-      width: 5000px;
+      width: 5400px;
       min-height: 3900px;
       padding: 34px;
       border: 1px solid #d4d4d4;
@@ -89,6 +89,7 @@
     }
 
     .iphone { width: 286px; height: 590px; border-radius: 42px; }
+    .iphone--action { height: 650px; }
     .iphone::before {
       content: "";
       position: absolute;
@@ -313,6 +314,7 @@
     .status-banner { margin: 0 -2px 14px; padding: 14px; border-left: 4px solid var(--blue); background: var(--blue-soft); }
     .status-banner--called { border-left-color: var(--brand); background: var(--brand-soft); }
     .status-banner--done { border-left-color: var(--green); background: var(--green-soft); }
+    .status-banner--ended { border-left-color: var(--muted); background: #f2f2f2; }
     .status-banner--stale { border-left-color: var(--yellow); background: var(--yellow-soft); }
     .status-banner strong { display: block; margin-bottom: 3px; font-size: .95rem; }
     .status-banner p { margin: 0; color: #555; line-height: 1.55; }
@@ -406,6 +408,7 @@
     .table-grid--compact .table-card { min-height: 50px; }
     .table-list-note { margin: 9px 0; color: var(--muted); font-size: .64rem; line-height: 1.5; text-align: center; }
     .status-action { margin-top: 14px; }
+    .status-action + .status-action { margin-top: 8px; }
     .status-action-note { margin: 7px 0 0; color: var(--muted); font-size: .64rem; line-height: 1.45; text-align: center; }
     .status-sheet { right: 0; bottom: 0; left: 0; z-index: 7; border: 0; border-radius: 18px 18px 0 0; }
 
@@ -495,7 +498,7 @@
       <div class="handoff"><span>등록 완료 함수가 “대기 등록 완료 + 내 대기 현황 링크”를 카카오 알림톡 어댑터에 전달</span></div>
 
       <section class="lane lane--user">
-        <header class="lane-label"><h2><span></span>사용자 iPhone</h2><p>카카오 링크에서<br>자기 팀만 조회<br>5초마다 자동 확인<br><b class="proposal-note">미루기·5초 폴링: 추가 요구사항</b></p></header>
+        <header class="lane-label"><h2><span></span>사용자 iPhone</h2><p>카카오 링크에서<br>자기 팀만 조회<br>5초마다 자동 확인<br><b class="proposal-note">미루기·취소·5초 폴링: 추가 요구사항</b></p></header>
         <div class="flow">
           <article class="node">
             <p class="node-label">U-01 · 등록 알림톡</p>
@@ -507,7 +510,7 @@
           <div class="connector"><span>링크 열기</span></div>
           <article class="node">
             <p class="node-label">U-02 · 대기 중</p>
-            <div class="device iphone"><div class="screen">
+            <div class="device iphone iphone--action"><div class="screen">
               <div class="status-page">
                 <div class="page-appbar"><b>축제 주점 A</b><span class="live">● 자동 확인 중</span></div>
                 <p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div>
@@ -515,14 +518,15 @@
                 <div class="info-list"><div class="info-row"><span>내 앞 대기</span><b>5팀</b></div><div class="info-row"><span>현재 예상</span><b>약 60분</b></div><div class="info-row"><span>등록 인원</span><b>4명</b></div></div>
                 <div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div>
                 <span class="wire-button wire-button--outline status-action" style="color:var(--blue);border-color:var(--blue)">대기를 맨 뒤로 미루기</span>
-                <p class="status-action-note">대기 중일 때 한 팀당 1회만 사용할 수 있습니다.</p>
+                <span class="wire-button status-action" style="color:var(--red-dark);background:var(--red-soft)">대기 취소</span>
+                <p class="status-action-note">미루기는 1회만 가능하며, 취소한 대기는 되돌릴 수 없습니다.</p>
               </div>
             </div></div>
           </article>
           <div class="connector connector--event"><span>1회 미루기 선택</span></div>
           <article class="node">
             <p class="node-label">U-02A · 맨 뒤 이동 확인</p><p class="node-state">WAITING 유지 · 순서만 변경</p>
-            <div class="device iphone"><div class="screen">
+            <div class="device iphone iphone--action"><div class="screen">
               <div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span class="live">● 자동 확인 중</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner"><strong>대기 중입니다</strong><p>현재 내 앞에 5팀이 있습니다.</p></div></div>
               <div class="modal-scrim"></div><div class="dialog status-sheet"><div class="sheet-handle"></div><h4>대기를 맨 뒤로 미룰까요?</h4><p>현재 대기열의 마지막으로 이동합니다. 한 번 미루면 되돌리거나 다시 미룰 수 없습니다.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">맨 뒤로 미루기</span></div></div>
             </div></div>
@@ -530,7 +534,7 @@
           <div class="connector connector--event"><span>서버에서 원자적 순서 변경</span></div>
           <article class="node">
             <p class="node-label">U-02B · 미루기 완료</p><p class="node-state">WAITING · 미루기 사용 완료</p>
-            <div class="device iphone"><div class="screen">
+            <div class="device iphone iphone--action"><div class="screen">
               <div class="status-page">
                 <div class="page-appbar"><b>축제 주점 A</b><span class="live">● 자동 확인 중</span></div>
                 <p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div>
@@ -538,10 +542,20 @@
                 <div class="info-list"><div class="info-row"><span>내 앞 대기</span><b>11팀</b></div><div class="info-row"><span>현재 예상</span><b>약 120분</b></div><div class="info-row"><span>미루기</span><b>사용 완료</b></div></div>
                 <div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div>
                 <span class="wire-button wire-button--disabled status-action">대기 미루기 사용 완료</span>
+                <span class="wire-button status-action" style="color:var(--red-dark);background:var(--red-soft)">대기 취소</span>
               </div>
             </div></div>
           </article>
-          <div class="connector connector--event"><span>이후 직원 호출</span></div>
+          <div class="connector connector--event"><span>대기 중 취소 선택<br>(미루기 여부 무관)</span></div>
+          <div class="branch-stack">
+            <article class="node compact-node">
+              <div><p class="node-label">U-02C · 취소 확인</p><p class="node-state">WAITING에서만 가능</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span class="live">● 자동 확인 중</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner"><strong>대기 중입니다</strong><p>현재 내 앞에 5팀이 있습니다.</p></div></div><div class="modal-scrim"></div><div class="dialog status-sheet"><div class="sheet-handle"></div><h4>대기를 취소할까요?</h4><p>취소하면 현재 대기열에서 빠지며 되돌릴 수 없습니다.</p><div class="two-buttons"><span class="wire-button wire-button--outline">계속 기다리기</span><span class="wire-button wire-button--danger">대기 취소</span></div></div></div></div></div>
+            </article>
+            <article class="node compact-node">
+              <div><p class="node-label">U-02D · 취소 완료</p><p class="node-state">WAITING → CANCELLED · 최종 상태</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span>최종 상태</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--ended"><strong>대기가 취소됐습니다</strong><p>필요하면 주점 입구 직원에게 문의해 주세요.</p></div><div class="info-list"><div class="info-row"><span>등록 인원</span><b>4명</b></div><div class="info-row"><span>상태</span><b>취소 완료</b></div></div><p class="status-footnote">취소된 대기는 다시 사용할 수 없습니다.</p></div></div></div></div>
+            </article>
+          </div>
+          <div class="connector connector--event"><span>취소하지 않은 팀은<br>이후 직원 호출</span></div>
           <article class="node">
             <p class="node-label">U-03 · 호출 알림톡</p>
             <div class="device iphone"><div class="screen kakao">
