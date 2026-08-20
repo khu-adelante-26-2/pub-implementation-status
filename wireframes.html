@@ -7,23 +7,30 @@
   <title>주점 대기 전체 연결 와이어프레임</title>
   <style>
     :root {
-      --ink: #202124;
-      --muted: #687078;
-      --line: #aeb4ba;
+      --ink: #17211f;
+      --muted: #66736f;
+      --line: #d7dfdc;
       --surface: #fff;
-      --canvas: #f5f6f7;
-      --blue: #3568d4;
-      --blue-soft: #edf3ff;
-      --red: #b63838;
-      --red-soft: #fff0f0;
-      --green: #25744b;
-      --green-soft: #edf8f1;
-      --yellow: #8a6100;
+      --canvas: #edf2ef;
+      --brand: #0f766e;
+      --brand-dark: #115e59;
+      --brand-soft: #e7f6f2;
+      --blue: #2563eb;
+      --blue-soft: #eaf1ff;
+      --red: #d92d4f;
+      --red-dark: #a81535;
+      --red-soft: #fff0f3;
+      --green: #16794f;
+      --green-soft: #e8f7ef;
+      --yellow: #9a6700;
+      --yellow-soft: #fff7df;
+      --shadow-sm: 0 3px 12px rgb(23 33 31 / 9%);
+      --shadow-lg: 0 22px 60px rgb(23 33 31 / 18%);
       font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     }
 
     * { box-sizing: border-box; }
-    body { margin: 0; color: var(--ink); background: var(--canvas); line-height: 1.45; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); line-height: 1.48; letter-spacing: -.012em; }
     h1, h2, h3, p { margin-top: 0; }
 
     .toolbar {
@@ -34,45 +41,47 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      padding: 15px 24px;
-      border-bottom: 1px solid #d8dde2;
-      background: rgb(255 255 255 / 94%);
+      padding: 18px 28px;
+      border-bottom: 1px solid #d7dfdc;
+      background: rgb(255 255 255 / 96%);
       backdrop-filter: blur(12px);
     }
 
-    .toolbar h1 { margin: 0; font-size: 1.1rem; }
-    .toolbar p { margin: 2px 0 0; color: var(--muted); font-size: .82rem; }
+    .toolbar h1 { margin: 0; font-size: 1.22rem; letter-spacing: -.025em; }
+    .toolbar p { margin: 4px 0 0; color: var(--muted); font-size: .84rem; }
+    .design-pill { display: inline-block; margin-bottom: 5px; padding: 4px 8px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-size: .68rem; font-weight: 900; letter-spacing: .05em; }
     .legend { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: .8rem; }
     .legend span::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 5px; border-radius: 50%; }
     .legend .ipad::before { background: var(--blue); }
     .legend .user::before { background: var(--green); }
     .legend .staff::before { background: var(--red); }
 
-    .board-scroll { overflow-x: auto; padding: 32px; }
+    .board-scroll { overflow-x: auto; padding: 34px; }
     .board {
-      width: 3380px;
-      min-height: 1900px;
-      padding: 28px;
-      border: 1px solid #d9dde1;
+      width: 3900px;
+      min-height: 2250px;
+      padding: 34px;
+      border: 1px solid #d7dfdc;
+      border-radius: 24px;
       background-color: #fff;
-      background-image: radial-gradient(#d8dde2 1px, transparent 1px);
-      background-size: 18px 18px;
-      box-shadow: 0 18px 50px rgb(32 33 36 / 8%);
+      background-image: radial-gradient(#dbe3e0 1px, transparent 1px);
+      background-size: 20px 20px;
+      box-shadow: var(--shadow-lg);
     }
 
     .lane {
       position: relative;
       display: grid;
-      grid-template-columns: 170px 1fr;
-      min-height: 530px;
-      border-top: 2px solid #cdd2d7;
+      grid-template-columns: 190px 1fr;
+      min-height: 690px;
+      border-top: 2px solid #d7dfdc;
     }
 
     .lane:first-child { border-top: 0; }
-    .lane-label { padding: 28px 20px 20px 8px; }
+    .lane-label { padding: 34px 24px 20px 8px; }
     .lane-label span { display: inline-block; width: 12px; height: 12px; margin-right: 7px; border-radius: 50%; }
-    .lane-label h2 { margin-bottom: 7px; font-size: 1.05rem; }
-    .lane-label p { color: var(--muted); font-size: .82rem; }
+    .lane-label h2 { margin-bottom: 8px; font-size: 1.08rem; letter-spacing: -.02em; }
+    .lane-label p { color: var(--muted); font-size: .82rem; line-height: 1.65; }
     .lane--ipad .lane-label span { background: var(--blue); }
     .lane--user .lane-label span { background: var(--green); }
     .lane--staff .lane-label span { background: var(--red); }
@@ -80,88 +89,89 @@
     .flow {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 28px 0 42px;
+      gap: 18px;
+      padding: 34px 0 50px;
     }
 
     .node { flex: 0 0 auto; }
-    .node-label { margin: 0 0 9px; color: var(--muted); font-size: .78rem; font-weight: 700; text-align: center; }
-    .connector { position: relative; flex: 0 0 74px; height: 2px; margin-top: 22px; background: #8d969e; }
-    .connector::after { content: ""; position: absolute; top: -5px; right: -1px; border: 6px solid transparent; border-left: 9px solid #8d969e; }
-    .connector span { position: absolute; right: -20px; bottom: 10px; left: -20px; color: var(--muted); font-size: .7rem; text-align: center; white-space: nowrap; }
-    .connector--event { background: var(--blue); }
-    .connector--event::after { border-left-color: var(--blue); }
+    .node-label { margin: 0 0 11px; color: #56635f; font-size: .78rem; font-weight: 900; letter-spacing: .01em; text-align: center; }
+    .node-state { margin: -7px 0 10px; color: var(--muted); font-size: .65rem; font-weight: 800; text-align: center; }
+    .connector { position: relative; flex: 0 0 82px; height: 2px; margin-top: 24px; background: #8d9a96; }
+    .connector::after { content: ""; position: absolute; top: -5px; right: -1px; border: 6px solid transparent; border-left: 9px solid #8d9a96; }
+    .connector span { position: absolute; right: -25px; bottom: 12px; left: -25px; color: #66736f; font-size: .7rem; font-weight: 800; text-align: center; white-space: nowrap; }
+    .connector--event { background: var(--brand); }
+    .connector--event::after { border-left-color: var(--brand); }
     .connector--branch { width: 48px; flex-basis: 48px; }
 
     .device {
       position: relative;
       overflow: hidden;
-      border: 7px solid #22262b;
+      border: 8px solid #171c1b;
       background: #fff;
-      box-shadow: 0 7px 18px rgb(32 33 36 / 15%);
+      box-shadow: 0 16px 35px rgb(23 33 31 / 20%);
     }
 
-    .iphone { width: 235px; height: 470px; border-radius: 35px; }
+    .iphone { width: 280px; height: 572px; border-radius: 42px; }
     .iphone::before {
       content: "";
       position: absolute;
       z-index: 2;
-      top: 7px;
+      top: 8px;
       left: 50%;
-      width: 78px;
-      height: 19px;
+      width: 92px;
+      height: 24px;
       border-radius: 11px;
-      background: #22262b;
+      background: #171c1b;
       transform: translateX(-50%);
     }
 
-    .ipad-device { width: 420px; height: 315px; border-radius: 25px; }
+    .ipad-device { width: 520px; height: 390px; border-radius: 30px; }
     .ipad-device::before { content: ""; position: absolute; z-index: 2; top: 8px; left: 50%; width: 7px; height: 7px; border-radius: 50%; background: #555; }
-    .screen { height: 100%; padding: 31px 15px 18px; overflow: hidden; background: #fbfbfc; font-size: .69rem; }
-    .ipad-device .screen { padding: 24px 25px; font-size: .73rem; }
+    .screen { height: 100%; padding: 42px 18px 22px; overflow: hidden; background: #f6f8f7; font-size: .78rem; }
+    .ipad-device .screen { padding: 28px 34px; font-size: .86rem; }
 
-    .mini-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; color: var(--muted); font-size: .61rem; }
-    .mini-title { margin: 0 0 5px; font-size: 1rem; line-height: 1.25; }
-    .mini-copy { margin: 0 0 12px; color: var(--muted); }
-    .wire-box { padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
-    .wire-box + .wire-box { margin-top: 8px; }
-    .wire-input { height: 30px; margin: 5px 0 9px; border: 1px solid #8f979f; border-radius: 6px; background: #fff; }
-    .wire-button { display: block; width: 100%; padding: 8px; border-radius: 7px; color: #fff; background: #30343a; font-weight: 700; text-align: center; }
-    .wire-button--outline { border: 1px solid #737b83; color: var(--ink); background: #fff; }
-    .wire-button--danger { background: var(--red); }
+    .mini-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; color: var(--muted); font-size: .67rem; font-weight: 750; }
+    .mini-title { margin: 0 0 6px; font-size: 1.12rem; line-height: 1.25; letter-spacing: -.03em; }
+    .mini-copy { margin: 0 0 14px; color: var(--muted); line-height: 1.55; }
+    .wire-box { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgb(23 33 31 / 4%); }
+    .wire-box + .wire-box { margin-top: 10px; }
+    .wire-input { height: 38px; margin: 6px 0 10px; border: 1.5px solid #aebbb7; border-radius: 10px; background: #fff; }
+    .wire-button { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 10px; border-radius: 11px; color: #fff; background: var(--brand); font-weight: 850; text-align: center; box-shadow: 0 2px 5px rgb(15 118 110 / 20%); }
+    .wire-button--outline { border: 1px solid #b9c4c0; color: var(--ink); background: #fff; box-shadow: none; }
+    .wire-button--danger { background: var(--red); box-shadow: 0 2px 5px rgb(217 45 79 / 18%); }
     .wire-button--green { background: var(--green); }
     .wire-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; }
     .wire-row + .wire-row { margin-top: 7px; }
     .muted { color: var(--muted); }
-    .tag { display: inline-block; padding: 2px 6px; border-radius: 999px; background: #e7eaed; font-size: .6rem; font-weight: 700; }
+    .tag { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #e9efed; font-size: .64rem; font-weight: 850; }
     .tag--blue { color: #214d9f; background: var(--blue-soft); }
     .tag--red { color: #8c2020; background: var(--red-soft); }
     .tag--green { color: #175f3a; background: var(--green-soft); }
 
-    .phone-number { margin: 16px 0 4px; font-size: 3.1rem; font-weight: 800; letter-spacing: -.08em; line-height: 1; text-align: center; }
+    .phone-number { margin: 18px 0 6px; font-size: 3.5rem; font-weight: 900; letter-spacing: -.08em; line-height: 1; text-align: center; }
     .phone-number small { margin-left: 4px; font-size: .75rem; letter-spacing: 0; }
     .center { text-align: center; }
     .status-headline { margin: 12px 0 5px; font-size: 1rem; text-align: center; }
     .status-copy { color: var(--muted); text-align: center; }
-    .status-frame { border-top: 5px solid var(--blue); }
-    .status-frame--called { border-top-color: var(--red); background: #fff7f7; }
+    .status-frame { border-top: 6px solid var(--blue); }
+    .status-frame--called { border-top-color: var(--red); background: #fff8fa; }
     .status-frame--done { border-top-color: var(--green); }
 
-    .stepper { display: grid; grid-template-columns: 38px 1fr 38px; gap: 7px; align-items: center; margin: 7px 0 12px; }
-    .stepper span { padding: 7px; border: 1px solid var(--line); border-radius: 6px; text-align: center; }
+    .stepper { display: grid; grid-template-columns: 44px 1fr 44px; gap: 9px; align-items: center; margin: 8px 0 14px; }
+    .stepper span { min-height: 44px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font-weight: 900; text-align: center; }
     .stepper strong { font-size: 1.1rem; text-align: center; }
     .receipt { display: grid; height: 100%; place-content: center; text-align: center; }
-    .receipt-check { width: 42px; height: 42px; margin: 0 auto 7px; padding-top: 8px; border-radius: 50%; color: #fff; background: var(--green); font-size: 1.2rem; }
+    .receipt-check { width: 52px; height: 52px; margin: 0 auto 10px; padding-top: 10px; border-radius: 50%; color: #fff; background: var(--green); font-size: 1.35rem; box-shadow: 0 7px 18px rgb(22 121 79 / 22%); }
 
     .kakao { background: #f8e965; }
-    .kakao-header { margin: -31px -15px 14px; padding: 32px 15px 11px; background: #f3dc33; font-weight: 800; }
-    .bubble { padding: 12px; border-radius: 3px 14px 14px 14px; background: #fff; line-height: 1.55; }
+    .kakao-header { margin: -42px -18px 18px; padding: 44px 18px 13px; background: #f3dc33; font-weight: 850; }
+    .bubble { padding: 15px; border-radius: 5px 16px 16px 16px; background: #fff; box-shadow: var(--shadow-sm); line-height: 1.65; }
     .bubble .link-button { display: block; margin-top: 12px; padding: 8px; border-radius: 6px; background: #eceff1; font-weight: 700; text-align: center; }
 
     .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
     .summary-grid .wire-box { margin: 0; padding: 8px; }
     .summary-grid strong { display: block; font-size: 1rem; }
-    .waiting-item { padding: 9px; border-left: 4px solid var(--line); background: #fff; }
+    .waiting-item { padding: 12px; border: 1px solid var(--line); border-left: 5px solid var(--line); border-radius: 11px; background: #fff; }
     .waiting-item + .waiting-item { margin-top: 6px; }
     .waiting-item--called { border-left-color: var(--red); background: var(--red-soft); }
     .two-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 7px; }
@@ -169,47 +179,49 @@
     .table { min-height: 72px; padding: 8px; border: 1px solid var(--line); border-radius: 7px; background: #fff; }
     .table--use { border-color: var(--blue); background: var(--blue-soft); }
     .table--over { border-color: var(--red); background: var(--red-soft); }
-    .dialog { position: absolute; right: 13px; bottom: 35px; left: 13px; padding: 13px; border: 1px solid #777; border-radius: 10px; background: #fff; box-shadow: 0 7px 18px rgb(0 0 0 / 18%); }
-    .dialog h4 { margin: 0 0 5px; font-size: .85rem; }
+    .dialog { position: absolute; right: 14px; bottom: 42px; left: 14px; z-index: 6; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #fff; box-shadow: var(--shadow-lg); }
+    .dialog h4 { margin: 0 0 6px; font-size: 1rem; letter-spacing: -.02em; }
     .dialog p { margin: 0 0 9px; color: var(--muted); }
     .settings-row { margin-bottom: 11px; }
     .settings-row strong { display: block; margin-bottom: 4px; }
     .presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-    .presets span { padding: 5px 2px; border: 1px solid var(--line); border-radius: 5px; text-align: center; }
-    .proposal-note { color: var(--red); font-weight: 800; }
-    .staff-screen { padding-bottom: 58px; }
+    .presets span { padding: 7px 2px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font-weight: 750; text-align: center; }
+    .proposal-note { display: inline-block; margin-top: 7px; padding: 4px 7px; border-radius: 999px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 850; }
+    .staff-screen { padding-bottom: 66px; }
     .staff-summary {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 9px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      color: #fff;
-      background: #30343a;
-      font-weight: 800;
+      margin-bottom: 12px;
+      padding: 11px 13px;
+      border: 1px solid #cfe6df;
+      border-radius: 12px;
+      color: var(--brand-dark);
+      background: var(--brand-soft);
+      font-weight: 850;
     }
     .staff-section-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 9px 0 5px;
-      font-weight: 800;
+      margin: 12px 0 7px;
+      font-weight: 900;
     }
     .staff-section-title small { color: var(--muted); font-weight: 600; }
     .staff-task {
-      padding: 8px;
+      padding: 11px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 12px;
       background: #fff;
+      box-shadow: 0 2px 7px rgb(23 33 31 / 5%);
     }
-    .staff-task + .staff-task { margin-top: 5px; }
-    .staff-task--urgent { border: 2px solid var(--red); background: var(--red-soft); }
-    .staff-task--over { border-color: var(--red); background: var(--red-soft); }
+    .staff-task + .staff-task { margin-top: 7px; }
+    .staff-task--urgent { border: 1.5px solid #f0a3b3; background: var(--red-soft); }
+    .staff-task--over { border: 1.5px solid #f0a3b3; background: var(--red-soft); }
     .staff-action-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5px;
-      margin-top: 7px;
+      gap: 7px;
+      margin-top: 9px;
     }
     .staff-action-row .wire-button { padding: 7px 4px; }
     .staff-nav {
@@ -220,22 +232,25 @@
       left: 0;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      min-height: 58px;
       border-top: 1px solid var(--line);
-      background: #fff;
+      background: rgb(255 255 255 / 97%);
+      backdrop-filter: blur(8px);
     }
-    .staff-nav span { padding: 11px 2px; color: var(--muted); font-size: .62rem; font-weight: 800; text-align: center; }
-    .staff-nav .active { color: var(--ink); background: #eef1f4; }
-    .staff-sheet { bottom: 0; z-index: 4; border-radius: 14px 14px 0 0; }
+    .staff-nav span { display: grid; place-items: center; padding: 12px 2px 9px; color: var(--muted); font-size: .68rem; font-weight: 850; text-align: center; }
+    .staff-nav .active { color: var(--brand-dark); background: var(--brand-soft); }
+    .staff-sheet { bottom: 0; z-index: 7; border-radius: 20px 20px 0 0; }
     .table-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 9px 0; }
     .table-choice {
-      padding: 12px 4px;
+      min-height: 62px;
+      padding: 13px 4px;
       border: 2px solid var(--line);
-      border-radius: 8px;
+      border-radius: 12px;
       background: #fff;
       font-weight: 800;
       text-align: center;
     }
-    .table-choice--selected { border-color: var(--green); background: var(--green-soft); }
+    .table-choice--selected { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-soft); }
     .dev-login-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 6px; }
     .dev-login-grid span { padding: 5px 2px; border: 1px solid var(--line); border-radius: 5px; text-align: center; }
 
@@ -243,18 +258,65 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: -22px 0 18px 170px;
-      color: var(--blue);
+      margin: -26px 0 22px 190px;
+      color: var(--brand-dark);
       font-size: .75rem;
       font-weight: 700;
     }
     .handoff::before { content: "↳"; font-size: 1.6rem; }
-    .handoff span { padding: 6px 10px; border: 1px dashed var(--blue); border-radius: 7px; background: var(--blue-soft); }
+    .handoff span { padding: 8px 12px; border: 1px dashed var(--brand); border-radius: 10px; background: var(--brand-soft); }
 
     .branch-stack { display: grid; gap: 12px; }
     .compact-node { display: flex; align-items: center; gap: 10px; }
-    .compact-node .iphone { width: 205px; height: 408px; }
-    .compact-node .screen { font-size: .62rem; }
+    .compact-node .iphone { width: 245px; height: 500px; }
+    .compact-node .screen { font-size: .72rem; }
+    .modal-scrim { position: absolute; z-index: 5; inset: 0; background: rgb(23 33 31 / 55%); }
+    .staff-modal {
+      position: absolute;
+      z-index: 8;
+      top: 50%;
+      right: 16px;
+      left: 16px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 24px 55px rgb(0 0 0 / 34%);
+      transform: translateY(-50%);
+    }
+    .staff-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .staff-modal-head h4 { margin: 0; font-size: 1.02rem; letter-spacing: -.025em; }
+    .modal-close { display: grid; width: 44px; height: 44px; flex: 0 0 44px; place-items: center; border-radius: 50%; color: var(--muted); background: #eef2f0; font-size: 1.08rem; font-weight: 900; }
+    .modal-time { margin: 14px 0 2px; color: var(--brand-dark); font-size: 2rem; font-weight: 900; letter-spacing: -.05em; }
+    .modal-detail { display: grid; gap: 5px; margin: 12px 0; padding: 10px; border-radius: 10px; background: #f3f6f5; }
+    .modal-warning { margin: 10px 0; padding: 9px 10px; border-radius: 10px; color: #8a4b05; background: var(--yellow-soft); line-height: 1.5; }
+    .stacked-actions { display: grid; gap: 7px; }
+    .brand-mark {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      margin: 12px auto;
+      place-items: center;
+      border-radius: 17px;
+      color: #fff;
+      background: linear-gradient(145deg, #0f766e, #115e59);
+      box-shadow: 0 10px 25px rgb(15 118 110 / 24%);
+      font-size: 1rem;
+      font-weight: 950;
+    }
+    .field-label { display: block; margin: 12px 0 5px; color: #46534f; font-size: .69rem; font-weight: 850; }
+    .field-value { display: flex; align-items: center; min-height: 42px; padding: 0 11px; border: 1.5px solid #bdc8c4; border-radius: 11px; background: #fff; }
+    .switch { display: inline-flex; width: 34px; height: 20px; align-items: center; justify-content: flex-end; padding: 2px; border-radius: 999px; background: var(--brand); }
+    .switch::after { content: ""; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 25%); }
+    .sync-dot::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #20a36f; }
+    .kicker { margin: 0 0 4px; color: var(--brand-dark); font-size: .67rem; font-weight: 900; letter-spacing: .06em; }
+    .screen-heading { margin-bottom: 14px; }
+    .screen-heading h3 { margin: 0 0 4px; font-size: 1.18rem; letter-spacing: -.035em; }
+    .screen-heading p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .staff-meta { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: .67rem; }
+    .staff-number { font-size: 1.08rem; font-weight: 950; letter-spacing: -.025em; }
+    .staff-primary-action { display: grid; min-width: 58px; min-height: 44px; place-items: center; margin: -6px -5px -6px 0; border-radius: 10px; color: #fff; background: var(--brand); font-weight: 900; }
+    .phone-help { margin-top: 10px; color: var(--muted); font-size: .66rem; line-height: 1.55; text-align: center; }
+    .modal-subtitle { margin: 5px 0 0; color: var(--muted); }
 
     @media print {
       .toolbar { position: static; }
@@ -266,8 +328,9 @@
 <body>
   <header class="toolbar">
     <div>
+      <span class="design-pill">HIGH-FIDELITY UX DRAFT · DESIGN HANDOFF</span>
       <h1>주점 대기 전체 연결 와이어프레임</h1>
-      <p>등록 → 카카오 링크 → 직접 호출 → 입장·테이블 → 실제 퇴장</p>
+      <p>현장 등록 → 사용자 상태 확인 → 직원 호출·입장·테이블 운영 · 공식 디자인 검수 전 제안안</p>
     </div>
     <div class="legend" aria-label="화면 사용자 구분">
       <span class="ipad">손님용 iPad</span>
@@ -382,43 +445,51 @@
       <div class="handoff"><span>직원은 FIFO 자동 호출이 아니라 빈 테이블·인원수를 보고 팀을 직접 선택</span></div>
 
       <section class="lane lane--staff">
-        <header class="lane-label"><h2><span></span>직원 iPhone</h2><p>각자 휴대폰<br>자기 주점만 운영<br><b class="proposal-note">UX 개선안 · 코드 미반영</b></p></header>
+        <header class="lane-label"><h2><span></span>직원 iPhone</h2><p>각자 휴대폰<br>자기 주점만 운영<br><b class="proposal-note">디자인 제안안 · 코드 미반영</b></p></header>
         <div class="flow">
           <article class="node">
             <p class="node-label">A-01 · 로그인</p>
             <div class="device iphone"><div class="screen">
-              <span class="tag">PUB ADMIN</span><h3 class="mini-title" style="margin-top:8px">주점 관리자 로그인</h3><p class="mini-copy">주점 전용 계정으로 로그인</p>
-              <b>아이디</b><div class="wire-input"></div><b>비밀번호</b><div class="wire-input"></div><span class="wire-button">로그인</span>
-              <div class="wire-box" style="margin-top:12px"><b>개발용 빠른 로그인</b><div class="dev-login-grid"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div></div>
+              <div class="mini-top"><b>축제 주점 운영</b><span>관리자 전용</span></div>
+              <div class="brand-mark">PUB</div>
+              <div class="center"><h3 class="mini-title">직원 로그인</h3><p class="mini-copy">배정받은 주점 계정으로 로그인해 주세요.</p></div>
+              <span class="field-label">아이디</span><div class="field-value">pub-staff-01</div>
+              <span class="field-label">비밀번호</span><div class="field-value">••••••••••••</div>
+              <span class="wire-button" style="margin-top:14px">로그인</span>
+              <p class="phone-help">계정 문제는 주점 책임자 또는 총관리자에게 문의해 주세요.<br>개발용 빠른 로그인은 로컬 환경에서만 노출됩니다.</p>
             </div></div>
           </article>
           <div class="connector"><span>Redis 세션</span></div>
           <article class="node">
             <p class="node-label">A-02 · 최초 설정</p>
             <div class="device iphone"><div class="screen">
-              <span class="tag">SETUP</span><h3 class="mini-title" style="margin-top:7px">운영 설정</h3><p class="mini-copy">운영자가 정한 값 직접 입력</p>
-              <div class="settings-row"><b>전체 테이블 수</b><div class="wire-input" style="padding:7px">8</div></div>
-              <div class="settings-row"><b>기본 이용시간</b><div class="stepper"><span>−</span><strong>60분</strong><span>＋</span></div><div class="presets"><span>30</span><span>60</span><span>90</span><span>120</span></div></div>
-              <div class="wire-row wire-box"><b>손님 대기 등록</b><span class="tag tag--green">받는 중</span></div>
-              <span class="wire-button">설정 저장</span>
+              <div class="mini-top"><b>축제 주점 A</b><span>최초 1회</span></div>
+              <div class="screen-heading"><p class="kicker">운영 준비</p><h3>주점 운영 설정</h3><p>현장에서 실제 사용하는 값으로 입력해 주세요.</p></div>
+              <span class="field-label">전체 테이블 수</span><div class="field-value wire-row"><b>8개</b><span class="muted">1~50개</span></div>
+              <span class="field-label">기본 이용시간</span>
+              <div class="stepper"><span>−</span><strong>60분</strong><span>＋</span></div>
+              <div class="presets"><span>30분</span><span class="tag--green">60분</span><span>90분</span><span>120분</span></div>
+              <div class="wire-row wire-box" style="margin-top:12px"><div><b>손님 대기 등록</b><br><small class="muted">iPad 접수를 시작합니다</small></div><span class="switch"></span></div>
+              <span class="wire-button" style="margin-top:14px">설정 저장하고 시작</span>
             </div></div>
           </article>
           <div class="connector"><span>최초 1회 설정</span></div>
           <article class="node">
             <p class="node-label">A-03 · 대기팀 탭</p>
+            <p class="node-state">CALLED → SEATED / NO_SHOW</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="mini-top"><b>개발 주점 1</b><span>동기화됨</span></div>
+              <div class="mini-top"><b>축제 주점 A</b><span class="sync-dot">방금 동기화</span></div>
+              <div class="screen-heading"><p class="kicker">대기 관리</p><h3>대기팀</h3></div>
               <div class="staff-summary"><span>대기 6팀</span><span>빈자리 2개</span></div>
-              <div class="staff-section-title"><span>지금 처리</span><small>호출됨 1</small></div>
+              <div class="staff-section-title"><span>호출된 팀</span><small>1팀</small></div>
               <div class="staff-task staff-task--urgent">
-                <div class="wire-row"><b>17번 · 4명</b><span class="tag tag--red">CALLED</span></div>
-                <p class="muted">호출 3분 전 · 도착 확인</p>
-                <div class="staff-action-row"><span class="wire-button wire-button--green">입장</span><span class="wire-button wire-button--outline">미도착</span></div>
-                <small class="muted">미도착 처리 → NO_SHOW</small>
+                <div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div>
+                <div class="staff-meta"><span>010-****-5678</span><span>·</span><span>3분 전 호출</span></div>
+                <div class="staff-action-row"><span class="wire-button wire-button--green">입장 처리</span><span class="wire-button wire-button--outline">미도착</span></div>
               </div>
-              <div class="staff-section-title"><span>대기 중</span><small>직접 선택</small></div>
-              <div class="staff-task"><div class="wire-row"><b>18번 · 2명</b><span class="tag tag--blue">WAITING</span></div><div class="wire-row"><small>등록 12분 전</small><b>호출 ›</b></div></div>
-              <div class="staff-task"><div class="wire-row"><b>19번 · 4명</b><span class="tag tag--blue">WAITING</span></div><div class="wire-row"><small>등록 7분 전</small><b>호출 ›</b></div></div>
+              <div class="staff-section-title"><span>대기 중인 팀</span><small>직접 선택해 호출</small></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span>010-****-2814</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">19번 · 4명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>7분째 대기</span><span>·</span><span>010-****-9032</span></div></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -426,10 +497,12 @@
           <article class="node">
             <p class="node-label">A-04 · 호출 확인</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="mini-top"><b>개발 주점 1</b><span>대기팀</span></div>
+              <div class="mini-top"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div>
+              <div class="screen-heading"><p class="kicker">대기 관리</p><h3>대기팀</h3></div>
               <div class="staff-summary"><span>대기 6팀</span><span>빈자리 2개</span></div>
-              <div class="staff-task"><div class="wire-row"><b>18번 · 2명</b><span class="tag tag--blue">WAITING</span></div></div>
-              <div class="dialog staff-sheet"><h4>18번 팀을 호출할까요?</h4><p>호출 후에는 “지금 처리”로 이동합니다. 현재 외부 알림은 전송되지 않습니다.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button wire-button--danger">호출</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">18번 · 2명</span><span class="tag tag--blue">대기 중</span></div><div class="staff-meta"><span>12분째 대기</span><span>·</span><span>010-****-2814</span></div></div>
+              <div class="modal-scrim"></div>
+              <div class="dialog staff-sheet"><div class="staff-modal-head"><div><h4>18번 팀을 호출할까요?</h4><p class="modal-subtitle">2명 · 12분째 대기 중</p></div><span class="modal-close">×</span></div><p class="modal-warning">알림톡 연동 전입니다. 상태 변경 후 현장에서 직접 안내해 주세요.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button wire-button--danger">18번 호출</span></div></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -437,34 +510,48 @@
           <article class="node">
             <p class="node-label">A-05 · 입장·테이블 선택</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="mini-top"><b>개발 주점 1</b><span>대기팀</span></div>
-              <div class="staff-task staff-task--urgent"><div class="wire-row"><b>17번 · 4명</b><span class="tag tag--red">CALLED</span></div><p class="muted">도착 확인됨</p></div>
-              <div class="dialog staff-sheet"><h4>17번 팀 입장</h4><p>배정할 빈 테이블을 크게 눌러 선택합니다.</p><div class="table-choice-grid"><span class="table-choice table-choice--selected">1번<br><small>빈자리</small></span><span class="table-choice">4번<br><small>빈자리</small></span></div><span class="wire-button wire-button--green">1번 테이블 입장 처리</span><small class="muted">확정 → SEATED + IN_USE</small></div>
+              <div class="mini-top"><b>축제 주점 A</b><span class="sync-dot">동기화됨</span></div>
+              <div class="screen-heading"><p class="kicker">대기 관리</p><h3>대기팀</h3></div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">17번 · 4명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span>도착 확인</span><span>·</span><span>010-****-5678</span></div></div>
+              <div class="modal-scrim"></div>
+              <div class="dialog staff-sheet"><div class="staff-modal-head"><div><h4>17번 팀 입장 처리</h4><p class="modal-subtitle">배정할 빈 테이블을 선택해 주세요.</p></div><span class="modal-close">×</span></div><div class="table-choice-grid"><span class="table-choice table-choice--selected">테이블 1<br><small>선택됨</small></span><span class="table-choice">테이블 4<br><small>빈자리</small></span></div><span class="wire-button wire-button--green">테이블 1에 입장</span><small class="muted">확정하면 대기팀은 입장, 테이블은 이용 중으로 변경됩니다.</small></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
-          <div class="connector"><span>테이블 탭</span></div>
+          <div class="connector"><span>SEATED + IN_USE</span></div>
           <article class="node">
             <p class="node-label">A-06 · 테이블 탭</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="mini-top"><b>테이블</b><span>5초 자동 갱신</span></div>
+              <div class="mini-top"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div>
+              <div class="screen-heading"><p class="kicker">좌석 운영</p><h3>테이블</h3></div>
               <div class="staff-summary"><span>이용 중 4</span><span>빈자리 2</span></div>
-              <div class="staff-section-title"><span>먼저 확인</span><small>시간 초과 1</small></div>
-              <div class="staff-task staff-task--over"><div class="wire-row"><b>3번 · 대기 21번</b><span class="tag tag--red">시간 초과</span></div><p class="muted">종료 예정 5분 지남</p></div>
-              <div class="staff-section-title"><span>이용 중</span><small>IN_USE</small></div>
-              <div class="staff-task"><div class="wire-row"><b>2번 · 대기 17번</b><strong>34분</strong></div><small class="muted">20:06 종료 예정 ›</small></div>
-              <div class="staff-task"><div class="wire-row"><b>5번 · 대기 20번</b><strong>12분</strong></div><small class="muted">19:44 종료 예정 ›</small></div>
-              <div class="wire-box" style="margin-top:7px"><div class="wire-row"><span>빈 테이블</span><b>1번 · 4번</b></div><small class="muted">EMPTY · 입장 화면에서 선택</small></div>
+              <div class="staff-section-title"><span>시간이 지난 테이블</span><small>1개</small></div>
+              <div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">테이블 3</span><span class="tag tag--red">5분 초과</span></div><div class="staff-meta"><span>대기 21번</span><span>·</span><span>19:27 종료 예정</span></div></div>
+              <div class="staff-section-title"><span>이용 중인 테이블</span><small>3개</small></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><strong>34분 남음</strong></div><div class="staff-meta"><span>대기 17번</span><span>·</span><span>20:06 종료</span><span>›</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 5</span><strong>12분 남음</strong></div><div class="staff-meta"><span>대기 20번</span><span>·</span><span>19:44 종료</span><span>›</span></div></div>
+              <div class="wire-box" style="margin-top:8px"><div class="wire-row"><span>빈 테이블</span><b>1번 · 4번</b></div></div>
               <nav class="staff-nav"><span>대기팀</span><span class="active">테이블</span><span>설정</span></nav>
             </div></div>
           </article>
           <div class="connector"><span>테이블 선택</span></div>
           <article class="node">
-            <p class="node-label">A-07 · 테이블 상세</p>
+            <p class="node-label">A-07 · 테이블 관리 모달</p>
+            <p class="node-state">IN_USE → COMPLETED + EMPTY</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="mini-top"><b>테이블</b><span>이용 중</span></div>
-              <div class="staff-task"><div class="wire-row"><b>2번 · 대기 17번</b><span class="tag tag--blue">IN_USE</span></div><p class="muted">34분 남음 · 20:06 종료 예정</p></div>
-              <div class="dialog staff-sheet"><h4>테이블 2 관리</h4><p>실제 현장 상황을 확인한 뒤 처리합니다.</p><div class="staff-action-row"><span class="wire-button wire-button--outline">30분 연장</span><span class="wire-button wire-button--danger">실제 퇴장·종료</span></div><small class="muted">연장 → IN_USE 유지<br>퇴장 → COMPLETED + EMPTY<br>완료 알림 후 테이블 목록으로 복귀</small></div>
+              <div class="mini-top"><b>축제 주점 A</b><span class="sync-dot">5초마다 갱신</span></div>
+              <div class="screen-heading"><p class="kicker">좌석 운영</p><h3>테이블</h3></div>
+              <div class="staff-summary"><span>이용 중 4</span><span>빈자리 2</span></div>
+              <div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">테이블 3</span><span class="tag tag--red">5분 초과</span></div></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">테이블 2</span><strong>34분 남음</strong></div><div class="staff-meta"><span>대기 17번</span><span>·</span><span>20:06 종료</span></div></div>
+              <div class="modal-scrim"></div>
+              <section class="staff-modal" aria-label="테이블 2 관리 모달">
+                <div class="staff-modal-head"><div><span class="tag tag--green">이용 중</span><h4 style="margin-top:8px">테이블 2</h4><p class="modal-subtitle">대기번호 17번 · 4명</p></div><span class="modal-close">×</span></div>
+                <div class="modal-time">34분 남음</div>
+                <div class="modal-detail"><span class="wire-row"><span>시작 시각</span><b>19:06</b></span><span class="wire-row"><span>종료 예정</span><b>20:06</b></span></div>
+                <p class="modal-warning">손님의 실제 퇴장을 확인한 경우에만 이용을 종료해 주세요.</p>
+                <div class="stacked-actions"><span class="wire-button wire-button--outline">30분 연장</span><span class="wire-button wire-button--danger">이용 종료하고 테이블 비우기</span></div>
+              </section>
               <nav class="staff-nav"><span>대기팀</span><span class="active">테이블</span><span>설정</span></nav>
             </div></div>
           </article>
