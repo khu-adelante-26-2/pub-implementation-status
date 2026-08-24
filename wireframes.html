@@ -729,31 +729,391 @@
       html, body, .board-scroll { position: static; overflow: visible; }
       .board { transform: none !important; }
     }
+
+    /* 화면 시나리오 문서: 서비스 여정 + 목표별 스토리보드 */
+    html {
+      height: auto;
+      overflow: visible;
+      overflow-anchor: none;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-width: 320px;
+      height: auto;
+      overflow: visible;
+      color: #202421;
+      background: #f4f5f3;
+      overscroll-behavior: auto;
+    }
+    .fig-toolbar,
+    .fig-hint,
+    .diagram-wires { display: none !important; }
+    .board-scroll {
+      position: static;
+      inset: auto;
+      overflow: visible;
+      padding: 0;
+      background: transparent;
+    }
+    .board {
+      display: block;
+      width: min(100%, 1600px);
+      min-height: 0;
+      margin: 0 auto;
+      padding: 64px 32px 120px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      transform: none !important;
+    }
+    .canvas-overview {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(360px, .8fr);
+      gap: 36px 44px;
+      padding: 28px 0 42px;
+      border: 0;
+      border-bottom: 1px solid #d9ddda;
+      background: transparent;
+      box-shadow: none;
+    }
+    .canvas-kicker {
+      color: #59635f;
+      font-size: .7rem;
+      letter-spacing: .14em;
+    }
+    .canvas-title-block h1 {
+      max-width: 760px;
+      margin: 12px 0 16px;
+      font-size: clamp(2.35rem, 5vw, 4.8rem);
+      line-height: .98;
+      letter-spacing: -.07em;
+      word-break: keep-all;
+    }
+    .canvas-title-block p {
+      max-width: 760px;
+      color: #626b67;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .canvas-reading-guide {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      align-self: end;
+    }
+    .canvas-reading-guide > div {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0;
+      border: 0;
+      border-bottom: 1px solid #d9ddda;
+      border-radius: 0;
+      background: transparent;
+    }
+    .canvas-reading-guide b { margin: 0; font-size: .76rem; }
+    .canvas-reading-guide small { margin: 0; color: #68706d; font-size: .7rem; line-height: 1.55; }
+    .service-journey {
+      grid-column: 1 / -1;
+      overflow-x: auto;
+      padding: 26px;
+      border: 1px solid #d8ddda;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgb(32 45 40 / 5%);
+    }
+    .journey-heading {
+      display: grid;
+      grid-template-columns: 120px 290px 1fr;
+      gap: 18px;
+      align-items: baseline;
+      min-width: 1180px;
+      margin-bottom: 18px;
+    }
+    .journey-heading span { color: #6a726f; font-size: .66rem; font-weight: 900; letter-spacing: .12em; }
+    .journey-heading h2 { margin: 0; font-size: 1.2rem; letter-spacing: -.03em; }
+    .journey-heading p { margin: 0; color: #6a726f; font-size: .73rem; }
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 150px repeat(6, minmax(165px, 1fr));
+      min-width: 1180px;
+      border-top: 1px solid #dfe3e0;
+      border-left: 1px solid #dfe3e0;
+    }
+    .journey-cell {
+      min-height: 72px;
+      padding: 13px 14px;
+      border-right: 1px solid #dfe3e0;
+      border-bottom: 1px solid #dfe3e0;
+      color: #4e5854;
+      background: #fff;
+      font-size: .72rem;
+      line-height: 1.55;
+    }
+    .journey-cell b { color: #1f2925; }
+    .journey-cell small { color: #7a827f; }
+    .journey-phase,
+    .journey-corner {
+      min-height: 44px;
+      padding-block: 11px;
+      color: #58625e;
+      background: #f1f3f2;
+      font-size: .66rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+    .journey-actor { border-left: 4px solid var(--actor-color); background: #fafbfa; }
+    .journey-actor b { display: block; font-size: .76rem; }
+    .journey-actor small { display: block; margin-top: 3px; font-size: .64rem; }
+    .journey-actor--ipad { --actor-color: var(--brand); }
+    .journey-actor--guest { --actor-color: var(--green); }
+    .journey-actor--staff { --actor-color: var(--blue); }
+    .journey-key { color: #24312c; background: #f4f8f6; }
+    .journey-empty { color: #a4aaa7; text-align: center; }
+    .canvas-scope {
+      grid-column: 1 / -1;
+      padding-top: 0;
+      border: 0;
+    }
+    .canvas-scope span {
+      border: 1px solid #dde1de;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .canvas-nav {
+      grid-column: 1 / -1;
+      gap: 8px;
+      padding-top: 2px;
+    }
+    .canvas-nav a {
+      border-color: #d7dcd9;
+      border-radius: 999px;
+      color: #35463f;
+      background: transparent;
+    }
+
+    .lane {
+      display: block;
+      min-width: 0;
+      min-height: 0;
+      margin-top: 38px;
+      padding: 30px;
+      overflow: hidden;
+      border: 1px solid #d9ddda;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgb(32 45 40 / 5%);
+      scroll-margin-top: 20px;
+    }
+    .lane--ipad { --lane-color: var(--brand); }
+    .lane--user { --lane-color: var(--green); }
+    .lane--staff { --lane-color: var(--blue); }
+    .lane-label {
+      display: grid;
+      grid-template-columns: minmax(300px, .9fr) minmax(360px, 1fr);
+      gap: 32px;
+      align-items: end;
+      padding: 0 0 24px;
+      border-bottom: 1px solid #e0e4e1;
+    }
+    .lane-label > div > small { color: var(--lane-color); }
+    .lane-label h2 { font-size: 1.5rem; }
+    .lane-label h2 span { background: var(--lane-color); }
+    .lane-label p { max-width: none; color: #636d69; font-size: .77rem; text-align: right; }
+
+    .flow,
+    #registration-flow .flow,
+    #guest-status-flow .flow,
+    #staff-setup-flow .flow,
+    #staff-waiting-flow .flow,
+    #walk-in-flow .flow,
+    #ipad-exception-flow .flow,
+    #staff-settings-flow .flow {
+      display: flex;
+      grid-template-columns: none;
+      gap: 24px;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 30px 4px 18px;
+      scroll-snap-type: x proximity;
+    }
+    .flow > *,
+    .flow [data-code] {
+      grid-column: auto !important;
+      grid-row: auto !important;
+    }
+    .connector { display: none !important; }
+    .branch-stack { display: contents; }
+
+    .story-chapters {
+      display: grid;
+      gap: 30px;
+      padding-top: 28px;
+    }
+    .story-chapter + .story-chapter {
+      padding-top: 26px;
+      border-top: 1px solid #e3e6e4;
+    }
+    .chapter-head {
+      display: grid;
+      grid-template-columns: 92px minmax(220px, 360px) minmax(260px, 1fr);
+      gap: 18px;
+      align-items: baseline;
+      margin: 0 4px 20px;
+    }
+    .chapter-kicker { color: var(--lane-color); font-size: .64rem; font-weight: 900; letter-spacing: .1em; }
+    .chapter-head h3 { margin: 0; font-size: 1.02rem; letter-spacing: -.025em; }
+    .chapter-head p { margin: 0; color: #69716e; font-size: .74rem; line-height: 1.6; }
+    .story-chapter--exception .chapter-head {
+      padding: 12px 14px;
+      border-left: 4px solid var(--red);
+      background: #fff7f6;
+    }
+    .story-chapter--exception .chapter-kicker { color: var(--red); }
+    .story-rail {
+      display: flex;
+      gap: 26px;
+      align-items: flex-start;
+      overflow-x: auto;
+      padding: 4px 4px 22px;
+      scroll-snap-type: x proximity;
+      scrollbar-color: #bdc6c2 transparent;
+      scrollbar-width: thin;
+    }
+    .story-rail::-webkit-scrollbar { height: 8px; }
+    .story-rail::-webkit-scrollbar-thumb { border-radius: 999px; background: #bdc6c2; }
+
+    .node,
+    .compact-node {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      flex: 0 0 auto;
+      grid-template-rows: 52px 34px auto;
+      align-items: start;
+      gap: 0;
+      scroll-snap-align: start;
+    }
+    .node-label {
+      visibility: visible;
+      display: flex;
+      grid-row: 1;
+      gap: 9px;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      color: #242c29;
+      font-size: .76rem;
+      font-weight: 850;
+      line-height: 1.4;
+      text-align: left;
+    }
+    .screen-step {
+      display: grid;
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--lane-color);
+      font-size: .62rem;
+      font-weight: 950;
+    }
+    .screen-name { display: block; padding-top: 4px; }
+    .screen-id { color: var(--lane-color); font-size: .66rem; letter-spacing: .03em; }
+    .node-state {
+      visibility: visible;
+      grid-row: 2;
+      min-height: 34px;
+      margin: 0;
+      color: #747d79;
+      font-size: .65rem;
+      font-weight: 750;
+      line-height: 1.45;
+      text-align: left;
+    }
+    .node > .device,
+    .compact-node > .device { grid-row: 3; }
+    .node .device {
+      box-shadow: 0 13px 28px rgb(23 33 31 / 13%);
+    }
+    .compact-node .iphone { width: 260px; height: 535px; }
+    .compact-node .screen { font-size: .72rem; }
+    .story-chapter--exception .screen-step { background: var(--red); }
+    .story-chapter--exception .screen-id { color: var(--red); }
+
+    .handoff {
+      display: grid;
+      grid-template-columns: minmax(190px, 260px) 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin: 22px 30px -12px;
+      padding: 14px 18px;
+      border: 0;
+      border-left: 4px solid #65726d;
+      border-radius: 0;
+      color: #55605c;
+      background: #eaeeec;
+      box-shadow: none;
+    }
+    .handoff--system { border-left-color: var(--blue); }
+    .handoff--branch { border-left-color: var(--brand); }
+    .handoff--exception { border-left-color: var(--red); background: #fff1ef; }
+    .handoff span { border: 0; border-radius: 0; color: #56615d; background: transparent; white-space: normal; }
+
+    @media (max-width: 900px) {
+      .board { padding: 34px 14px 80px; }
+      .canvas-overview { grid-template-columns: 1fr; gap: 26px; padding-top: 14px; }
+      .canvas-title-block h1 { font-size: clamp(2.5rem, 14vw, 4rem); }
+      .canvas-reading-guide { grid-template-columns: 1fr; }
+      .service-journey { padding: 18px; }
+      .canvas-scope { align-items: flex-start; flex-wrap: wrap; }
+      .lane { padding: 22px 16px; border-radius: 14px; }
+      .lane-label { grid-template-columns: 1fr; gap: 12px; }
+      .lane-label p { text-align: left; }
+      .chapter-head { grid-template-columns: 76px 1fr; gap: 8px 12px; }
+      .chapter-head p { grid-column: 2; }
+      .handoff { grid-template-columns: 1fr; margin-inline: 14px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .board { width: 100%; padding: 20px; }
+      .story-rail,
+      .flow { flex-wrap: wrap; overflow: visible; }
+      .service-journey { overflow: visible; }
+      .lane { break-before: page; box-shadow: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="fig-hint">드래그로 이동 · 스크롤로 상하좌우 · ⌘/Ctrl+스크롤 또는 두 손가락으로 확대·축소</div>
-  <div class="fig-toolbar" role="toolbar" aria-label="캔버스 조작">
-    <button type="button" data-act="out" title="축소 (−)" aria-label="축소">−</button>
-    <button type="button" data-act="pct" title="100%로 맞추기">100%</button>
-    <button type="button" data-act="in" title="확대 (+)" aria-label="확대">+</button>
-    <span class="fig-div"></span>
-    <button type="button" data-act="fit" title="화면에 맞춤">맞춤</button>
-  </div>
 <main class="board-scroll">
     <div class="board">
       <header class="canvas-overview">
         <div class="canvas-title-block">
-          <span class="canvas-kicker">PUB WAITING · CONNECTED WIREFRAME</span>
-          <h1>주점 대기 전체 연결 와이어프레임</h1>
-          <p>손님 등록부터 호출·입장·테이블 운영까지, 실제 조작과 서버 상태 전이를 기기별로 연결한 저충실도 사용자 흐름입니다.</p>
+          <span class="canvas-kicker">PUB WAITING · SCREEN STORIES</span>
+          <h1>주점 대기 화면 시나리오</h1>
+          <p>전체 서비스 여정을 먼저 보고, 아래에서 한 번에 하나의 사용자 목표만 화면 순서대로 확인합니다. 연결선 대신 단계 번호와 상태 결과로 읽는 저충실도 화면 문서입니다.</p>
         </div>
-        <div class="canvas-reading-guide" aria-label="와이어프레임 읽는 법">
-          <div><span class="guide-line guide-line--action"></span><b>사용자 조작</b><small>화면의 번호 핫스팟과 같은 번호의 화살표</small></div>
-          <div><span class="guide-line guide-line--system"></span><b>서버 전이</b><small>저장·폴링·기기 간 상태 인계</small></div>
-          <div><span class="guide-line guide-line--exception"></span><b>예외 분기</b><small>실패·오프라인처럼 조건부로만 진입</small></div>
+        <div class="canvas-reading-guide" aria-label="문서 읽는 법">
+          <div><b>1 · 여정부터</b><small>기기 세 대가 어느 순간에 역할을 넘기는지 확인합니다.</small></div>
+          <div><b>2 · 목표별로</b><small>각 묶음은 하나의 목표와 5~10개 이하 화면만 다룹니다.</small></div>
+          <div><b>3 · 예외는 따로</b><small>실패·미도착·오프라인은 기본 경로와 섞지 않습니다.</small></div>
         </div>
-        <div class="canvas-scope"><b>표현 원칙</b><span>현재 구현된 흐름만 표시</span><span>대기번호는 사용자 확인용</span><span>현장 호출은 전화번호 뒤 4자리</span></div>
+        <section class="service-journey" aria-labelledby="service-journey-title">
+          <div class="journey-heading"><span>END-TO-END</span><h2 id="service-journey-title">기기 간 서비스 여정</h2><p>가로 한 칸이 같은 운영 순간입니다. 선을 따라가지 않아도 역할 인계가 보입니다.</p></div>
+          <div class="journey-grid" role="table" aria-label="기기별 서비스 여정">
+            <div class="journey-cell journey-corner" role="columnheader">사용 주체</div><div class="journey-cell journey-phase" role="columnheader">01 준비</div><div class="journey-cell journey-phase" role="columnheader">02 등록</div><div class="journey-cell journey-phase" role="columnheader">03 대기</div><div class="journey-cell journey-phase" role="columnheader">04 호출</div><div class="journey-cell journey-phase" role="columnheader">05 입장·이용</div><div class="journey-cell journey-phase" role="columnheader">06 종료</div>
+            <div class="journey-cell journey-actor journey-actor--ipad" role="rowheader"><b>손님용 iPad</b><small>주점 입구</small></div><div class="journey-cell" role="cell">계정 연결·heartbeat</div><div class="journey-cell journey-key" role="cell">연락처·인원 입력<br><b>WAITING 저장</b></div><div class="journey-cell journey-empty" role="cell">—</div><div class="journey-cell journey-empty" role="cell">—</div><div class="journey-cell journey-empty" role="cell">—</div><div class="journey-cell journey-empty" role="cell">—</div>
+            <div class="journey-cell journey-actor journey-actor--guest" role="rowheader"><b>사용자 휴대폰</b><small>현장 밖에서도 확인</small></div><div class="journey-cell journey-empty" role="cell">—</div><div class="journey-cell" role="cell">등록 결과·현황 링크<br><small>현재 실제 발송 없음</small></div><div class="journey-cell journey-key" role="cell">순서 확인<br>1회 미루기·취소</div><div class="journey-cell journey-key" role="cell">뒤 4자리 확인<br>입구로 이동</div><div class="journey-cell" role="cell">입장·배정 상태 확인</div><div class="journey-cell" role="cell">완료·미도착 확인</div>
+            <div class="journey-cell journey-actor journey-actor--staff" role="rowheader"><b>직원 휴대폰</b><small>현장 운영</small></div><div class="journey-cell journey-key" role="cell">주점·테이블·시간 확인</div><div class="journey-cell" role="cell">등록팀 현황 확인</div><div class="journey-cell journey-key" role="cell">호출할 팀 직접 선택</div><div class="journey-cell journey-key" role="cell">뒤 4자리로 호출<br>도착 확인</div><div class="journey-cell journey-key" role="cell">빈 테이블 배정<br>연장·관리</div><div class="journey-cell journey-key" role="cell">실제 퇴장 확인<br><b>COMPLETED</b></div>
+          </div>
+        </section>
+        <div class="canvas-scope"><b>문서 원칙</b><span>현재 구현된 화면만 표시</span><span>화면 순서는 왼쪽에서 오른쪽</span><span>현장 호출은 전화번호 뒤 4자리</span></div>
         <nav class="canvas-nav" aria-label="흐름 바로가기"><b>흐름 바로가기</b><a href="#registration-flow">iPad 등록</a><a href="#guest-status-flow">사용자 현황</a><a href="#staff-setup-flow">영업 준비</a><a href="#staff-waiting-flow">대기 손님 입장</a><a href="#walk-in-flow">바로 입장</a><a href="#ipad-exception-flow">연결 예외</a><a href="#staff-settings-flow">운영 설정</a></nav>
       </header>
 
@@ -1218,466 +1578,118 @@
       </section>
     </div>
   </main>
-  <script id="figma-canvas-controls">
+  <script id="screen-story-layout">
   (function () {
-    var scroll = document.querySelector(".board-scroll");
-    var board = document.querySelector(".board");
-    if (!scroll || !board) return;
+    var storyConfig = {
+      "registration-flow": [
+        { title: "대기를 등록한다", description: "연락처와 인원을 입력하고 등록 결과를 확인한 뒤 다음 손님에게 화면을 넘깁니다.", codes: ["I-01", "I-02", "I-03"] },
+        { title: "등록에 실패한다", description: "입력값을 지우지 않고 같은 멱등 요청으로 다시 시도합니다.", tone: "exception", codes: ["I-04"] }
+      ],
+      "guest-status-flow": [
+        { title: "내 순서를 확인한다", description: "등록 결과로 전달된 같은 링크에서 현재 순서와 예상 시간을 확인합니다. 알림 어댑터는 아직 실제 발송과 연결되지 않았습니다.", codes: ["U-01", "U-02"] },
+        { title: "순서를 한 번 미룬다", description: "확인 뒤 WAITING 상태는 유지하고 실제 대기열 순서만 맨 뒤로 옮깁니다.", codes: ["U-02A", "U-02B"] },
+        { title: "호출 전에 대기를 취소한다", description: "WAITING 상태에서 한 번 더 확인한 뒤 활성 대기열에서 빠집니다.", codes: ["U-02C", "U-02D"] },
+        { title: "호출을 확인하고 입장한다", description: "전화번호 뒤 4자리로 현장에서 본인을 알리고, 직원의 테이블 배정과 실제 이용 완료를 확인합니다.", codes: ["U-03", "U-04", "U-05", "U-06"] },
+        { title: "호출 뒤 도착하지 않는다", description: "직원이 미도착을 확정하면 NO_SHOW 최종 상태를 표시합니다.", tone: "exception", codes: ["U-06A"] },
+        { title: "최신 상태를 받지 못한다", description: "마지막 정상 상태를 유지하면서 자동 재시도와 수동 확인 수단을 함께 제공합니다.", tone: "exception", codes: ["U-07"] }
+      ],
+      "staff-setup-flow": [
+        { title: "영업 준비를 완료한다", description: "주점 확인, 테이블 수, 기본 이용시간과 손님용 iPad 연결을 순서대로 검토한 뒤 한 번에 저장합니다.", codes: ["O-01", "O-02", "O-03A", "O-03B", "O-04", "O-05A", "O-05B", "O-06"] }
+      ],
+      "staff-waiting-flow": [
+        { title: "호출한 손님을 테이블에 배정한다", description: "직원이 팀을 직접 골라 뒤 4자리로 호출하고, 도착을 확인한 뒤 빈 테이블을 선택합니다.", codes: ["A-01", "A-02", "A-03", "A-04"] },
+        { title: "호출한 손님이 오지 않는다", description: "호출됨 상태에서 미도착 여부를 다시 확인한 뒤 대기 목록에서 제거합니다.", tone: "exception", codes: ["A-02B", "A-02C"] }
+      ],
+      "walk-in-flow": [
+        { title: "대기 없는 손님의 이용을 시작하고 끝낸다", description: "연락처나 인원을 받지 않고 빈 테이블의 이용시간만 시작하며, 실제 퇴장을 확인한 뒤 비웁니다.", codes: ["T-01", "T-02", "T-03", "T-04"] }
+      ],
+      "ipad-exception-flow": [
+        { title: "손님용 iPad 연결이 끊긴다", description: "정상일 때는 아무 표시도 하지 않고, 서버가 오프라인을 판정한 경우에만 운영 선택지를 보여줍니다.", tone: "exception", codes: ["E-01"] }
+      ],
+      "staff-settings-flow": [
+        { title: "운영 중 설정을 바꾼다", description: "테이블 수 또는 기본 이용시간 중 필요한 항목만 수정하고 저장 뒤 설정 목록으로 돌아옵니다.", codes: ["S-01", "S-02", "S-03", "S-05"] }
+      ]
+    };
 
-    var scale = 1, tx = 0, ty = 0;
-    var MIN = 0.08, MAX = 4;
-    var TITLE_LABEL_SCALE = 0.28;
-    var STATE_LABEL_SCALE = 0.55;
-    var drawFrame = 0;
-    var pctBtn = document.querySelector('.fig-toolbar [data-act="pct"]');
-    var hint = document.querySelector(".fig-hint");
-
-    document.querySelectorAll(".node-label").forEach(function (label) {
-      var match = label.textContent.trim().match(/^([A-Z]-\d+[A-Z]?)/);
-      var owner = label.closest(".node");
-      if (match && owner) owner.setAttribute("data-code", match[1]);
-    });
-
-    var wireSpecs = [
-      { from: "I-01", fromSelector: ".numpad", to: "I-02", label: "연락처·인원 입력", fromSide: "right", toSide: "left" },
-      { from: "I-02", fromText: "4명 대기 등록", to: "I-03", label: "성공 · WAITING 저장", fromSide: "right", toSide: "left" },
-      { from: "I-02", fromText: "4명 대기 등록", to: "I-04", label: "실패 · 입력 유지", kind: "exception", fromSide: "bottom", toSide: "top", labelOffsetX: 92 },
-      { from: "I-03", fromText: "다음 손님 등록", to: "I-01", label: "다음 손님 / 20초", route: "below", channel: 0, labelSegment: 1, labelFraction: .25, fromSide: "bottom", toSide: "bottom" },
-
-      { from: "U-01", fromText: "내 대기 현황 보기", to: "U-02", label: "링크 열기", fromSide: "right", toSide: "left" },
-      { from: "U-02", fromText: "대기를 맨 뒤로 미루기", to: "U-02A", label: "1회 미루기", fromSide: "bottom", toSide: "top" },
-      { from: "U-02A", fromText: "맨 뒤로 미루기", to: "U-02B", label: "순서만 원자적 변경", fromSide: "right", toSide: "left" },
-      { from: "U-02", fromText: "대기 취소", to: "U-02C", label: "취소 확인", fromSide: "bottom", toSide: "top", channel: 1 },
-      { from: "U-02B", fromText: "대기 취소", to: "U-02C", label: "미룬 뒤에도 취소 가능", fromSide: "right", toSide: "left" },
-      { from: "U-02C", fromText: "대기 취소", to: "U-02D", label: "WAITING → CANCELLED", fromSide: "right", toSide: "left" },
-      { from: "U-02", fromSelector: ".status-banner", to: "U-03", label: "직원 호출 · CALLED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
-      { from: "U-03", fromText: "내 대기 현황 보기", to: "U-04", label: "같은 링크", fromSide: "right", toSide: "left" },
-      { from: "U-04", fromSelector: ".status-banner", to: "U-05", label: "직원 배정 · SEATED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
-      { from: "U-05", fromSelector: ".status-banner", to: "U-06", label: "실제 퇴장 · COMPLETED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
-      { from: "U-04", fromSelector: ".status-banner", to: "U-06A", label: "미도착 · NO_SHOW", kind: "system", hotspot: false, fromSide: "bottom", toSide: "top", channel: 1 },
-
-      { from: "O-01", fromText: "로그인", to: "O-02", label: "Redis 세션", fromSide: "right", toSide: "left" },
-      { from: "O-02", fromText: "네, 맞습니다", to: "O-03A", label: "주점 범위 확인", fromSide: "right", toSide: "left" },
-      { from: "O-03A", fromText: "다음", to: "O-03B", label: "1번부터 자동 구성", fromSide: "right", toSide: "left" },
-      { from: "O-03B", fromText: "이 번호 사용", to: "O-04", label: "테이블 번호 확인", fromSide: "bottom", toSide: "top" },
-      { from: "O-04", fromText: "다음", to: "O-05A", label: "iPad 연결 단계", fromSide: "left", toSide: "right" },
-      { from: "O-05A", fromText: "서버에서 다시 확인", to: "O-05B", label: "heartbeat 재확인", kind: "system", fromSide: "left", toSide: "right" },
-      { from: "O-05B", fromText: "다음", to: "O-06", label: "온라인 확인", fromSide: "left", toSide: "right" },
-
-      { from: "A-01", fromText: "호출하기", to: "A-02", label: "WAITING → CALLED", fromSide: "right", toSide: "left" },
-      { from: "A-02", fromText: "미도착", to: "A-02B", label: "미도착 확인", fromSide: "right", toSide: "left" },
-      { from: "A-02B", fromText: "미도착 처리", to: "A-02C", label: "CALLED → NO_SHOW", fromSide: "right", toSide: "left" },
-      { from: "A-02", fromText: "입장", to: "A-03", label: "손님 도착 확인", fromSide: "bottom", toSide: "top" },
-      { from: "A-03", fromText: "테이블 3에 배정", to: "A-04", label: "SEATED + IN_USE", fromSide: "right", toSide: "left" },
-
-      { from: "T-01", fromSelector: ".table-card--empty", to: "T-02", label: "빈 테이블 터치", fromSide: "right", toSide: "left" },
-      { from: "T-02", fromText: "이용 시작", to: "T-03", label: "EMPTY → IN_USE", fromSide: "bottom", toSide: "top" },
-      { from: "T-03", fromSelector: ".table-card--selected", to: "T-04", label: "이용 중 테이블 터치", fromSide: "left", toSide: "right" },
-      { from: "T-04", fromText: "퇴장 확인", to: "T-01", label: "COMPLETED + EMPTY", route: "left", channel: 0, fromSide: "left", toSide: "left" },
-
-      { from: "S-01", fromSelector: ".settings-item:nth-child(1)", to: "S-02", label: "테이블 수 선택", fromSide: "bottom", toSide: "top", channel: 0 },
-      { from: "S-01", fromSelector: ".settings-item:nth-child(2)", to: "S-03", label: "이용시간 선택", fromSide: "bottom", toSide: "top", channel: 1 },
-      { from: "S-02", fromText: "10개로 저장", to: "S-05", label: "저장 후 목록 복귀", fromSide: "bottom", toSide: "left" },
-      { from: "S-03", fromText: "90분으로 저장", to: "S-05", label: "저장 후 목록 복귀", fromSide: "bottom", toSide: "right" }
-    ];
-
-    function nodeFor(code) { return board.querySelector('[data-code="' + code + '"]'); }
-    function compactText(value) { return value.replace(/\s+/g, " ").trim(); }
-    function sourceFor(spec) {
-      var node = nodeFor(spec.from);
-      if (!node) return null;
-      if (spec.fromSelector) return node.querySelector(spec.fromSelector) || node.querySelector(".device");
-      if (spec.fromText) {
-        var candidates = node.querySelectorAll(".wire-button, .link-button, .staff-primary-action, .table-card, .settings-item, .status-banner, .status-sync, .numpad");
-        for (var i = 0; i < candidates.length; i += 1) {
-          if (compactText(candidates[i].textContent).includes(spec.fromText)) return candidates[i];
-        }
+    function normalizeNode(node) {
+      if (node.classList.contains("compact-node") && node.children.length === 1 && node.firstElementChild.tagName === "DIV") {
+        var wrapper = node.firstElementChild;
+        while (wrapper.firstChild) node.insertBefore(wrapper.firstChild, wrapper);
+        wrapper.remove();
       }
-      return node.querySelector(".device") || node;
+      var label = node.querySelector(":scope > .node-label");
+      if (!label) return null;
+      var match = label.textContent.trim().match(/^([A-Z]-\d+[A-Z]?)(?:\s*·\s*)?(.*)$/);
+      if (!match) return null;
+      node.dataset.code = match[1];
+      node.dataset.title = match[2] || match[1];
+      return match[1];
     }
-    function rectFor(element) {
-      var rect = element.getBoundingClientRect();
-      var boardRect = board.getBoundingClientRect();
-      return {
-        left: (rect.left - boardRect.left) / scale,
-        top: (rect.top - boardRect.top) / scale,
-        width: rect.width / scale,
-        height: rect.height / scale
-      };
+
+    function renderStep(node, index) {
+      var label = node.querySelector(":scope > .node-label");
+      if (!label) return;
+      label.innerHTML = "";
+      var step = document.createElement("span");
+      step.className = "screen-step";
+      step.textContent = String(index + 1).padStart(2, "0");
+      var name = document.createElement("span");
+      name.className = "screen-name";
+      var id = document.createElement("b");
+      id.className = "screen-id";
+      id.textContent = node.dataset.code;
+      name.appendChild(id);
+      name.appendChild(document.createTextNode(" · " + node.dataset.title));
+      label.appendChild(step);
+      label.appendChild(name);
+      var state = node.querySelector(":scope > .node-state");
+      if (!state) {
+        state = document.createElement("p");
+        state.className = "node-state";
+        state.setAttribute("aria-hidden", "true");
+        label.insertAdjacentElement("afterend", state);
+      }
     }
-    function clampBetween(value, min, max) { return Math.max(min, Math.min(max, value)); }
-    function edgePoint(device, side, control) {
-      var frame = rectFor(device);
-      var anchor = control ? rectFor(control) : frame;
-      var anchorX = anchor.left + anchor.width / 2;
-      var anchorY = anchor.top + anchor.height / 2;
-      if (side === "left") return { x: frame.left, y: clampBetween(anchorY, frame.top + 36, frame.top + frame.height - 36) };
-      if (side === "right") return { x: frame.left + frame.width, y: clampBetween(anchorY, frame.top + 36, frame.top + frame.height - 36) };
-      if (side === "top") return { x: clampBetween(anchorX, frame.left + 36, frame.left + frame.width - 36), y: frame.top };
-      return { x: clampBetween(anchorX, frame.left + 36, frame.left + frame.width - 36), y: frame.top + frame.height };
-    }
-    function hotspotPoint(element) {
-      var rect = rectFor(element);
-      return { x: rect.left + rect.width - 10, y: rect.top + 10 };
-    }
-    function svgElement(name, attrs) {
-      var element = document.createElementNS("http://www.w3.org/2000/svg", name);
-      Object.keys(attrs || {}).forEach(function (key) { element.setAttribute(key, attrs[key]); });
-      return element;
-    }
-    function movePoint(point, side, distance) {
-      if (side === "left") return { x: point.x - distance, y: point.y };
-      if (side === "right") return { x: point.x + distance, y: point.y };
-      if (side === "top") return { x: point.x, y: point.y - distance };
-      return { x: point.x, y: point.y + distance };
-    }
-    function simplifyPoints(points) {
-      return points.filter(function (point, index) {
-        if (index === 0 || index === points.length - 1) return true;
-        var prev = points[index - 1], next = points[index + 1];
-        return !((prev.x === point.x && point.x === next.x) || (prev.y === point.y && point.y === next.y));
-      }).filter(function (point, index, list) {
-        return index === 0 || point.x !== list[index - 1].x || point.y !== list[index - 1].y;
+
+    Object.keys(storyConfig).forEach(function (laneId) {
+      var lane = document.getElementById(laneId);
+      var flow = lane && lane.querySelector(":scope > .flow");
+      if (!flow) return;
+      var nodeMap = {};
+      flow.querySelectorAll(".node").forEach(function (node) {
+        var code = normalizeNode(node);
+        if (code) nodeMap[code] = node;
       });
-    }
-    function routeFor(start, end, spec) {
-      var channel = spec.channel || 0;
-      if (spec.route === "below") {
-        var gutter = Math.max(start.y, end.y) + 58 + channel * 34;
-        return [start, { x: start.x, y: gutter }, { x: end.x, y: gutter }, end];
-      }
-      if (spec.route === "above") {
-        var topGutter = Math.min(start.y, end.y) - 58 - channel * 34;
-        return [start, { x: start.x, y: topGutter }, { x: end.x, y: topGutter }, end];
-      }
-      if (spec.route === "left") {
-        var leftGutter = Math.min(start.x, end.x) - 62 - channel * 34;
-        return [start, { x: leftGutter, y: start.y }, { x: leftGutter, y: end.y }, end];
-      }
-      if (spec.route === "right") {
-        var rightGutter = Math.max(start.x, end.x) + 62 + channel * 34;
-        return [start, { x: rightGutter, y: start.y }, { x: rightGutter, y: end.y }, end];
-      }
-      var stub = 34 + channel * 8;
-      var fromStub = movePoint(start, spec.fromSide, stub);
-      var toStub = movePoint(end, spec.toSide, stub);
-      var horizontalFrom = spec.fromSide === "left" || spec.fromSide === "right";
-      var horizontalTo = spec.toSide === "left" || spec.toSide === "right";
-      var points = [start, fromStub];
-      if (horizontalFrom && horizontalTo) {
-        var middleX = (fromStub.x + toStub.x) / 2 + channel * 18;
-        points.push({ x: middleX, y: fromStub.y }, { x: middleX, y: toStub.y });
-      } else if (!horizontalFrom && !horizontalTo) {
-        var middleY = (fromStub.y + toStub.y) / 2 + channel * 18;
-        points.push({ x: fromStub.x, y: middleY }, { x: toStub.x, y: middleY });
-      } else if (horizontalFrom) {
-        points.push({ x: toStub.x, y: fromStub.y });
-      } else {
-        points.push({ x: fromStub.x, y: toStub.y });
-      }
-      points.push(toStub, end);
-      return simplifyPoints(points);
-    }
-    function roundedPath(points) {
-      var radius = 14;
-      var path = "M" + points[0].x.toFixed(1) + " " + points[0].y.toFixed(1);
-      for (var i = 1; i < points.length - 1; i += 1) {
-        var prev = points[i - 1], corner = points[i], next = points[i + 1];
-        var beforeLength = Math.hypot(corner.x - prev.x, corner.y - prev.y);
-        var afterLength = Math.hypot(next.x - corner.x, next.y - corner.y);
-        var r = Math.min(radius, beforeLength / 2, afterLength / 2);
-        var before = { x: corner.x + (prev.x - corner.x) / beforeLength * r, y: corner.y + (prev.y - corner.y) / beforeLength * r };
-        var after = { x: corner.x + (next.x - corner.x) / afterLength * r, y: corner.y + (next.y - corner.y) / afterLength * r };
-        path += " L" + before.x.toFixed(1) + " " + before.y.toFixed(1);
-        path += " Q" + corner.x.toFixed(1) + " " + corner.y.toFixed(1) + " " + after.x.toFixed(1) + " " + after.y.toFixed(1);
-      }
-      var last = points[points.length - 1];
-      return path + " L" + last.x.toFixed(1) + " " + last.y.toFixed(1);
-    }
-    function labelPoint(points, spec) {
-      if (Number.isInteger(spec.labelSegment) && points[spec.labelSegment + 1]) {
-        var start = points[spec.labelSegment], end = points[spec.labelSegment + 1];
-        var fraction = spec.labelFraction == null ? .5 : spec.labelFraction;
-        return { x: start.x + (end.x - start.x) * fraction, y: start.y + (end.y - start.y) * fraction };
-      }
-      var best = { length: -1, x: points[0].x, y: points[0].y };
-      for (var i = 2; i < points.length - 1; i += 1) {
-        var a = points[i - 1], b = points[i];
-        var length = Math.hypot(b.x - a.x, b.y - a.y);
-        if (length > best.length) best = { length: length, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-      }
-      return best;
-    }
-    function laneKind(node) {
-      var lane = node.closest(".lane");
-      if (lane && lane.classList.contains("lane--ipad")) return "ipad";
-      if (lane && lane.classList.contains("lane--user")) return "user";
-      return "staff";
-    }
-    function clipped(value, limit) {
-      return value.length > limit ? value.slice(0, limit - 1).trim() + "…" : value;
-    }
-    function splitState(value) {
-      if (!value) return [];
-      if (value.length <= 31) return [value];
-      var breaks = [" · ", " → ", " + "];
-      for (var i = 0; i < breaks.length; i += 1) {
-        var index = value.lastIndexOf(breaks[i], 29);
-        if (index > 11) return [value.slice(0, index), clipped(value.slice(index + breaks[i].length), 31)];
-      }
-      return [value.slice(0, 29).trim(), clipped(value.slice(29).trim(), 31)];
-    }
-    function drawNodeCaptions(svg) {
-      var inverse = 1 / scale;
-      board.querySelectorAll(".node[data-code]").forEach(function (node) {
-        var device = node.querySelector(".device");
-        var labelElement = node.querySelector(".node-label");
-        if (!device || !labelElement) return;
-        var frame = rectFor(device);
-        var label = compactText(labelElement.textContent);
-        var code = node.getAttribute("data-code");
-        var showTitle = scale >= TITLE_LABEL_SCALE;
-        var compactMode = !showTitle;
-        var showState = scale >= STATE_LABEL_SCALE;
-        var stateElement = node.querySelector(".node-state");
-        var stateLines = showState && stateElement ? splitState(compactText(stateElement.textContent)) : [];
-        var title = showTitle ? clipped(label, 33) : code;
-        var width = showTitle ? Math.max(132, Math.min(228, title.length * 7 + 22)) : 42;
-        if (stateLines.length) width = Math.max(width, 228);
-        var height = stateLines.length ? 45 + (stateLines.length - 1) * 12 : showTitle ? 30 : 20;
-        var gap = 8;
-        var anchorX = compactMode ? frame.left + frame.width / 2 : frame.left;
-        var rectX = compactMode ? -width / 2 : 0;
-        var group = svgElement("g", {
-          class: "node-caption node-caption--" + laneKind(node) + (compactMode ? " node-caption--compact" : ""),
-          transform: "translate(" + anchorX + " " + frame.top + ") scale(" + inverse + ")"
+      var chapters = document.createElement("div");
+      chapters.className = "story-chapters";
+      storyConfig[laneId].forEach(function (story, storyIndex) {
+        var chapter = document.createElement("section");
+        chapter.className = "story-chapter" + (story.tone === "exception" ? " story-chapter--exception" : "");
+        var head = document.createElement("header");
+        head.className = "chapter-head";
+        head.innerHTML = '<span class="chapter-kicker">TASK ' + String(storyIndex + 1).padStart(2, "0") + '</span><h3>' + story.title + '</h3><p>' + story.description + '</p>';
+        var rail = document.createElement("div");
+        rail.className = "story-rail";
+        rail.setAttribute("aria-label", story.title + " 화면 순서");
+        story.codes.forEach(function (code, index) {
+          var node = nodeMap[code];
+          if (!node) return;
+          renderStep(node, index);
+          rail.appendChild(node);
         });
-        group.appendChild(svgElement("rect", { x: rectX, y: -(height + gap), width: width, height: height }));
-        var titleText = svgElement("text", { class: "node-caption-title", x: compactMode ? "0" : "10", y: -(height + gap) + (stateLines.length ? 14 : height / 2) });
-        titleText.textContent = title;
-        group.appendChild(titleText);
-        stateLines.forEach(function (line, index) {
-          var stateText = svgElement("text", { class: "node-caption-state", x: "10", y: -(height + gap) + 31 + index * 12 });
-          stateText.textContent = line;
-          group.appendChild(stateText);
-        });
-        svg.appendChild(group);
+        chapter.appendChild(head);
+        chapter.appendChild(rail);
+        chapters.appendChild(chapter);
       });
-    }
-    function drawWires() {
-      var old = board.querySelector(".diagram-wires");
-      if (old) old.remove();
-      var svg = svgElement("svg", { class: "diagram-wires", viewBox: "0 0 " + board.offsetWidth + " " + board.offsetHeight, "aria-hidden": "true" });
-      var defs = svgElement("defs");
-      ["action", "system", "exception"].forEach(function (kind) {
-        var color = kind === "system" ? "#5277b7" : kind === "exception" ? "#d92d20" : "#3f6f61";
-        var markerSize = 10 / scale;
-        var marker = svgElement("marker", { id: "arrow-" + kind, viewBox: "0 0 10 10", refX: "9", refY: "5", markerUnits: "userSpaceOnUse", markerWidth: markerSize, markerHeight: markerSize, orient: "auto-start-reverse" });
-        marker.appendChild(svgElement("path", { d: "M 0 0 L 10 5 L 0 10 z", fill: color }));
-        defs.appendChild(marker);
-      });
-      svg.appendChild(defs);
-      var hotspotNumbers = {};
-      var drawnHotspots = new Set();
-      function numberFor(spec) {
-        var key = spec.fromSelector || spec.fromText || "state";
-        hotspotNumbers[spec.from] = hotspotNumbers[spec.from] || {};
-        if (!hotspotNumbers[spec.from][key]) hotspotNumbers[spec.from][key] = Object.keys(hotspotNumbers[spec.from]).length + 1;
-        return hotspotNumbers[spec.from][key];
-      }
-      wireSpecs.forEach(function (spec) {
-        var source = sourceFor(spec);
-        var sourceNode = nodeFor(spec.from);
-        var targetNode = nodeFor(spec.to);
-        var sourceDevice = sourceNode && sourceNode.querySelector(".device");
-        var targetDevice = targetNode && targetNode.querySelector(".device");
-        if (!source || !sourceDevice || !targetDevice) return;
-        var start = edgePoint(sourceDevice, spec.fromSide, source);
-        var end = edgePoint(targetDevice, spec.toSide, null);
-        var points = routeFor(start, end, spec);
-        var d = roundedPath(points);
-        var kind = spec.kind || "action";
-        svg.appendChild(svgElement("path", { class: "wire-halo", d: d }));
-        svg.appendChild(svgElement("path", { class: "wire-path wire-path--" + kind, d: d, "marker-end": "url(#arrow-" + kind + ")" }));
-        svg.appendChild(svgElement("circle", { class: "wire-port wire-port--" + kind, cx: start.x, cy: start.y, r: 4.5 / scale }));
-        var hotspotNumber = null;
-        if (spec.hotspot !== false) {
-          hotspotNumber = numberFor(spec);
-          var hotspotKey = spec.from + ":" + hotspotNumber;
-          if (scale >= TITLE_LABEL_SCALE && !drawnHotspots.has(hotspotKey)) {
-            drawnHotspots.add(hotspotKey);
-            var hotspot = hotspotPoint(source);
-            var hotspotGroup = svgElement("g", { transform: "translate(" + hotspot.x + " " + hotspot.y + ") scale(" + (1 / scale) + ")" });
-            hotspotGroup.appendChild(svgElement("circle", { class: "wire-hotspot wire-hotspot--" + kind, cx: "0", cy: "0", r: "10" }));
-            var hotspotText = svgElement("text", { class: "wire-hotspot-text", x: "0", y: "0.5" });
-            hotspotText.textContent = hotspotNumber;
-            hotspotGroup.appendChild(hotspotText);
-            svg.appendChild(hotspotGroup);
-          }
-        }
-        if (scale >= TITLE_LABEL_SCALE) {
-          var mid = labelPoint(points, spec);
-          mid.x += spec.labelOffsetX || 0;
-          mid.y += spec.labelOffsetY || 0;
-          var label = (hotspotNumber ? hotspotNumber + " · " : "") + spec.label;
-          var width = Math.max(92, Math.min(206, compactText(label).length * 7 + 24));
-          var group = svgElement("g", { class: "wire-label wire-label--" + kind, transform: "translate(" + mid.x + " " + mid.y + ") scale(" + (1 / scale) + ")" });
-          group.appendChild(svgElement("rect", { x: -width / 2, y: -14, width: width, height: 28 }));
-          var text = svgElement("text", { x: "0", y: "1" });
-          text.textContent = clipped(label, 29);
-          group.appendChild(text);
-          svg.appendChild(group);
-        }
-      });
-      drawNodeCaptions(svg);
-      board.insertBefore(svg, board.firstChild);
-    }
-
-    function scheduleDraw() {
-      cancelAnimationFrame(drawFrame);
-      drawFrame = requestAnimationFrame(drawWires);
-    }
-
-    function clamp(s) { return Math.min(MAX, Math.max(MIN, s)); }
-    function apply() {
-      board.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
-      if (pctBtn) pctBtn.textContent = Math.round(scale * 100) + "%";
-    }
-    function zoomAt(px, py, factor) {
-      var ns = clamp(scale * factor);
-      factor = ns / scale;
-      tx = px - (px - tx) * factor;
-      ty = py - (py - ty) * factor;
-      scale = ns;
-      apply();
-      scheduleDraw();
-    }
-    function fit() {
-      var pad = 56;
-      var vw = scroll.clientWidth, vh = scroll.clientHeight;
-      var bw = board.offsetWidth, bh = board.offsetHeight;
-      scale = clamp(Math.min((vw - pad) / bw, (vh - pad) / bh));
-      tx = Math.max(24, (vw - bw * scale) / 2);
-      ty = Math.max(24, (vh - bh * scale) / 2);
-      apply();
-      scheduleDraw();
-    }
-    function focusElement(element) {
-      if (!element) { fit(); return; }
-      var pad = 150;
-      var vw = scroll.clientWidth, vh = scroll.clientHeight;
-      var items = Array.from(element.querySelectorAll(".node"));
-      var bounds = items.reduce(function (result, item) {
-        return {
-          left: Math.min(result.left, item.offsetLeft + element.offsetLeft),
-          top: Math.min(result.top, item.offsetTop + element.offsetTop),
-          right: Math.max(result.right, item.offsetLeft + element.offsetLeft + item.offsetWidth),
-          bottom: Math.max(result.bottom, item.offsetTop + element.offsetTop + item.offsetHeight)
-        };
-      }, { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity });
-      if (!items.length) bounds = { left: element.offsetLeft, top: element.offsetTop, right: element.offsetLeft + element.offsetWidth, bottom: element.offsetTop + element.offsetHeight };
-      var width = bounds.right - bounds.left, height = bounds.bottom - bounds.top;
-      scale = clamp(Math.min((vw - pad) / width, (vh - pad) / height, 0.72));
-      tx = vw / 2 - (bounds.left + width / 2) * scale;
-      ty = vh / 2 - (bounds.top + height / 2) * scale;
-      apply();
-      scheduleDraw();
-    }
-    function focusHash() {
-      var id = decodeURIComponent(window.location.hash.slice(1));
-      focusElement(id ? document.getElementById(id) : null);
-    }
-
-    // 휠: 이동 / ⌘·Ctrl(트랙패드 핀치 포함): 확대·축소
-    scroll.addEventListener("wheel", function (e) {
-      e.preventDefault();
-      if (e.ctrlKey || e.metaKey) {
-        zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0035));
-      } else {
-        tx -= e.deltaX;
-        ty -= e.deltaY;
-        apply();
-      }
-    }, { passive: false });
-
-    // 포인터: 1개=이동, 2개=핀치 확대·축소 (마우스·트랙패드·터치 공용)
-    var pts = new Map();
-    var pinch = null;
-    scroll.addEventListener("pointerdown", function (e) {
-      scroll.setPointerCapture(e.pointerId);
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      scroll.classList.add("is-panning");
-      pinch = null;
+      flow.replaceWith(chapters);
     });
-    scroll.addEventListener("pointermove", function (e) {
-      if (!pts.has(e.pointerId)) return;
-      var prev = pts.get(e.pointerId);
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pts.size === 1) {
-        tx += e.clientX - prev.x;
-        ty += e.clientY - prev.y;
-        apply();
-      } else if (pts.size === 2) {
-        var a = Array.from(pts.values());
-        var mx = (a[0].x + a[1].x) / 2, my = (a[0].y + a[1].y) / 2;
-        var dist = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
-        if (pinch) {
-          zoomAt(mx, my, Math.pow(dist / pinch.dist, 1.35));
-          tx += mx - pinch.mx;
-          ty += my - pinch.my;
-          apply();
-        }
-        pinch = { dist: dist, mx: mx, my: my };
-      }
-    });
-    function endPointer(e) {
-      pts.delete(e.pointerId);
-      if (pts.size < 2) pinch = null;
-      if (pts.size === 0) scroll.classList.remove("is-panning");
+    function focusCurrentSection() {
+      if (!window.location.hash) return;
+      var target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      if (target) target.scrollIntoView({ block: "start" });
     }
-    scroll.addEventListener("pointerup", endPointer);
-    scroll.addEventListener("pointercancel", endPointer);
-
-    // 툴바
-    var bar = document.querySelector(".fig-toolbar");
-    if (bar) bar.addEventListener("click", function (e) {
-      var b = e.target.closest("button");
-      if (!b) return;
-      var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
-      switch (b.getAttribute("data-act")) {
-        case "in": zoomAt(cx, cy, 1.5); break;
-        case "out": zoomAt(cx, cy, 1 / 1.5); break;
-        case "pct": zoomAt(cx, cy, 1 / scale); break;
-        case "fit": fit(); break;
-      }
-    });
-
-    // 키보드 단축키: +/- 확대축소, 0=100%, 1=맞춤
-    window.addEventListener("keydown", function (e) {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
-      if (e.key === "+" || e.key === "=") { zoomAt(cx, cy, 1.5); e.preventDefault(); }
-      else if (e.key === "-" || e.key === "_") { zoomAt(cx, cy, 1 / 1.5); e.preventDefault(); }
-      else if (e.key === "0") { zoomAt(cx, cy, 1 / scale); }
-      else if (e.key === "1") { fit(); }
-    });
-
-    // 힌트는 잠깐 보여주고 사라짐
-    if (hint) {
-      setTimeout(function () { hint.style.opacity = "0"; }, 4200);
-      scroll.addEventListener("pointerdown", function () { hint.style.opacity = "0"; }, { once: true });
-    }
-
-    if (window.location.hash) focusHash();
-    else { fit(); }
-    window.addEventListener("hashchange", focusHash);
-    window.addEventListener("resize", function () {
-      // 창 크기 변화에도 보드가 화면 밖으로 사라지지 않게 최소 여백 유지
-      tx = Math.min(tx, scroll.clientWidth - 60);
-      ty = Math.min(ty, scroll.clientHeight - 60);
-      apply();
-      scheduleDraw();
-    });
+    window.addEventListener("load", function () { setTimeout(focusCurrentSection, 80); });
+    window.addEventListener("hashchange", focusCurrentSection);
   })();
   </script>
 </body>
