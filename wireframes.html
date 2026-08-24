@@ -453,7 +453,7 @@
       .board { transform: scale(.28); transform-origin: top left; }
     }
   </style>
-  <style id="figma-canvas-controls-style">
+  <style>
     /* 실제 피그마 캔버스처럼: 자유 확대/축소/이동 */
     html, body { height: 100%; overflow: hidden; }
     body { background: #ececec; overscroll-behavior: none; }
@@ -794,74 +794,6 @@
       letter-spacing: -.045em;
       word-break: keep-all;
     }
-    .figma-export-action {
-      position: absolute;
-      top: 16px;
-      right: 0;
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      min-height: 42px;
-      padding: 0 15px;
-      border: 1px solid #2d3733;
-      border-radius: 9px;
-      color: #fff;
-      background: #202724;
-      font: inherit;
-      font-size: .76rem;
-      font-weight: 850;
-      cursor: pointer;
-    }
-    .figma-export-action:hover { background: #36413c; }
-    .figma-export-action:focus-visible { outline: 3px solid rgb(23 105 224 / 24%); outline-offset: 2px; }
-    .figma-export-toast {
-      position: fixed;
-      right: 24px;
-      bottom: 24px;
-      z-index: 80;
-      max-width: min(340px, calc(100vw - 32px));
-      padding: 12px 14px;
-      border-radius: 10px;
-      color: #fff;
-      background: #202724;
-      box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
-      font-size: .76rem;
-      font-weight: 750;
-      opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    .figma-export-toast.is-visible { opacity: 1; transform: translateY(0); }
-    .figma-export-source {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -2147483648;
-      width: 1600px;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .figma-export-source .board { width: 1600px; max-width: none; padding: 48px 32px 100px; }
-    .figma-export-source .canvas-overview { padding-top: 0; }
-    .figma-export-source .canvas-nav,
-    .figma-export-source .rail-controls,
-    .figma-export-source .figma-export-action { display: none !important; }
-    .figma-export-source .lane,
-    .figma-export-source .story-chapter { width: 100%; max-width: none; overflow: visible; }
-    .figma-export-source .story-chapters { width: 100%; grid-template-columns: minmax(0, 1fr); }
-    .figma-export-source .chapter-head { grid-template-columns: 1fr; }
-    .figma-export-source .story-rail {
-      display: flex;
-      width: 100%;
-      max-width: none;
-      flex-wrap: wrap;
-      gap: 32px 24px;
-      overflow: visible;
-      padding: 4px 4px 16px;
-      scrollbar-width: none;
-    }
-    .figma-export-source .story-rail::-webkit-scrollbar { display: none; }
     .canvas-title-block p {
       max-width: 760px;
       color: #626b67;
@@ -1218,7 +1150,6 @@
       .board { padding: 34px 14px 80px; }
       .canvas-overview { grid-template-columns: 1fr; gap: 14px; padding: 10px 0 22px; }
       .canvas-title-block h1 { font-size: 1.85rem; }
-      .figma-export-action { position: static; justify-self: start; }
       .canvas-reading-guide { grid-template-columns: 1fr; }
       .service-journey { padding: 18px; }
       .canvas-scope { align-items: flex-start; flex-wrap: wrap; }
@@ -1241,8 +1172,6 @@
       .flow { flex-wrap: wrap; overflow: visible; }
       .service-journey { overflow: visible; }
       .lane { break-before: page; box-shadow: none; }
-      .figma-export-action,
-      .figma-export-toast { display: none !important; }
     }
   </style>
 </head>
@@ -1253,7 +1182,6 @@
         <div class="canvas-title-block">
           <h1>주점 대기 화면</h1>
         </div>
-        <button class="figma-export-action" id="figma-export-action" type="button" title="그룹과 편집 가능한 텍스트를 유지한 SVG를 다운로드합니다"><span aria-hidden="true">↓</span>피그마용 SVG 다운로드</button>
         <nav class="canvas-nav" aria-label="화면 바로가기"><a href="#registration-flow">iPad 등록</a><a href="#guest-status-flow">사용자 현황</a><a href="#staff-setup-flow">영업 준비</a><a href="#staff-waiting-flow">대기 손님 입장</a><a href="#walk-in-flow">바로 입장</a><a href="#ipad-exception-flow">연결 예외</a><a href="#staff-settings-flow">운영 설정</a></nav>
       </header>
 
@@ -1718,8 +1646,6 @@
       </section>
     </div>
   </main>
-  <div class="figma-export-toast" id="figma-export-toast" role="status" aria-live="polite">SVG를 다운로드했습니다. 화면·시나리오 그룹과 텍스트 요소를 유지했습니다.</div>
-  <script src="vendor/dom-to-svg.min.js"></script>
   <script id="screen-story-layout">
   (function () {
     var storyConfig = {
@@ -1893,365 +1819,6 @@
       journeyViewport.appendChild(journeyGrid);
       journeyHeading.appendChild(enhanceHorizontalScroll(journeyViewport, ".journey-phase", "기기 간 서비스 여정", "단계"));
     }
-    var figmaExportButton = document.getElementById("figma-export-action");
-    var figmaExportToast = document.getElementById("figma-export-toast");
-    var toastTimer = 0;
-    var svgNamespace = "http://www.w3.org/2000/svg";
-    var svgLayerSequence = 0;
-    var svgClipSequence = 0;
-    function showFigmaExportToast(message) {
-      if (!figmaExportToast) return;
-      clearTimeout(toastTimer);
-      if (message) figmaExportToast.textContent = message;
-      figmaExportToast.classList.add("is-visible");
-      toastTimer = setTimeout(function () { figmaExportToast.classList.remove("is-visible"); }, 3200);
-    }
-    function createSvgElement(tagName, attributes) {
-      var element = document.createElementNS(svgNamespace, tagName);
-      Object.keys(attributes || {}).forEach(function (name) {
-        if (attributes[name] !== null && attributes[name] !== undefined && attributes[name] !== "") {
-          element.setAttribute(name, String(attributes[name]));
-        }
-      });
-      return element;
-    }
-    function isPaintedColor(color) {
-      return Boolean(color) && color !== "transparent" && !/^rgba?\([^)]*,\s*0(?:\.0+)?\)$/.test(color);
-    }
-    function numberFromCss(value) {
-      var number = parseFloat(value);
-      return Number.isFinite(number) ? number : 0;
-    }
-    function relativeBox(rect, rootRect) {
-      return {
-        x: rect.left - rootRect.left,
-        y: rect.top - rootRect.top,
-        width: rect.width,
-        height: rect.height
-      };
-    }
-    function layerNameFor(element) {
-      if (element.dataset && element.dataset.title) return element.dataset.title;
-      if (element.classList.contains("lane")) {
-        var laneTitle = element.querySelector(":scope > .lane-label h2");
-        return laneTitle ? laneTitle.textContent.trim() : "기기 흐름";
-      }
-      if (element.classList.contains("story-chapter")) {
-        var chapterTitle = element.querySelector(":scope > .chapter-head h3");
-        return chapterTitle ? chapterTitle.textContent.trim() : "시나리오";
-      }
-      if (element.classList.contains("handoff")) {
-        var handoffTitle = element.querySelector("strong");
-        return handoffTitle ? handoffTitle.textContent.trim() : "기기 간 인계";
-      }
-      if (element.classList.contains("ipad-device")) return "iPad 프레임";
-      if (element.classList.contains("iphone")) return "iPhone 프레임";
-      var ariaLabel = element.getAttribute("aria-label");
-      if (ariaLabel) return ariaLabel;
-      var classNames = [
-        ["canvas-overview", "페이지 제목"], ["device", "기기 프레임"], ["screen", "화면 내용"],
-        ["kiosk-shell", "대기 등록"], ["kiosk-summary", "대기 요약"], ["kiosk-form", "등록 입력"],
-        ["status-page", "사용자 대기 현황"], ["staff-sheet", "직원 작업 시트"], ["staff-modal", "테이블 관리 모달"],
-        ["dialog", "확인 모달"], ["connection-blocker", "iPad 연결 끊김 모달"], ["table-grid", "테이블 목록"],
-        ["waiting-item", "대기팀 항목"], ["staff-task", "직원 작업 항목"], ["settings-list", "설정 목록"],
-        ["status-banner", "상태 안내"], ["wire-box", "정보 카드"]
-      ];
-      for (var i = 0; i < classNames.length; i += 1) {
-        if (element.classList.contains(classNames[i][0])) return classNames[i][1];
-      }
-      return "";
-    }
-    function nextLayerId(name) {
-      svgLayerSequence += 1;
-      var slug = String(name || "layer").normalize("NFKD").replace(/[^a-zA-Z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").toLowerCase();
-      return (slug || "layer") + "-" + String(svgLayerSequence).padStart(4, "0");
-    }
-    function appendElementPaint(element, target, rootRect, style) {
-      var rect = relativeBox(element.getBoundingClientRect(), rootRect);
-      if (rect.width <= 0 || rect.height <= 0) return;
-      var background = style.backgroundColor;
-      var borderWidths = [style.borderTopWidth, style.borderRightWidth, style.borderBottomWidth, style.borderLeftWidth].map(numberFromCss);
-      var borderColors = [style.borderTopColor, style.borderRightColor, style.borderBottomColor, style.borderLeftColor];
-      var borderStyles = [style.borderTopStyle, style.borderRightStyle, style.borderBottomStyle, style.borderLeftStyle];
-      var radius = Math.max(numberFromCss(style.borderTopLeftRadius), numberFromCss(style.borderTopRightRadius), numberFromCss(style.borderBottomRightRadius), numberFromCss(style.borderBottomLeftRadius));
-      if (isPaintedColor(background)) {
-        target.appendChild(createSvgElement("rect", { x: rect.x, y: rect.y, width: rect.width, height: rect.height, rx: radius, fill: background }));
-      }
-      var uniformBorder = borderWidths[0] > 0 && borderWidths.every(function (width) { return Math.abs(width - borderWidths[0]) < .1; }) && borderColors.every(function (color) { return color === borderColors[0]; }) && borderStyles.every(function (borderStyle) { return borderStyle !== "none"; });
-      if (uniformBorder && isPaintedColor(borderColors[0])) {
-        var inset = borderWidths[0] / 2;
-        target.appendChild(createSvgElement("rect", { x: rect.x + inset, y: rect.y + inset, width: Math.max(0, rect.width - borderWidths[0]), height: Math.max(0, rect.height - borderWidths[0]), rx: Math.max(0, radius - inset), fill: "none", stroke: borderColors[0], "stroke-width": borderWidths[0] }));
-      } else {
-        var sides = [
-          [rect.x, rect.y + borderWidths[0] / 2, rect.x + rect.width, rect.y + borderWidths[0] / 2],
-          [rect.x + rect.width - borderWidths[1] / 2, rect.y, rect.x + rect.width - borderWidths[1] / 2, rect.y + rect.height],
-          [rect.x, rect.y + rect.height - borderWidths[2] / 2, rect.x + rect.width, rect.y + rect.height - borderWidths[2] / 2],
-          [rect.x + borderWidths[3] / 2, rect.y, rect.x + borderWidths[3] / 2, rect.y + rect.height]
-        ];
-        sides.forEach(function (points, index) {
-          if (borderWidths[index] <= 0 || borderStyles[index] === "none" || !isPaintedColor(borderColors[index])) return;
-          target.appendChild(createSvgElement("line", { x1: points[0], y1: points[1], x2: points[2], y2: points[3], stroke: borderColors[index], "stroke-width": borderWidths[index] }));
-        });
-      }
-      var outlineWidth = numberFromCss(style.outlineWidth);
-      if (outlineWidth > 0 && style.outlineStyle !== "none" && isPaintedColor(style.outlineColor)) {
-        target.appendChild(createSvgElement("rect", { x: rect.x - outlineWidth / 2, y: rect.y - outlineWidth / 2, width: rect.width + outlineWidth, height: rect.height + outlineWidth, rx: radius + outlineWidth / 2, fill: "none", stroke: style.outlineColor, "stroke-width": outlineWidth }));
-      }
-    }
-    function appendTextNode(textNode, target, rootRect) {
-      if (!textNode.nodeValue || !textNode.nodeValue.trim()) return;
-      var parent = textNode.parentElement;
-      if (!parent) return;
-      var style = getComputedStyle(parent);
-      if (style.display === "none" || style.visibility === "hidden" || !isPaintedColor(style.color)) return;
-      var lines = [];
-      var currentLine = null;
-      for (var index = 0; index < textNode.nodeValue.length; index += 1) {
-        var range = document.createRange();
-        range.setStart(textNode, index);
-        range.setEnd(textNode, index + 1);
-        var rangeRect = range.getBoundingClientRect();
-        var character = textNode.nodeValue.charAt(index).replace(/[\r\n\t]/g, " ");
-        if (rangeRect.width === 0 && rangeRect.height === 0) continue;
-        if (!currentLine || Math.abs(currentLine.top - rangeRect.top) > 1.5) {
-          currentLine = { top: rangeRect.top, bottom: rangeRect.bottom, characters: [] };
-          lines.push(currentLine);
-        }
-        currentLine.bottom = Math.max(currentLine.bottom, rangeRect.bottom);
-        currentLine.characters.push({ value: character, left: rangeRect.left });
-      }
-      var fontSize = numberFromCss(style.fontSize) || 12;
-      lines.forEach(function (line) {
-        var firstVisible = line.characters.findIndex(function (character) { return character.value.trim(); });
-        var lastVisible = line.characters.length - 1;
-        while (lastVisible >= 0 && !line.characters[lastVisible].value.trim()) lastVisible -= 1;
-        if (firstVisible < 0 || lastVisible < firstVisible) return;
-        var value = line.characters.slice(firstVisible, lastVisible + 1).map(function (character) { return character.value; }).join("");
-        var text = createSvgElement("text", {
-          x: line.characters[firstVisible].left - rootRect.left,
-          y: line.top - rootRect.top + ((line.bottom - line.top - fontSize) / 2) + fontSize * .82,
-          fill: style.color,
-          "font-family": style.fontFamily,
-          "font-size": fontSize,
-          "font-weight": style.fontWeight,
-          "font-style": style.fontStyle !== "normal" ? style.fontStyle : null,
-          "letter-spacing": style.letterSpacing !== "normal" ? style.letterSpacing : null,
-          "text-decoration": style.textDecorationLine !== "none" ? style.textDecorationLine : null,
-          "xml:space": "preserve"
-        });
-        text.textContent = value;
-        target.appendChild(text);
-      });
-    }
-    function resolvePseudoOffset(value, total) {
-      if (!value || value === "auto") return null;
-      if (/%$/.test(value)) return total * numberFromCss(value) / 100;
-      return numberFromCss(value);
-    }
-    function appendPseudoElement(element, pseudoName, target, rootRect) {
-      var style = getComputedStyle(element, pseudoName);
-      if (!style || style.display === "none") return;
-      var width = numberFromCss(style.width);
-      var height = numberFromCss(style.height);
-      if (width <= 0 || height <= 0 || !isPaintedColor(style.backgroundColor)) return;
-      var parentRect = element.getBoundingClientRect();
-      var left = resolvePseudoOffset(style.left, parentRect.width);
-      var right = resolvePseudoOffset(style.right, parentRect.width);
-      var top = resolvePseudoOffset(style.top, parentRect.height);
-      var bottom = resolvePseudoOffset(style.bottom, parentRect.height);
-      var x = parentRect.left + (left !== null ? left : parentRect.width - (right || 0) - width);
-      var y = parentRect.top + (top !== null ? top : parentRect.height - (bottom || 0) - height);
-      if (style.transform && style.transform !== "none") {
-        try {
-          var matrix = new DOMMatrix(style.transform);
-          x += matrix.e;
-          y += matrix.f;
-        } catch (error) { /* 변환을 읽지 못하면 원래 좌표를 사용 */ }
-      }
-      target.appendChild(createSvgElement("rect", {
-        x: x - rootRect.left,
-        y: y - rootRect.top,
-        width: width,
-        height: height,
-        rx: numberFromCss(style.borderTopLeftRadius),
-        fill: style.backgroundColor
-      }));
-    }
-    function renderDomElement(element, target, rootRect, definitions) {
-      var style = getComputedStyle(element);
-      var bounds = element.getBoundingClientRect();
-      if (style.display === "none" || style.visibility === "hidden" || bounds.width <= 0 || bounds.height <= 0) return;
-      var name = layerNameFor(element);
-      var clipsChildren = [style.overflow, style.overflowX, style.overflowY].some(function (value) { return value === "hidden" || value === "clip"; });
-      var needsGroup = Boolean(name) || clipsChildren || numberFromCss(style.opacity) < 1;
-      var elementTarget = target;
-      if (needsGroup) {
-        elementTarget = createSvgElement("g", name ? { id: nextLayerId(name), "data-name": name } : {});
-        if (numberFromCss(style.opacity) < 1) elementTarget.setAttribute("opacity", style.opacity);
-        target.appendChild(elementTarget);
-      }
-      appendElementPaint(element, elementTarget, rootRect, style);
-      var childTarget = elementTarget;
-      if (clipsChildren) {
-        svgClipSequence += 1;
-        var clipId = "clip-" + String(svgClipSequence).padStart(4, "0");
-        var clip = createSvgElement("clipPath", { id: clipId });
-        var clipRect = relativeBox(bounds, rootRect);
-        clip.appendChild(createSvgElement("rect", { x: clipRect.x, y: clipRect.y, width: clipRect.width, height: clipRect.height, rx: numberFromCss(style.borderTopLeftRadius) }));
-        definitions.appendChild(clip);
-        childTarget = createSvgElement("g", { "clip-path": "url(#" + clipId + ")" });
-        elementTarget.appendChild(childTarget);
-      }
-      appendPseudoElement(element, "::before", childTarget, rootRect);
-      Array.from(element.childNodes).forEach(function (child) {
-        if (child.nodeType === Node.TEXT_NODE) appendTextNode(child, childTarget, rootRect);
-        if (child.nodeType === Node.ELEMENT_NODE) renderDomElement(child, childTarget, rootRect, definitions);
-      });
-      appendPseudoElement(element, "::after", childTarget, rootRect);
-    }
-    function makeFigmaSvg(sourceBoard) {
-      svgLayerSequence = 0;
-      svgClipSequence = 0;
-      var rootRect = sourceBoard.getBoundingClientRect();
-      var width = Math.ceil(rootRect.width);
-      var height = Math.ceil(rootRect.height);
-      var svg = createSvgElement("svg", { xmlns: svgNamespace, width: width, height: height, viewBox: "0 0 " + width + " " + height, role: "img", "aria-label": "주점 대기 전체 화면 와이어프레임" });
-      var title = createSvgElement("title");
-      title.textContent = "주점 대기 화면 와이어프레임";
-      svg.appendChild(title);
-      var metadata = createSvgElement("metadata");
-      metadata.textContent = "화면과 시나리오는 SVG 그룹으로, 문구는 path가 아닌 text 요소로 내보냈습니다.";
-      svg.appendChild(metadata);
-      var definitions = createSvgElement("defs");
-      svg.appendChild(definitions);
-      svg.appendChild(createSvgElement("rect", { x: 0, y: 0, width: width, height: height, fill: "#f4f5f3" }));
-      var rootGroup = createSvgElement("g", { id: "pub-waiting-wireframes", "data-name": "주점 대기 화면" });
-      svg.appendChild(rootGroup);
-      renderDomElement(sourceBoard, rootGroup, rootRect, definitions);
-      return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
-    }
-    function nextPaint() {
-      return new Promise(function (resolve) {
-        var settled = false;
-        var timeout = setTimeout(done, 200);
-        function done() {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeout);
-          resolve();
-        }
-        requestAnimationFrame(function () { requestAnimationFrame(done); });
-      });
-    }
-    async function downloadFigmaSvgLegacy() {
-      if (!figmaExportButton || figmaExportButton.disabled) return;
-      var originalLabel = figmaExportButton.innerHTML;
-      var exportSource = document.createElement("div");
-      try {
-        figmaExportButton.disabled = true;
-        figmaExportButton.textContent = "SVG 만드는 중…";
-        exportSource.className = "figma-export-source";
-        var sourceBoard = document.querySelector(".board").cloneNode(true);
-        sourceBoard.querySelectorAll(".figma-export-action, .rail-controls").forEach(function (element) { element.remove(); });
-        exportSource.appendChild(sourceBoard);
-        document.body.appendChild(exportSource);
-        await nextPaint();
-        var svgContent = makeFigmaSvg(sourceBoard);
-        var blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
-        var url = URL.createObjectURL(blob);
-        var link = document.createElement("a");
-        link.href = url;
-        link.download = "pub-waiting-wireframes-figma.svg";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-        showFigmaExportToast("SVG를 다운로드했습니다. 화면·시나리오 그룹과 text 요소를 유지했습니다.");
-      } catch (error) {
-        console.error(error);
-        showFigmaExportToast("SVG를 만들지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.");
-      } finally {
-        exportSource.remove();
-        figmaExportButton.disabled = false;
-        figmaExportButton.innerHTML = originalLabel;
-      }
-    }
-    function prepareSvgExportSource(sourceBoard) {
-      sourceBoard.id = "pub-waiting-wireframes";
-      sourceBoard.setAttribute("aria-label", "주점 대기 화면");
-      sourceBoard.querySelectorAll(".figma-export-action, .rail-controls").forEach(function (element) { element.remove(); });
-      sourceBoard.querySelectorAll(".lane").forEach(function (lane) {
-        var laneTitle = lane.querySelector(":scope > .lane-label h2");
-        if (laneTitle) lane.setAttribute("aria-label", laneTitle.textContent.trim());
-        lane.querySelectorAll(":scope > .story-chapters > .story-chapter").forEach(function (chapter, index) {
-          var chapterTitle = chapter.querySelector(":scope > .chapter-head h3");
-          chapter.id = lane.id + "-story-" + String(index + 1).padStart(2, "0");
-          if (chapterTitle) chapter.setAttribute("aria-label", chapterTitle.textContent.trim());
-        });
-      });
-      sourceBoard.querySelectorAll(".node[data-code]").forEach(function (node) {
-        var code = node.dataset.code.toLowerCase();
-        node.id = "screen-" + code;
-        node.setAttribute("aria-label", node.dataset.title || node.dataset.code);
-        var device = node.querySelector(":scope > .device");
-        if (device) {
-          device.id = "device-" + code;
-          device.setAttribute("aria-label", (device.classList.contains("ipad-device") ? "iPad" : "iPhone") + " · " + (node.dataset.title || node.dataset.code));
-        }
-      });
-    }
-    function annotateSvgLayers(svgRoot) {
-      svgRoot.setAttribute("role", "img");
-      svgRoot.setAttribute("aria-label", "주점 대기 전체 화면 와이어프레임");
-      svgRoot.querySelectorAll("g[id]").forEach(function (group) {
-        var accessibleName = group.getAttribute("aria-label");
-        if (accessibleName) group.setAttribute("data-name", accessibleName);
-      });
-      Array.from(svgRoot.querySelectorAll("g")).reverse().forEach(function (group) {
-        if (!group.children.length && !group.textContent.trim()) group.remove();
-      });
-      var metadata = svgRoot.ownerDocument.createElementNS("http://www.w3.org/2000/svg", "metadata");
-      metadata.textContent = "dom-to-svg 0.12.2로 변환했습니다. CSS stacking order와 클리핑을 유지하고 문구는 text/tspan 요소로 보존합니다.";
-      svgRoot.prepend(metadata);
-    }
-    async function downloadFigmaSvg() {
-      if (!figmaExportButton || figmaExportButton.disabled) return;
-      var originalLabel = figmaExportButton.innerHTML;
-      var exportSource = document.createElement("div");
-      try {
-        if (!window.DomToSvg || typeof window.DomToSvg.elementToSVG !== "function") throw new Error("dom-to-svg를 불러오지 못했습니다.");
-        figmaExportButton.disabled = true;
-        figmaExportButton.textContent = "SVG 만드는 중…";
-        exportSource.className = "figma-export-source";
-        var sourceBoard = document.querySelector(".board").cloneNode(true);
-        prepareSvgExportSource(sourceBoard);
-        exportSource.appendChild(sourceBoard);
-        document.body.appendChild(exportSource);
-        await nextPaint();
-        var captureArea = sourceBoard.getBoundingClientRect();
-        var svgDocument = window.DomToSvg.elementToSVG(sourceBoard, { captureArea: captureArea, keepLinks: false });
-        annotateSvgLayers(svgDocument.documentElement);
-        var svgContent = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svgDocument);
-        var blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
-        var url = URL.createObjectURL(blob);
-        var link = document.createElement("a");
-        link.href = url;
-        link.download = "pub-waiting-wireframes-figma.svg";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-        showFigmaExportToast("SVG를 다운로드했습니다. 브라우저 페인팅 순서와 텍스트 위치를 반영했습니다.");
-      } catch (error) {
-        console.error(error);
-        showFigmaExportToast("SVG를 만들지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.");
-      } finally {
-        exportSource.remove();
-        figmaExportButton.disabled = false;
-        figmaExportButton.innerHTML = originalLabel;
-      }
-    }
-    if (figmaExportButton) figmaExportButton.addEventListener("click", downloadFigmaSvg);
     function focusCurrentSection() {
       if (!window.location.hash) return;
       var target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
