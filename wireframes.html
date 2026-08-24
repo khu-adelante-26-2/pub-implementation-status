@@ -615,8 +615,9 @@
       display: grid;
       align-items: start;
       justify-content: center;
-      gap: 78px 108px;
-      padding: 36px 12px 22px;
+      row-gap: 112px;
+      column-gap: 144px;
+      padding: 48px 20px 32px;
     }
     .connector { display: none; }
     .node { position: relative; z-index: 5; min-width: 0; }
@@ -624,10 +625,10 @@
     .node-state { margin: -5px 0 10px; text-align: left; }
     .device { box-shadow: 0 12px 28px rgb(23 33 31 / 15%); }
 
-    #registration-flow .flow { grid-template-columns: repeat(3, 720px); }
+    #registration-flow .flow { grid-template-columns: repeat(3, 720px); column-gap: 168px; }
     #registration-flow [data-code="I-04"] { grid-column: 2; grid-row: 2; }
 
-    #guest-status-flow .flow { grid-template-columns: repeat(9, 286px); }
+    #guest-status-flow .flow { grid-template-columns: repeat(9, 286px); row-gap: 128px; column-gap: 124px; }
     #guest-status-flow [data-code="U-01"] { grid-column: 1; grid-row: 1; }
     #guest-status-flow [data-code="U-02"] { grid-column: 2; grid-row: 1; }
     #guest-status-flow [data-code="U-03"] { grid-column: 6; grid-row: 1; }
@@ -636,14 +637,32 @@
     #guest-status-flow [data-code="U-02B"] { grid-column: 3; grid-row: 2; }
     #guest-status-flow .branch-stack:has([data-code="U-02C"]) { grid-column: 4 / span 2; grid-row: 2; }
     #guest-status-flow .branch-stack:has([data-code="U-05"]) { grid-column: 8 / span 2; grid-row: 1; }
-    #guest-status-flow .branch-stack { display: grid; grid-template-columns: repeat(2, 245px); gap: 26px; }
+    #guest-status-flow .branch-stack { display: grid; grid-template-columns: repeat(2, 245px); gap: 40px 44px; }
     #guest-status-flow .branch-stack:has([data-code="U-05"]) { grid-template-columns: repeat(2, 245px); }
 
     #staff-setup-flow .flow { grid-template-columns: repeat(4, 286px); justify-content: center; }
+    #staff-setup-flow [data-code="O-01"] { grid-column: 1; grid-row: 1; }
+    #staff-setup-flow [data-code="O-02"] { grid-column: 2; grid-row: 1; }
+    #staff-setup-flow [data-code="O-03A"] { grid-column: 3; grid-row: 1; }
+    #staff-setup-flow [data-code="O-03B"] { grid-column: 4; grid-row: 1; }
+    #staff-setup-flow [data-code="O-04"] { grid-column: 4; grid-row: 2; }
+    #staff-setup-flow [data-code="O-05A"] { grid-column: 3; grid-row: 2; }
+    #staff-setup-flow [data-code="O-05B"] { grid-column: 2; grid-row: 2; }
+    #staff-setup-flow [data-code="O-06"] { grid-column: 1; grid-row: 2; }
     #staff-waiting-flow,
     #walk-in-flow { grid-column: span 6; }
-    #staff-waiting-flow .flow,
-    #walk-in-flow .flow { grid-template-columns: repeat(2, 286px); justify-content: space-around; }
+    #staff-waiting-flow .flow { grid-template-columns: repeat(4, 286px); column-gap: 104px; }
+    #staff-waiting-flow [data-code="A-01"] { grid-column: 1; grid-row: 1; }
+    #staff-waiting-flow [data-code="A-02"] { grid-column: 2; grid-row: 1; }
+    #staff-waiting-flow [data-code="A-02B"] { grid-column: 3; grid-row: 1; }
+    #staff-waiting-flow [data-code="A-02C"] { grid-column: 4; grid-row: 1; }
+    #staff-waiting-flow [data-code="A-03"] { grid-column: 2; grid-row: 2; }
+    #staff-waiting-flow [data-code="A-04"] { grid-column: 3; grid-row: 2; }
+    #walk-in-flow .flow { grid-template-columns: repeat(2, 286px); }
+    #walk-in-flow [data-code="T-01"] { grid-column: 1; grid-row: 1; }
+    #walk-in-flow [data-code="T-02"] { grid-column: 2; grid-row: 1; }
+    #walk-in-flow [data-code="T-03"] { grid-column: 2; grid-row: 2; }
+    #walk-in-flow [data-code="T-04"] { grid-column: 1; grid-row: 2; }
 
     #ipad-exception-flow { grid-column: 1 / span 4; }
     #ipad-exception-flow .flow { grid-template-columns: 286px; justify-content: center; }
@@ -682,15 +701,19 @@
     #ipad-exception-flow + .handoff { grid-column: 5 / -1; align-self: center; }
 
     .diagram-wires { position: absolute; z-index: 8; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-    .wire-halo { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 10; }
-    .wire-path { fill: none; stroke: #3f6f61; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+    .wire-halo { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 12; }
+    .wire-path { fill: none; stroke: #356d5e; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
     .wire-path--system { stroke: #5277b7; stroke-dasharray: 10 8; }
     .wire-path--exception { stroke: var(--red); stroke-dasharray: 3 8; }
-    .wire-port { fill: #fff; stroke: #3f6f61; stroke-width: 3; }
+    .wire-port { fill: #fff; stroke: #356d5e; stroke-width: 3; }
     .wire-port--system { stroke: #5277b7; }
     .wire-port--exception { stroke: var(--red); }
-    .wire-label rect { fill: rgb(255 255 255 / 97%); stroke: #d8dddf; stroke-width: 1; }
-    .wire-label text { fill: #46504d; font-size: 13px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; }
+    .wire-label rect { fill: #fff; stroke: #d5dcda; stroke-width: 1.2; }
+    .wire-label text { fill: #34433f; font-size: 13px; font-weight: 850; text-anchor: middle; dominant-baseline: middle; }
+    .wire-hotspot { fill: #fff; stroke: #356d5e; stroke-width: 3; }
+    .wire-hotspot--system { stroke: #5277b7; }
+    .wire-hotspot--exception { stroke: var(--red); }
+    .wire-hotspot-text { fill: #243b35; font-size: 11px; font-weight: 950; text-anchor: middle; dominant-baseline: middle; }
 
     .fig-toolbar { border-color: #dfe3e6; box-shadow: 0 10px 30px rgb(23 33 31 / 14%); }
     .fig-hint { background: rgb(25 25 25 / 88%); }
@@ -719,7 +742,7 @@
           <p>손님 등록부터 호출·입장·테이블 운영까지, 실제 조작과 서버 상태 전이를 기기별로 연결한 저충실도 사용자 흐름입니다.</p>
         </div>
         <div class="canvas-reading-guide" aria-label="와이어프레임 읽는 법">
-          <div><span class="guide-line guide-line--action"></span><b>사용자 조작</b><small>화살표가 실제 버튼·선택 항목에서 출발</small></div>
+          <div><span class="guide-line guide-line--action"></span><b>사용자 조작</b><small>화면의 번호 핫스팟과 같은 번호의 화살표</small></div>
           <div><span class="guide-line guide-line--system"></span><b>서버 전이</b><small>저장·폴링·기기 간 상태 인계</small></div>
           <div><span class="guide-line guide-line--exception"></span><b>예외 분기</b><small>실패·오프라인처럼 조건부로만 진입</small></div>
         </div>
@@ -892,10 +915,13 @@
               <div><p class="node-label">U-05 · 입장</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span class="live">● 입장</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>입장이 확인됐습니다</strong><p>현재 테이블을 이용 중입니다.</p></div><div class="info-list"><div class="info-row"><span>등록 인원</span><b>4명</b></div><div class="info-row"><span>호출 시각</span><b>19:32</b></div></div><div class="status-sync">방금 업데이트 · 5초마다 자동 확인</div><p class="status-footnote">테이블 번호는 도착 확인 후 입구 직원이 현장에서 안내합니다.</p></div></div></div></div>
             </article>
             <article class="node compact-node">
-              <div><p class="node-label">U-06 · 완료/미도착</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span>최종 상태</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>이용이 완료됐습니다</strong><p>이용해 주셔서 감사합니다.</p></div><div class="info-list"><div class="info-row"><span>상태</span><b>이용 완료</b></div><div class="info-row"><span>다른 종료 결과</span><b>미도착</b></div></div><p class="status-footnote">미도착 처리된 경우 입구 직원에게 문의하도록 안내합니다.</p></div></div></div></div>
+              <div><p class="node-label">U-06 · 이용 완료</p><p class="node-state">SEATED → COMPLETED</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span>최종 상태</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--done"><strong>이용이 완료됐습니다</strong><p>이용해 주셔서 감사합니다.</p></div><div class="info-list"><div class="info-row"><span>상태</span><b>이용 완료</b></div><div class="info-row"><span>처리 시각</span><b>20:36</b></div></div><p class="status-footnote">직원이 실제 퇴장을 확인한 뒤 완료된 상태입니다.</p></div></div></div></div>
             </article>
             <article class="node compact-node">
-              <div><p class="node-label">U-07 · 연결 지연</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span style="color:var(--yellow);font-weight:800">● 연결 확인 필요</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--stale"><strong>최신 상태를 확인하지 못했습니다</strong><p>표시된 정보는 마지막 확인 결과입니다.</p></div><div class="info-list"><div class="info-row"><span>마지막 업데이트</span><b>1분 전</b></div><div class="info-row"><span>현재 표시 상태</span><b>대기 중</b></div></div><div class="status-sync status-sync--stale">자동 확인을 다시 시도하고 있습니다</div><span class="wire-button wire-button--outline status-action" style="color:var(--blue);border-color:var(--blue)">지금 다시 확인</span><p class="status-action-note">연결되면 다시 5초마다 자동으로 확인합니다.</p></div></div></div></div>
+              <div><p class="node-label">U-06A · 미도착</p><p class="node-state">CALLED → NO_SHOW</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span>최종 상태</span></div><p class="queue-title">대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--ended"><strong>미도착 처리됐습니다</strong><p>호출 뒤 도착이 확인되지 않아 대기가 종료됐습니다.</p></div><div class="info-list"><div class="info-row"><span>상태</span><b>미도착</b></div><div class="info-row"><span>호출 시각</span><b>19:32</b></div></div><p class="status-footnote">필요하면 주점 입구 직원에게 문의해 주세요.</p></div></div></div></div>
+            </article>
+            <article class="node compact-node">
+              <div><p class="node-label">U-07 · 조회 지연</p><p class="node-state">활성 상태 공통 표시 예외 · 상태 전이 아님</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span style="color:var(--yellow);font-weight:800">● 연결 확인 필요</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--stale"><strong>최신 상태를 확인하지 못했습니다</strong><p>표시된 정보는 마지막 확인 결과입니다.</p></div><div class="info-list"><div class="info-row"><span>마지막 업데이트</span><b>1분 전</b></div><div class="info-row"><span>현재 표시 상태</span><b>대기 중</b></div></div><div class="status-sync status-sync--stale">자동 확인을 다시 시도하고 있습니다</div><span class="wire-button wire-button--outline status-action" style="color:var(--blue);border-color:var(--blue)">지금 다시 확인</span><p class="status-action-note">연결되면 다시 5초마다 자동으로 확인합니다.</p></div></div></div></div>
             </article>
           </div>
         </div>
@@ -1033,6 +1059,28 @@
               <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">5620 · 2명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span class="full-phone">010-2814-5620</span><span>·</span><span>방금 호출</span></div><div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">입장</span><span class="wire-button wire-button--outline">미도착</span></div></div>
               <div class="section-rule"><span>대기 중인 팀</span><small>직원이 직접 선택</small></div>
               <div class="staff-task"><div class="wire-row"><span class="staff-number">1748 · 4명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>7분째 대기</span><span>·</span><span class="full-phone">010-9032-1748</span></div></div>
+              <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">A-02B · 미도착 확인</p><p class="node-state">CALLED · 최종 처리 확정 전</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">자동 확인 · 방금</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">5620 · 2명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span class="full-phone">010-2814-5620</span><span>·</span><span>방금 호출</span></div></div>
+              <div class="modal-scrim"></div><div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>5620 손님을 미도착 처리할까요?</h4><p class="modal-subtitle">호출됨 상태에서 대기를 종료합니다.</p></div><span class="modal-close">×</span></div><p class="modal-warning">미도착 처리는 되돌릴 수 없습니다. 현장에 손님이 없는지 확인해 주세요.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button wire-button--danger">미도착 처리</span></div></div>
+              <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">A-02C · 미도착 처리 완료</p><p class="node-state">CALLED → NO_SHOW · 목록에서 제거</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="sync-dot">자동 확인 · 방금</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="success-toast" role="status"><div><strong>5620 손님을 미도착 처리했습니다</strong><small>활성 대기 목록에서 제거되었습니다</small></div></div>
+              <div class="staff-summary"><span>대기<b>5팀</b></span><span>호출<b>1팀</b></span><span>빈 테이블<b>2개</b></span></div>
+              <div class="section-rule"><span>호출된 팀</span><small>도착 여부 확인</small></div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">3302 · 3명</span><span class="tag tag--red">호출됨</span></div><div class="staff-meta"><span>4분 전 호출</span></div><div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">입장</span><span class="wire-button wire-button--outline">미도착</span></div></div>
+              <div class="section-rule"><span>대기 중인 팀</span><small>직원이 직접 선택</small></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">1748 · 4명</span><span class="staff-primary-action">호출</span></div><div class="staff-meta"><span>7분째 대기</span></div></div>
               <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
             </div></div>
           </article>
@@ -1181,44 +1229,46 @@
     });
 
     var wireSpecs = [
-      { from: "I-01", fromSelector: ".numpad", to: "I-02", label: "연락처·인원 입력" },
-      { from: "I-02", fromText: "4명 대기 등록", to: "I-03", label: "등록 · WAITING 저장" },
-      { from: "I-02", fromText: "4명 대기 등록", to: "I-04", label: "요청 실패 · 입력 유지", kind: "exception" },
-      { from: "I-03", fromText: "다음 손님 등록", to: "I-01", label: "다음 손님 / 20초", route: "below", fromSide: "bottom", toSide: "bottom" },
+      { from: "I-01", fromSelector: ".numpad", to: "I-02", label: "연락처·인원 입력", fromSide: "right", toSide: "left" },
+      { from: "I-02", fromText: "4명 대기 등록", to: "I-03", label: "성공 · WAITING 저장", fromSide: "right", toSide: "left" },
+      { from: "I-02", fromText: "4명 대기 등록", to: "I-04", label: "실패 · 입력 유지", kind: "exception", fromSide: "bottom", toSide: "top" },
+      { from: "I-03", fromText: "다음 손님 등록", to: "I-01", label: "다음 손님 / 20초", route: "below", channel: 0, labelSegment: 1, labelFraction: .25, fromSide: "bottom", toSide: "bottom" },
 
-      { from: "U-01", fromText: "내 대기 현황 보기", to: "U-02", label: "링크 열기" },
+      { from: "U-01", fromText: "내 대기 현황 보기", to: "U-02", label: "링크 열기", fromSide: "right", toSide: "left" },
       { from: "U-02", fromText: "대기를 맨 뒤로 미루기", to: "U-02A", label: "1회 미루기", fromSide: "bottom", toSide: "top" },
-      { from: "U-02A", fromText: "맨 뒤로 미루기", to: "U-02B", label: "순서만 원자적 변경" },
-      { from: "U-02", fromText: "대기 취소", to: "U-02C", label: "취소 선택", fromSide: "bottom", toSide: "top" },
-      { from: "U-02B", fromText: "대기 취소", to: "U-02C", label: "미룬 뒤에도 취소 가능" },
-      { from: "U-02C", fromText: "대기 취소", to: "U-02D", label: "WAITING → CANCELLED" },
-      { from: "U-02", fromSelector: ".status-banner", to: "U-03", label: "직원 호출 · CALLED", kind: "system" },
-      { from: "U-03", fromText: "내 대기 현황 보기", to: "U-04", label: "같은 링크" },
-      { from: "U-04", fromSelector: ".status-banner", to: "U-05", label: "직원 배정 · SEATED", kind: "system" },
-      { from: "U-05", fromSelector: ".status-banner", to: "U-06", label: "퇴장 확인 / 미도착", kind: "system" },
-      { from: "U-02", fromSelector: ".status-sync", to: "U-07", label: "조회 지연 · 마지막 상태 유지", kind: "exception", route: "below", fromSide: "bottom", toSide: "bottom" },
+      { from: "U-02A", fromText: "맨 뒤로 미루기", to: "U-02B", label: "순서만 원자적 변경", fromSide: "right", toSide: "left" },
+      { from: "U-02", fromText: "대기 취소", to: "U-02C", label: "취소 확인", fromSide: "bottom", toSide: "top", channel: 1 },
+      { from: "U-02B", fromText: "대기 취소", to: "U-02C", label: "미룬 뒤에도 취소 가능", fromSide: "right", toSide: "left" },
+      { from: "U-02C", fromText: "대기 취소", to: "U-02D", label: "WAITING → CANCELLED", fromSide: "right", toSide: "left" },
+      { from: "U-02", fromSelector: ".status-banner", to: "U-03", label: "직원 호출 · CALLED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
+      { from: "U-03", fromText: "내 대기 현황 보기", to: "U-04", label: "같은 링크", fromSide: "right", toSide: "left" },
+      { from: "U-04", fromSelector: ".status-banner", to: "U-05", label: "직원 배정 · SEATED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
+      { from: "U-05", fromSelector: ".status-banner", to: "U-06", label: "실제 퇴장 · COMPLETED", kind: "system", hotspot: false, fromSide: "right", toSide: "left" },
+      { from: "U-04", fromSelector: ".status-banner", to: "U-06A", label: "미도착 · NO_SHOW", kind: "system", hotspot: false, fromSide: "bottom", toSide: "top", channel: 1 },
 
-      { from: "O-01", fromText: "로그인", to: "O-02", label: "Redis 세션" },
-      { from: "O-02", fromText: "네, 맞습니다", to: "O-03A", label: "주점 범위 확인" },
-      { from: "O-03A", fromText: "다음", to: "O-03B", label: "1번부터 자동 구성" },
-      { from: "O-03B", fromText: "이 번호 사용", to: "O-04", label: "테이블 번호 확인", kind: "system", fromSide: "bottom", toSide: "top" },
-      { from: "O-04", fromText: "다음", to: "O-05A", label: "서버 연결 상태 조회", kind: "system" },
-      { from: "O-05A", fromText: "서버에서 다시 확인", to: "O-05B", label: "heartbeat 재확인", kind: "system" },
-      { from: "O-05B", fromText: "다음", to: "O-06", label: "온라인 확인" },
+      { from: "O-01", fromText: "로그인", to: "O-02", label: "Redis 세션", fromSide: "right", toSide: "left" },
+      { from: "O-02", fromText: "네, 맞습니다", to: "O-03A", label: "주점 범위 확인", fromSide: "right", toSide: "left" },
+      { from: "O-03A", fromText: "다음", to: "O-03B", label: "1번부터 자동 구성", fromSide: "right", toSide: "left" },
+      { from: "O-03B", fromText: "이 번호 사용", to: "O-04", label: "테이블 번호 확인", fromSide: "bottom", toSide: "top" },
+      { from: "O-04", fromText: "다음", to: "O-05A", label: "iPad 연결 단계", fromSide: "left", toSide: "right" },
+      { from: "O-05A", fromText: "서버에서 다시 확인", to: "O-05B", label: "heartbeat 재확인", kind: "system", fromSide: "left", toSide: "right" },
+      { from: "O-05B", fromText: "다음", to: "O-06", label: "온라인 확인", fromSide: "left", toSide: "right" },
 
-      { from: "A-01", fromText: "호출하기", to: "A-02", label: "WAITING → CALLED" },
+      { from: "A-01", fromText: "호출하기", to: "A-02", label: "WAITING → CALLED", fromSide: "right", toSide: "left" },
+      { from: "A-02", fromText: "미도착", to: "A-02B", label: "미도착 확인", fromSide: "right", toSide: "left" },
+      { from: "A-02B", fromText: "미도착 처리", to: "A-02C", label: "CALLED → NO_SHOW", fromSide: "right", toSide: "left" },
       { from: "A-02", fromText: "입장", to: "A-03", label: "손님 도착 확인", fromSide: "bottom", toSide: "top" },
-      { from: "A-03", fromText: "테이블 3에 배정", to: "A-04", label: "SEATED + IN_USE" },
+      { from: "A-03", fromText: "테이블 3에 배정", to: "A-04", label: "SEATED + IN_USE", fromSide: "right", toSide: "left" },
 
-      { from: "T-01", fromSelector: ".table-card--empty", to: "T-02", label: "빈 테이블 터치" },
+      { from: "T-01", fromSelector: ".table-card--empty", to: "T-02", label: "빈 테이블 터치", fromSide: "right", toSide: "left" },
       { from: "T-02", fromText: "이용 시작", to: "T-03", label: "EMPTY → IN_USE", fromSide: "bottom", toSide: "top" },
-      { from: "T-03", fromSelector: ".table-card--selected", to: "T-04", label: "이용 중 테이블 터치" },
-      { from: "T-04", fromText: "퇴장 확인", to: "T-03", label: "COMPLETED + EMPTY", route: "below", fromSide: "bottom", toSide: "bottom" },
+      { from: "T-03", fromSelector: ".table-card--selected", to: "T-04", label: "이용 중 테이블 터치", fromSide: "left", toSide: "right" },
+      { from: "T-04", fromText: "퇴장 확인", to: "T-01", label: "COMPLETED + EMPTY", route: "left", channel: 0, fromSide: "left", toSide: "left" },
 
-      { from: "S-01", fromSelector: ".settings-item:nth-child(1)", to: "S-02", label: "테이블 수 선택", fromSide: "bottom", toSide: "top" },
-      { from: "S-01", fromSelector: ".settings-item:nth-child(2)", to: "S-03", label: "이용시간 선택", fromSide: "bottom", toSide: "top" },
-      { from: "S-02", fromText: "10개로 저장", to: "S-05", label: "저장 후 목록 복귀" },
-      { from: "S-03", fromText: "90분으로 저장", to: "S-05", label: "저장 후 목록 복귀" }
+      { from: "S-01", fromSelector: ".settings-item:nth-child(1)", to: "S-02", label: "테이블 수 선택", fromSide: "bottom", toSide: "top", channel: 0 },
+      { from: "S-01", fromSelector: ".settings-item:nth-child(2)", to: "S-03", label: "이용시간 선택", fromSide: "bottom", toSide: "top", channel: 1 },
+      { from: "S-02", fromText: "10개로 저장", to: "S-05", label: "저장 후 목록 복귀", fromSide: "bottom", toSide: "left" },
+      { from: "S-03", fromText: "90분으로 저장", to: "S-05", label: "저장 후 목록 복귀", fromSide: "bottom", toSide: "right" }
     ];
 
     function nodeFor(code) { return board.querySelector('[data-code="' + code + '"]'); }
@@ -1235,42 +1285,113 @@
       }
       return node.querySelector(".device") || node;
     }
-    function pointFor(element, side) {
+    function rectFor(element) {
       var rect = element.getBoundingClientRect();
       var boardRect = board.getBoundingClientRect();
-      var left = (rect.left - boardRect.left) / scale;
-      var top = (rect.top - boardRect.top) / scale;
-      var width = rect.width / scale;
-      var height = rect.height / scale;
-      if (side === "left") return { x: left, y: top + height / 2 };
-      if (side === "right") return { x: left + width, y: top + height / 2 };
-      if (side === "top") return { x: left + width / 2, y: top };
-      return { x: left + width / 2, y: top + height };
+      return {
+        left: (rect.left - boardRect.left) / scale,
+        top: (rect.top - boardRect.top) / scale,
+        width: rect.width / scale,
+        height: rect.height / scale
+      };
+    }
+    function clampBetween(value, min, max) { return Math.max(min, Math.min(max, value)); }
+    function edgePoint(device, side, control) {
+      var frame = rectFor(device);
+      var anchor = control ? rectFor(control) : frame;
+      var anchorX = anchor.left + anchor.width / 2;
+      var anchorY = anchor.top + anchor.height / 2;
+      if (side === "left") return { x: frame.left, y: clampBetween(anchorY, frame.top + 36, frame.top + frame.height - 36) };
+      if (side === "right") return { x: frame.left + frame.width, y: clampBetween(anchorY, frame.top + 36, frame.top + frame.height - 36) };
+      if (side === "top") return { x: clampBetween(anchorX, frame.left + 36, frame.left + frame.width - 36), y: frame.top };
+      return { x: clampBetween(anchorX, frame.left + 36, frame.left + frame.width - 36), y: frame.top + frame.height };
+    }
+    function hotspotPoint(element) {
+      var rect = rectFor(element);
+      return { x: rect.left + rect.width - 10, y: rect.top + 10 };
     }
     function svgElement(name, attrs) {
       var element = document.createElementNS("http://www.w3.org/2000/svg", name);
       Object.keys(attrs || {}).forEach(function (key) { element.setAttribute(key, attrs[key]); });
       return element;
     }
+    function movePoint(point, side, distance) {
+      if (side === "left") return { x: point.x - distance, y: point.y };
+      if (side === "right") return { x: point.x + distance, y: point.y };
+      if (side === "top") return { x: point.x, y: point.y - distance };
+      return { x: point.x, y: point.y + distance };
+    }
+    function simplifyPoints(points) {
+      return points.filter(function (point, index) {
+        if (index === 0 || index === points.length - 1) return true;
+        var prev = points[index - 1], next = points[index + 1];
+        return !((prev.x === point.x && point.x === next.x) || (prev.y === point.y && point.y === next.y));
+      }).filter(function (point, index, list) {
+        return index === 0 || point.x !== list[index - 1].x || point.y !== list[index - 1].y;
+      });
+    }
     function routeFor(start, end, spec) {
+      var channel = spec.channel || 0;
       if (spec.route === "below") {
-        var gutter = Math.max(start.y, end.y) + 78;
+        var gutter = Math.max(start.y, end.y) + 58 + channel * 34;
         return [start, { x: start.x, y: gutter }, { x: end.x, y: gutter }, end];
       }
       if (spec.route === "above") {
-        var topGutter = Math.min(start.y, end.y) - 78;
+        var topGutter = Math.min(start.y, end.y) - 58 - channel * 34;
         return [start, { x: start.x, y: topGutter }, { x: end.x, y: topGutter }, end];
       }
-      if (Math.abs(end.x - start.x) >= Math.abs(end.y - start.y)) {
-        var middleX = (start.x + end.x) / 2;
-        return [start, { x: middleX, y: start.y }, { x: middleX, y: end.y }, end];
+      if (spec.route === "left") {
+        var leftGutter = Math.min(start.x, end.x) - 62 - channel * 34;
+        return [start, { x: leftGutter, y: start.y }, { x: leftGutter, y: end.y }, end];
       }
-      var middleY = (start.y + end.y) / 2;
-      return [start, { x: start.x, y: middleY }, { x: end.x, y: middleY }, end];
+      if (spec.route === "right") {
+        var rightGutter = Math.max(start.x, end.x) + 62 + channel * 34;
+        return [start, { x: rightGutter, y: start.y }, { x: rightGutter, y: end.y }, end];
+      }
+      var stub = 34 + channel * 8;
+      var fromStub = movePoint(start, spec.fromSide, stub);
+      var toStub = movePoint(end, spec.toSide, stub);
+      var horizontalFrom = spec.fromSide === "left" || spec.fromSide === "right";
+      var horizontalTo = spec.toSide === "left" || spec.toSide === "right";
+      var points = [start, fromStub];
+      if (horizontalFrom && horizontalTo) {
+        var middleX = (fromStub.x + toStub.x) / 2 + channel * 18;
+        points.push({ x: middleX, y: fromStub.y }, { x: middleX, y: toStub.y });
+      } else if (!horizontalFrom && !horizontalTo) {
+        var middleY = (fromStub.y + toStub.y) / 2 + channel * 18;
+        points.push({ x: fromStub.x, y: middleY }, { x: toStub.x, y: middleY });
+      } else if (horizontalFrom) {
+        points.push({ x: toStub.x, y: fromStub.y });
+      } else {
+        points.push({ x: fromStub.x, y: toStub.y });
+      }
+      points.push(toStub, end);
+      return simplifyPoints(points);
     }
-    function longestSegmentMidpoint(points) {
+    function roundedPath(points) {
+      var radius = 14;
+      var path = "M" + points[0].x.toFixed(1) + " " + points[0].y.toFixed(1);
+      for (var i = 1; i < points.length - 1; i += 1) {
+        var prev = points[i - 1], corner = points[i], next = points[i + 1];
+        var beforeLength = Math.hypot(corner.x - prev.x, corner.y - prev.y);
+        var afterLength = Math.hypot(next.x - corner.x, next.y - corner.y);
+        var r = Math.min(radius, beforeLength / 2, afterLength / 2);
+        var before = { x: corner.x + (prev.x - corner.x) / beforeLength * r, y: corner.y + (prev.y - corner.y) / beforeLength * r };
+        var after = { x: corner.x + (next.x - corner.x) / afterLength * r, y: corner.y + (next.y - corner.y) / afterLength * r };
+        path += " L" + before.x.toFixed(1) + " " + before.y.toFixed(1);
+        path += " Q" + corner.x.toFixed(1) + " " + corner.y.toFixed(1) + " " + after.x.toFixed(1) + " " + after.y.toFixed(1);
+      }
+      var last = points[points.length - 1];
+      return path + " L" + last.x.toFixed(1) + " " + last.y.toFixed(1);
+    }
+    function labelPoint(points, spec) {
+      if (Number.isInteger(spec.labelSegment) && points[spec.labelSegment + 1]) {
+        var start = points[spec.labelSegment], end = points[spec.labelSegment + 1];
+        var fraction = spec.labelFraction == null ? .5 : spec.labelFraction;
+        return { x: start.x + (end.x - start.x) * fraction, y: start.y + (end.y - start.y) * fraction };
+      }
       var best = { length: -1, x: points[0].x, y: points[0].y };
-      for (var i = 1; i < points.length; i += 1) {
+      for (var i = 2; i < points.length - 1; i += 1) {
         var a = points[i - 1], b = points[i];
         var length = Math.hypot(b.x - a.x, b.y - a.y);
         if (length > best.length) best = { length: length, x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
@@ -1289,29 +1410,49 @@
         defs.appendChild(marker);
       });
       svg.appendChild(defs);
+      var hotspotNumbers = {};
+      var drawnHotspots = new Set();
+      function numberFor(spec) {
+        var key = spec.fromSelector || spec.fromText || "state";
+        hotspotNumbers[spec.from] = hotspotNumbers[spec.from] || {};
+        if (!hotspotNumbers[spec.from][key]) hotspotNumbers[spec.from][key] = Object.keys(hotspotNumbers[spec.from]).length + 1;
+        return hotspotNumbers[spec.from][key];
+      }
       wireSpecs.forEach(function (spec) {
         var source = sourceFor(spec);
+        var sourceNode = nodeFor(spec.from);
         var targetNode = nodeFor(spec.to);
-        var target = targetNode && (targetNode.querySelector(".device") || targetNode);
-        if (!source || !target) return;
-        var sourceRect = source.getBoundingClientRect();
-        var targetRect = target.getBoundingClientRect();
-        var horizontal = Math.abs(targetRect.left - sourceRect.right) >= Math.abs(targetRect.top - sourceRect.bottom);
-        var fromSide = spec.fromSide || (horizontal ? (targetRect.left >= sourceRect.left ? "right" : "left") : (targetRect.top >= sourceRect.top ? "bottom" : "top"));
-        var toSide = spec.toSide || (horizontal ? (targetRect.left >= sourceRect.left ? "left" : "right") : (targetRect.top >= sourceRect.top ? "top" : "bottom"));
-        var start = pointFor(source, fromSide), end = pointFor(target, toSide);
+        var sourceDevice = sourceNode && sourceNode.querySelector(".device");
+        var targetDevice = targetNode && targetNode.querySelector(".device");
+        if (!source || !sourceDevice || !targetDevice) return;
+        var start = edgePoint(sourceDevice, spec.fromSide, source);
+        var end = edgePoint(targetDevice, spec.toSide, null);
         var points = routeFor(start, end, spec);
-        var d = points.map(function (point, index) { return (index ? "L" : "M") + point.x.toFixed(1) + " " + point.y.toFixed(1); }).join(" ");
+        var d = roundedPath(points);
         var kind = spec.kind || "action";
         svg.appendChild(svgElement("path", { class: "wire-halo", d: d }));
         svg.appendChild(svgElement("path", { class: "wire-path wire-path--" + kind, d: d, "marker-end": "url(#arrow-" + kind + ")" }));
-        svg.appendChild(svgElement("circle", { class: "wire-port wire-port--" + kind, cx: start.x, cy: start.y, r: "5" }));
-        var mid = longestSegmentMidpoint(points);
-        var width = Math.max(88, compactText(spec.label).length * 12 + 24);
+        svg.appendChild(svgElement("circle", { class: "wire-port wire-port--" + kind, cx: start.x, cy: start.y, r: "4.5" }));
+        var hotspotNumber = null;
+        if (spec.hotspot !== false) {
+          hotspotNumber = numberFor(spec);
+          var hotspotKey = spec.from + ":" + hotspotNumber;
+          if (!drawnHotspots.has(hotspotKey)) {
+            drawnHotspots.add(hotspotKey);
+            var hotspot = hotspotPoint(source);
+            svg.appendChild(svgElement("circle", { class: "wire-hotspot wire-hotspot--" + kind, cx: hotspot.x, cy: hotspot.y, r: "10" }));
+            var hotspotText = svgElement("text", { class: "wire-hotspot-text", x: hotspot.x, y: hotspot.y + 0.5 });
+            hotspotText.textContent = hotspotNumber;
+            svg.appendChild(hotspotText);
+          }
+        }
+        var mid = labelPoint(points, spec);
+        var label = (hotspotNumber ? hotspotNumber + " · " : "") + spec.label;
+        var width = Math.max(92, compactText(label).length * 12 + 26);
         var group = svgElement("g", { class: "wire-label", transform: "translate(" + mid.x + " " + mid.y + ")" });
-        group.appendChild(svgElement("rect", { x: -width / 2, y: -15, width: width, height: 30, rx: "15" }));
+        group.appendChild(svgElement("rect", { x: -width / 2, y: -15, width: width, height: 30, rx: "8" }));
         var text = svgElement("text", { x: "0", y: "1" });
-        text.textContent = spec.label;
+        text.textContent = label;
         group.appendChild(text);
         svg.appendChild(group);
       });
