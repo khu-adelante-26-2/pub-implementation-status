@@ -754,6 +754,10 @@
       overflow: visible;
       padding: 0;
       background: transparent;
+      cursor: default;
+      touch-action: auto;
+      user-select: auto;
+      -webkit-user-select: auto;
     }
     .board {
       display: block;
@@ -838,13 +842,12 @@
     .journey-viewport {
       overflow-x: auto;
       padding-bottom: 10px;
-      cursor: grab;
+      cursor: default;
       scrollbar-color: #88958f #e7ebe9;
       scrollbar-gutter: stable;
       scrollbar-width: auto;
       touch-action: pan-x pan-y;
     }
-    .journey-viewport.is-dragging { cursor: grabbing; scroll-behavior: auto; }
     .journey-viewport::-webkit-scrollbar { height: 12px; }
     .journey-viewport::-webkit-scrollbar-track { border-radius: 999px; background: #e7ebe9; }
     .journey-viewport::-webkit-scrollbar-thumb { border: 2px solid #e7ebe9; border-radius: 999px; background: #88958f; }
@@ -1055,14 +1058,13 @@
       scroll-snap-type: x proximity;
       scroll-padding-inline: 4px;
       overscroll-behavior-x: contain;
-      cursor: grab;
+      cursor: default;
       scrollbar-color: #88958f #e7ebe9;
       scrollbar-gutter: stable;
       scrollbar-width: auto;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-x pan-y;
     }
-    .story-rail.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
     .story-rail::-webkit-scrollbar { height: 12px; }
     .story-rail::-webkit-scrollbar-track { border-radius: 999px; background: #e7ebe9; }
     .story-rail::-webkit-scrollbar-thumb { border: 2px solid #e7ebe9; border-radius: 999px; background: #88958f; }
@@ -1773,24 +1775,6 @@
         scroller.scrollLeft += event.deltaY;
       }, { passive: false });
 
-      var drag = null;
-      scroller.addEventListener("pointerdown", function (event) {
-        if (event.pointerType !== "mouse" || event.button !== 0) return;
-        drag = { id: event.pointerId, x: event.clientX, left: scroller.scrollLeft };
-        scroller.setPointerCapture(event.pointerId);
-        scroller.classList.add("is-dragging");
-      });
-      scroller.addEventListener("pointermove", function (event) {
-        if (!drag || drag.id !== event.pointerId) return;
-        scroller.scrollLeft = drag.left - (event.clientX - drag.x);
-      });
-      function endDrag(event) {
-        if (!drag || drag.id !== event.pointerId) return;
-        drag = null;
-        scroller.classList.remove("is-dragging");
-      }
-      scroller.addEventListener("pointerup", endDrag);
-      scroller.addEventListener("pointercancel", endDrag);
       window.addEventListener("resize", updateControls);
       requestAnimationFrame(updateControls);
       setTimeout(updateControls, 0);
