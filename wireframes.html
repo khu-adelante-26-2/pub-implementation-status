@@ -836,7 +836,8 @@
     .figma-export-source {
       position: absolute;
       top: 0;
-      left: -100000px;
+      left: 0;
+      z-index: -2147483648;
       width: 1600px;
       opacity: 0;
       pointer-events: none;
@@ -1718,6 +1719,7 @@
     </div>
   </main>
   <div class="figma-export-toast" id="figma-export-toast" role="status" aria-live="polite">SVG를 다운로드했습니다. 화면·시나리오 그룹과 텍스트 요소를 유지했습니다.</div>
+  <script src="vendor/dom-to-svg.min.js"></script>
   <script id="screen-story-layout">
   (function () {
     var storyConfig = {
@@ -2131,7 +2133,7 @@
     function nextPaint() {
       return new Promise(function (resolve) { requestAnimationFrame(function () { requestAnimationFrame(resolve); }); });
     }
-    async function downloadFigmaSvg() {
+    async function downloadFigmaSvgLegacy() {
       if (!figmaExportButton || figmaExportButton.disabled) return;
       var originalLabel = figmaExportButton.innerHTML;
       var exportSource = document.createElement("div");
@@ -2155,6 +2157,82 @@
         link.remove();
         setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
         showFigmaExportToast("SVG를 다운로드했습니다. 화면·시나리오 그룹과 text 요소를 유지했습니다.");
+      } catch (error) {
+        console.error(error);
+        showFigmaExportToast("SVG를 만들지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.");
+      } finally {
+        exportSource.remove();
+        figmaExportButton.disabled = false;
+        figmaExportButton.innerHTML = originalLabel;
+      }
+    }
+    function prepareSvgExportSource(sourceBoard) {
+      sourceBoard.id = "pub-waiting-wireframes";
+      sourceBoard.setAttribute("aria-label", "주점 대기 화면");
+      sourceBoard.querySelectorAll(".figma-export-action, .rail-controls").forEach(function (element) { element.remove(); });
+      sourceBoard.querySelectorAll(".lane").forEach(function (lane) {
+        var laneTitle = lane.querySelector(":scope > .lane-label h2");
+        if (laneTitle) lane.setAttribute("aria-label", laneTitle.textContent.trim());
+        lane.querySelectorAll(":scope > .story-chapters > .story-chapter").forEach(function (chapter, index) {
+          var chapterTitle = chapter.querySelector(":scope > .chapter-head h3");
+          chapter.id = lane.id + "-story-" + String(index + 1).padStart(2, "0");
+          if (chapterTitle) chapter.setAttribute("aria-label", chapterTitle.textContent.trim());
+        });
+      });
+      sourceBoard.querySelectorAll(".node[data-code]").forEach(function (node) {
+        var code = node.dataset.code.toLowerCase();
+        node.id = "screen-" + code;
+        node.setAttribute("aria-label", node.dataset.title || node.dataset.code);
+        var device = node.querySelector(":scope > .device");
+        if (device) {
+          device.id = "device-" + code;
+          device.setAttribute("aria-label", (device.classList.contains("ipad-device") ? "iPad" : "iPhone") + " · " + (node.dataset.title || node.dataset.code));
+        }
+      });
+    }
+    function annotateSvgLayers(svgRoot) {
+      svgRoot.setAttribute("role", "img");
+      svgRoot.setAttribute("aria-label", "주점 대기 전체 화면 와이어프레임");
+      svgRoot.querySelectorAll("g[id]").forEach(function (group) {
+        var accessibleName = group.getAttribute("aria-label");
+        if (accessibleName) group.setAttribute("data-name", accessibleName);
+      });
+      Array.from(svgRoot.querySelectorAll("g")).reverse().forEach(function (group) {
+        if (!group.children.length && !group.textContent.trim()) group.remove();
+      });
+      var metadata = svgRoot.ownerDocument.createElementNS("http://www.w3.org/2000/svg", "metadata");
+      metadata.textContent = "dom-to-svg 0.12.2로 변환했습니다. CSS stacking order와 클리핑을 유지하고 문구는 text/tspan 요소로 보존합니다.";
+      svgRoot.prepend(metadata);
+    }
+    async function downloadFigmaSvg() {
+      if (!figmaExportButton || figmaExportButton.disabled) return;
+      var originalLabel = figmaExportButton.innerHTML;
+      var exportSource = document.createElement("div");
+      try {
+        if (!window.DomToSvg || typeof window.DomToSvg.elementToSVG !== "function") throw new Error("dom-to-svg를 불러오지 못했습니다.");
+        figmaExportButton.disabled = true;
+        figmaExportButton.textContent = "SVG 만드는 중…";
+        exportSource.className = "figma-export-source";
+        var sourceBoard = document.querySelector(".board").cloneNode(true);
+        prepareSvgExportSource(sourceBoard);
+        exportSource.appendChild(sourceBoard);
+        document.body.appendChild(exportSource);
+        await nextPaint();
+        var captureArea = sourceBoard.getBoundingClientRect();
+        var svgDocument = window.DomToSvg.elementToSVG(sourceBoard, { captureArea: captureArea, keepLinks: false });
+        await window.DomToSvg.inlineResources(svgDocument.documentElement);
+        annotateSvgLayers(svgDocument.documentElement);
+        var svgContent = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svgDocument);
+        var blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "pub-waiting-wireframes-figma.svg";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        showFigmaExportToast("SVG를 다운로드했습니다. 브라우저 페인팅 순서와 텍스트 위치를 반영했습니다.");
       } catch (error) {
         console.error(error);
         showFigmaExportToast("SVG를 만들지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.");
