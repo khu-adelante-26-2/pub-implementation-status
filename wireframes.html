@@ -556,10 +556,10 @@
       grid-template-columns: 1.5fr 1fr;
       gap: 34px;
       padding: 44px 48px;
-      border: 1px solid #dfe3e6;
-      border-radius: 26px;
-      background: rgb(255 255 255 / 96%);
-      box-shadow: 0 18px 50px rgb(23 33 31 / 8%);
+      border: 2px solid #69726f;
+      border-radius: 0;
+      background: #fff;
+      box-shadow: none;
     }
     .canvas-kicker { color: #69726f; font-size: .72rem; font-weight: 900; letter-spacing: .12em; }
     .canvas-title-block h1 { margin: 9px 0 10px; font-size: 2.2rem; line-height: 1.18; letter-spacing: -.045em; }
@@ -588,11 +588,10 @@
       min-height: 0;
       padding: 32px 38px 42px;
       overflow: visible;
-      border: 1px solid #dfe3e6;
-      border-top: 6px solid var(--lane-color, #8d9a96);
-      border-radius: 24px;
-      background: rgb(255 255 255 / 92%);
-      box-shadow: 0 12px 34px rgb(23 33 31 / 7%);
+      border: 2px solid var(--lane-color, #8d9a96);
+      border-radius: 0;
+      background: #fff;
+      box-shadow: none;
     }
     .lane--ipad { --lane-color: var(--brand); }
     .lane--user { --lane-color: var(--green); }
@@ -621,8 +620,8 @@
     }
     .connector { display: none; }
     .node { position: relative; z-index: 5; min-width: 0; }
-    .node-label { margin-bottom: 9px; text-align: left; }
-    .node-state { margin: -5px 0 10px; text-align: left; }
+    .node-label { margin-bottom: 9px; visibility: hidden; text-align: left; }
+    .node-state { margin: -5px 0 10px; visibility: hidden; text-align: left; }
     .device { box-shadow: 0 12px 28px rgb(23 33 31 / 15%); }
 
     #registration-flow .flow { grid-template-columns: repeat(3, 720px); column-gap: 168px; }
@@ -683,34 +682,42 @@
       align-items: center;
       margin: 0;
       padding: 18px 20px;
-      border: 1px solid #dfe3e6;
-      border-left: 5px solid #5277b7;
-      border-radius: 14px;
+      border: 2px solid #5277b7;
+      border-radius: 0;
       color: #46504d;
       background: #fff;
-      box-shadow: 0 7px 22px rgb(23 33 31 / 7%);
+      box-shadow: none;
       font-size: .72rem;
     }
     .handoff::before { display: none; }
     .handoff strong { color: var(--ink); font-size: .74rem; }
     .handoff p { margin: 0; line-height: 1.55; }
-    .handoff span { margin: 0; padding: 6px 9px; border: 0; border-radius: 999px; color: #4d5c74; background: #eef3fb; font-size: .65rem; white-space: nowrap; }
-    .handoff--rule { border-left-color: #606a67; }
-    .handoff--branch { border-left-color: var(--brand); }
-    .handoff--exception { border-left-color: var(--red); }
+    .handoff span { margin: 0; padding: 6px 9px; border: 1px solid currentColor; border-radius: 0; color: #4d5c74; background: #fff; font-size: .65rem; white-space: nowrap; }
+    .handoff--rule { border-color: #606a67; }
+    .handoff--branch { border-color: var(--brand); }
+    .handoff--exception { border-color: var(--red); }
     #ipad-exception-flow + .handoff { grid-column: 5 / -1; align-self: center; }
 
     .diagram-wires { position: absolute; z-index: 8; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-    .wire-halo { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 12; }
-    .wire-path { fill: none; stroke: #356d5e; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+    .wire-halo { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 12; vector-effect: non-scaling-stroke; }
+    .wire-path { fill: none; stroke: #356d5e; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; vector-effect: non-scaling-stroke; }
     .wire-path--system { stroke: #5277b7; stroke-dasharray: 10 8; }
     .wire-path--exception { stroke: var(--red); stroke-dasharray: 3 8; }
-    .wire-port { fill: #fff; stroke: #356d5e; stroke-width: 3; }
+    .wire-port { fill: #fff; stroke: #356d5e; stroke-width: 3; vector-effect: non-scaling-stroke; }
     .wire-port--system { stroke: #5277b7; }
     .wire-port--exception { stroke: var(--red); }
-    .wire-label rect { fill: #fff; stroke: #d5dcda; stroke-width: 1.2; }
-    .wire-label text { fill: #34433f; font-size: 13px; font-weight: 850; text-anchor: middle; dominant-baseline: middle; }
-    .wire-hotspot { fill: #fff; stroke: #356d5e; stroke-width: 3; }
+    .wire-label rect { fill: #fff; stroke: #356d5e; stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .wire-label--system rect { stroke: #5277b7; }
+    .wire-label--exception rect { stroke: var(--red); }
+    .wire-label text { fill: #263632; font-size: 11px; font-weight: 850; text-anchor: middle; dominant-baseline: middle; }
+    .node-caption rect { fill: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+    .node-caption--ipad rect { stroke: var(--brand); }
+    .node-caption--user rect { stroke: var(--green); }
+    .node-caption--staff rect { stroke: #5277b7; }
+    .node-caption-title { fill: #17201e; font-size: 12px; font-weight: 900; dominant-baseline: middle; }
+    .node-caption--compact .node-caption-title { font-size: 10px; text-anchor: middle; }
+    .node-caption-state { fill: #59635f; font-size: 9px; font-weight: 750; }
+    .wire-hotspot { fill: #fff; stroke: #356d5e; stroke-width: 3; vector-effect: non-scaling-stroke; }
     .wire-hotspot--system { stroke: #5277b7; }
     .wire-hotspot--exception { stroke: var(--red); }
     .wire-hotspot-text { fill: #243b35; font-size: 11px; font-weight: 950; text-anchor: middle; dominant-baseline: middle; }
@@ -1219,6 +1226,9 @@
 
     var scale = 1, tx = 0, ty = 0;
     var MIN = 0.08, MAX = 4;
+    var TITLE_LABEL_SCALE = 0.28;
+    var STATE_LABEL_SCALE = 0.55;
+    var drawFrame = 0;
     var pctBtn = document.querySelector('.fig-toolbar [data-act="pct"]');
     var hint = document.querySelector(".fig-hint");
 
@@ -1231,7 +1241,7 @@
     var wireSpecs = [
       { from: "I-01", fromSelector: ".numpad", to: "I-02", label: "연락처·인원 입력", fromSide: "right", toSide: "left" },
       { from: "I-02", fromText: "4명 대기 등록", to: "I-03", label: "성공 · WAITING 저장", fromSide: "right", toSide: "left" },
-      { from: "I-02", fromText: "4명 대기 등록", to: "I-04", label: "실패 · 입력 유지", kind: "exception", fromSide: "bottom", toSide: "top" },
+      { from: "I-02", fromText: "4명 대기 등록", to: "I-04", label: "실패 · 입력 유지", kind: "exception", fromSide: "bottom", toSide: "top", labelOffsetX: 92 },
       { from: "I-03", fromText: "다음 손님 등록", to: "I-01", label: "다음 손님 / 20초", route: "below", channel: 0, labelSegment: 1, labelFraction: .25, fromSide: "bottom", toSide: "bottom" },
 
       { from: "U-01", fromText: "내 대기 현황 보기", to: "U-02", label: "링크 열기", fromSide: "right", toSide: "left" },
@@ -1398,6 +1408,62 @@
       }
       return best;
     }
+    function laneKind(node) {
+      var lane = node.closest(".lane");
+      if (lane && lane.classList.contains("lane--ipad")) return "ipad";
+      if (lane && lane.classList.contains("lane--user")) return "user";
+      return "staff";
+    }
+    function clipped(value, limit) {
+      return value.length > limit ? value.slice(0, limit - 1).trim() + "…" : value;
+    }
+    function splitState(value) {
+      if (!value) return [];
+      if (value.length <= 31) return [value];
+      var breaks = [" · ", " → ", " + "];
+      for (var i = 0; i < breaks.length; i += 1) {
+        var index = value.lastIndexOf(breaks[i], 29);
+        if (index > 11) return [value.slice(0, index), clipped(value.slice(index + breaks[i].length), 31)];
+      }
+      return [value.slice(0, 29).trim(), clipped(value.slice(29).trim(), 31)];
+    }
+    function drawNodeCaptions(svg) {
+      var inverse = 1 / scale;
+      board.querySelectorAll(".node[data-code]").forEach(function (node) {
+        var device = node.querySelector(".device");
+        var labelElement = node.querySelector(".node-label");
+        if (!device || !labelElement) return;
+        var frame = rectFor(device);
+        var label = compactText(labelElement.textContent);
+        var code = node.getAttribute("data-code");
+        var showTitle = scale >= TITLE_LABEL_SCALE;
+        var compactMode = !showTitle;
+        var showState = scale >= STATE_LABEL_SCALE;
+        var stateElement = node.querySelector(".node-state");
+        var stateLines = showState && stateElement ? splitState(compactText(stateElement.textContent)) : [];
+        var title = showTitle ? clipped(label, 33) : code;
+        var width = showTitle ? Math.max(132, Math.min(228, title.length * 7 + 22)) : 42;
+        if (stateLines.length) width = Math.max(width, 228);
+        var height = stateLines.length ? 45 + (stateLines.length - 1) * 12 : showTitle ? 30 : 20;
+        var gap = 8;
+        var anchorX = compactMode ? frame.left + frame.width / 2 : frame.left;
+        var rectX = compactMode ? -width / 2 : 0;
+        var group = svgElement("g", {
+          class: "node-caption node-caption--" + laneKind(node) + (compactMode ? " node-caption--compact" : ""),
+          transform: "translate(" + anchorX + " " + frame.top + ") scale(" + inverse + ")"
+        });
+        group.appendChild(svgElement("rect", { x: rectX, y: -(height + gap), width: width, height: height }));
+        var titleText = svgElement("text", { class: "node-caption-title", x: compactMode ? "0" : "10", y: -(height + gap) + (stateLines.length ? 14 : height / 2) });
+        titleText.textContent = title;
+        group.appendChild(titleText);
+        stateLines.forEach(function (line, index) {
+          var stateText = svgElement("text", { class: "node-caption-state", x: "10", y: -(height + gap) + 31 + index * 12 });
+          stateText.textContent = line;
+          group.appendChild(stateText);
+        });
+        svg.appendChild(group);
+      });
+    }
     function drawWires() {
       var old = board.querySelector(".diagram-wires");
       if (old) old.remove();
@@ -1405,7 +1471,8 @@
       var defs = svgElement("defs");
       ["action", "system", "exception"].forEach(function (kind) {
         var color = kind === "system" ? "#5277b7" : kind === "exception" ? "#d92d20" : "#3f6f61";
-        var marker = svgElement("marker", { id: "arrow-" + kind, viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "8", markerHeight: "8", orient: "auto-start-reverse" });
+        var markerSize = 10 / scale;
+        var marker = svgElement("marker", { id: "arrow-" + kind, viewBox: "0 0 10 10", refX: "9", refY: "5", markerUnits: "userSpaceOnUse", markerWidth: markerSize, markerHeight: markerSize, orient: "auto-start-reverse" });
         marker.appendChild(svgElement("path", { d: "M 0 0 L 10 5 L 0 10 z", fill: color }));
         defs.appendChild(marker);
       });
@@ -1432,31 +1499,43 @@
         var kind = spec.kind || "action";
         svg.appendChild(svgElement("path", { class: "wire-halo", d: d }));
         svg.appendChild(svgElement("path", { class: "wire-path wire-path--" + kind, d: d, "marker-end": "url(#arrow-" + kind + ")" }));
-        svg.appendChild(svgElement("circle", { class: "wire-port wire-port--" + kind, cx: start.x, cy: start.y, r: "4.5" }));
+        svg.appendChild(svgElement("circle", { class: "wire-port wire-port--" + kind, cx: start.x, cy: start.y, r: 4.5 / scale }));
         var hotspotNumber = null;
         if (spec.hotspot !== false) {
           hotspotNumber = numberFor(spec);
           var hotspotKey = spec.from + ":" + hotspotNumber;
-          if (!drawnHotspots.has(hotspotKey)) {
+          if (scale >= TITLE_LABEL_SCALE && !drawnHotspots.has(hotspotKey)) {
             drawnHotspots.add(hotspotKey);
             var hotspot = hotspotPoint(source);
-            svg.appendChild(svgElement("circle", { class: "wire-hotspot wire-hotspot--" + kind, cx: hotspot.x, cy: hotspot.y, r: "10" }));
-            var hotspotText = svgElement("text", { class: "wire-hotspot-text", x: hotspot.x, y: hotspot.y + 0.5 });
+            var hotspotGroup = svgElement("g", { transform: "translate(" + hotspot.x + " " + hotspot.y + ") scale(" + (1 / scale) + ")" });
+            hotspotGroup.appendChild(svgElement("circle", { class: "wire-hotspot wire-hotspot--" + kind, cx: "0", cy: "0", r: "10" }));
+            var hotspotText = svgElement("text", { class: "wire-hotspot-text", x: "0", y: "0.5" });
             hotspotText.textContent = hotspotNumber;
-            svg.appendChild(hotspotText);
+            hotspotGroup.appendChild(hotspotText);
+            svg.appendChild(hotspotGroup);
           }
         }
-        var mid = labelPoint(points, spec);
-        var label = (hotspotNumber ? hotspotNumber + " · " : "") + spec.label;
-        var width = Math.max(92, compactText(label).length * 12 + 26);
-        var group = svgElement("g", { class: "wire-label", transform: "translate(" + mid.x + " " + mid.y + ")" });
-        group.appendChild(svgElement("rect", { x: -width / 2, y: -15, width: width, height: 30, rx: "8" }));
-        var text = svgElement("text", { x: "0", y: "1" });
-        text.textContent = label;
-        group.appendChild(text);
-        svg.appendChild(group);
+        if (scale >= TITLE_LABEL_SCALE) {
+          var mid = labelPoint(points, spec);
+          mid.x += spec.labelOffsetX || 0;
+          mid.y += spec.labelOffsetY || 0;
+          var label = (hotspotNumber ? hotspotNumber + " · " : "") + spec.label;
+          var width = Math.max(92, Math.min(206, compactText(label).length * 7 + 24));
+          var group = svgElement("g", { class: "wire-label wire-label--" + kind, transform: "translate(" + mid.x + " " + mid.y + ") scale(" + (1 / scale) + ")" });
+          group.appendChild(svgElement("rect", { x: -width / 2, y: -14, width: width, height: 28 }));
+          var text = svgElement("text", { x: "0", y: "1" });
+          text.textContent = clipped(label, 29);
+          group.appendChild(text);
+          svg.appendChild(group);
+        }
       });
+      drawNodeCaptions(svg);
       board.insertBefore(svg, board.firstChild);
+    }
+
+    function scheduleDraw() {
+      cancelAnimationFrame(drawFrame);
+      drawFrame = requestAnimationFrame(drawWires);
     }
 
     function clamp(s) { return Math.min(MAX, Math.max(MIN, s)); }
@@ -1471,6 +1550,7 @@
       ty = py - (py - ty) * factor;
       scale = ns;
       apply();
+      scheduleDraw();
     }
     function fit() {
       var pad = 56;
@@ -1480,6 +1560,7 @@
       tx = Math.max(24, (vw - bw * scale) / 2);
       ty = Math.max(24, (vh - bh * scale) / 2);
       apply();
+      scheduleDraw();
     }
     function focusElement(element) {
       if (!element) { fit(); return; }
@@ -1500,18 +1581,18 @@
       tx = vw / 2 - (bounds.left + width / 2) * scale;
       ty = vh / 2 - (bounds.top + height / 2) * scale;
       apply();
+      scheduleDraw();
     }
     function focusHash() {
       var id = decodeURIComponent(window.location.hash.slice(1));
       focusElement(id ? document.getElementById(id) : null);
-      requestAnimationFrame(drawWires);
     }
 
     // 휠: 이동 / ⌘·Ctrl(트랙패드 핀치 포함): 확대·축소
     scroll.addEventListener("wheel", function (e) {
       e.preventDefault();
       if (e.ctrlKey || e.metaKey) {
-        zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0021));
+        zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0035));
       } else {
         tx -= e.deltaX;
         ty -= e.deltaY;
@@ -1541,7 +1622,7 @@
         var mx = (a[0].x + a[1].x) / 2, my = (a[0].y + a[1].y) / 2;
         var dist = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
         if (pinch) {
-          zoomAt(mx, my, dist / pinch.dist);
+          zoomAt(mx, my, Math.pow(dist / pinch.dist, 1.35));
           tx += mx - pinch.mx;
           ty += my - pinch.my;
           apply();
@@ -1564,8 +1645,8 @@
       if (!b) return;
       var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
       switch (b.getAttribute("data-act")) {
-        case "in": zoomAt(cx, cy, 1.3); break;
-        case "out": zoomAt(cx, cy, 1 / 1.3); break;
+        case "in": zoomAt(cx, cy, 1.5); break;
+        case "out": zoomAt(cx, cy, 1 / 1.5); break;
         case "pct": zoomAt(cx, cy, 1 / scale); break;
         case "fit": fit(); break;
       }
@@ -1575,8 +1656,8 @@
     window.addEventListener("keydown", function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       var cx = scroll.clientWidth / 2, cy = scroll.clientHeight / 2;
-      if (e.key === "+" || e.key === "=") { zoomAt(cx, cy, 1.3); e.preventDefault(); }
-      else if (e.key === "-" || e.key === "_") { zoomAt(cx, cy, 1 / 1.3); e.preventDefault(); }
+      if (e.key === "+" || e.key === "=") { zoomAt(cx, cy, 1.5); e.preventDefault(); }
+      else if (e.key === "-" || e.key === "_") { zoomAt(cx, cy, 1 / 1.5); e.preventDefault(); }
       else if (e.key === "0") { zoomAt(cx, cy, 1 / scale); }
       else if (e.key === "1") { fit(); }
     });
@@ -1588,14 +1669,14 @@
     }
 
     if (window.location.hash) focusHash();
-    else { fit(); requestAnimationFrame(drawWires); }
+    else { fit(); }
     window.addEventListener("hashchange", focusHash);
     window.addEventListener("resize", function () {
       // 창 크기 변화에도 보드가 화면 밖으로 사라지지 않게 최소 여백 유지
       tx = Math.min(tx, scroll.clientWidth - 60);
       ty = Math.min(ty, scroll.clientHeight - 60);
       apply();
-      requestAnimationFrame(drawWires);
+      scheduleDraw();
     });
   })();
   </script>
