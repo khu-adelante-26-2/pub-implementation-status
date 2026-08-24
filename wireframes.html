@@ -962,8 +962,16 @@
 
     .story-chapters {
       display: grid;
+      width: 100%;
+      min-width: 0;
+      grid-template-columns: minmax(0, 1fr);
       gap: 30px;
       padding-top: 28px;
+    }
+    .story-chapter {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
     }
     .story-chapter + .story-chapter {
       padding-top: 26px;
@@ -971,6 +979,8 @@
     }
     .chapter-head {
       display: grid;
+      width: 100%;
+      min-width: 0;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 18px;
       align-items: center;
@@ -1034,15 +1044,22 @@
     .rail-button:disabled { color: #afb6b3; border-color: #e0e3e1; background: #f5f6f5; cursor: default; }
     .story-rail {
       display: flex;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
       gap: 26px;
       align-items: flex-start;
-      overflow-x: auto;
+      overflow-x: scroll;
+      overflow-y: hidden;
       padding: 4px 4px 22px;
       scroll-snap-type: x proximity;
+      scroll-padding-inline: 4px;
+      overscroll-behavior-x: contain;
       cursor: grab;
       scrollbar-color: #88958f #e7ebe9;
       scrollbar-gutter: stable;
       scrollbar-width: auto;
+      -webkit-overflow-scrolling: touch;
       touch-action: pan-x pan-y;
     }
     .story-rail.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
