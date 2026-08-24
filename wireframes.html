@@ -2131,7 +2131,17 @@
       return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
     }
     function nextPaint() {
-      return new Promise(function (resolve) { requestAnimationFrame(function () { requestAnimationFrame(resolve); }); });
+      return new Promise(function (resolve) {
+        var settled = false;
+        var timeout = setTimeout(done, 200);
+        function done() {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeout);
+          resolve();
+        }
+        requestAnimationFrame(function () { requestAnimationFrame(done); });
+      });
     }
     async function downloadFigmaSvgLegacy() {
       if (!figmaExportButton || figmaExportButton.disabled) return;
@@ -2220,7 +2230,6 @@
         await nextPaint();
         var captureArea = sourceBoard.getBoundingClientRect();
         var svgDocument = window.DomToSvg.elementToSVG(sourceBoard, { captureArea: captureArea, keepLinks: false });
-        await window.DomToSvg.inlineResources(svgDocument.documentElement);
         annotateSvgLayers(svgDocument.documentElement);
         var svgContent = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svgDocument);
         var blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
