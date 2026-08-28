@@ -448,6 +448,135 @@
     .status-action-note { margin: 7px 0 0; color: var(--muted); font-size: .64rem; line-height: 1.45; text-align: center; }
     .status-sheet { right: 0; bottom: 0; left: 0; z-index: 7; border: 0; border-radius: 18px 18px 0 0; }
 
+    /* 개인 대기 링크 제안: 현재 펍의 검정·라임, 큰 숫자, 선형 아이콘 문법 */
+    .spot-link {
+      --spot-lime: #f5fc92;
+      --spot-ink: #050505;
+      --spot-paper: #fff;
+      --spot-soft: #f4f4f1;
+      --spot-muted: #797979;
+      min-height: calc(100% + 28px);
+      margin: -42px -18px -22px;
+      padding: 0 18px 22px;
+      color: var(--spot-ink);
+      background: var(--spot-paper);
+    }
+    .spot-link__header {
+      display: flex;
+      min-height: 82px;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 0 -18px;
+      padding: 0 18px 15px;
+      color: var(--spot-lime);
+      background: var(--spot-ink);
+    }
+    .spot-link__header strong { font-size: 1.18rem; font-weight: 950; letter-spacing: -.07em; }
+    .spot-link__header span { color: #d7d7d7; font-size: .61rem; font-weight: 750; }
+    .spot-link__venue { padding: 18px 0 12px; text-align: center; }
+    .spot-link__venue b { display: block; font-size: .9rem; font-weight: 900; letter-spacing: -.025em; }
+    .spot-link__venue span { display: block; margin-top: 3px; color: var(--spot-muted); font-size: .62rem; }
+    .spot-link__ticket {
+      display: inline-flex;
+      min-height: 25px;
+      align-items: center;
+      margin-top: 8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: var(--spot-lime);
+      background: var(--spot-ink);
+      font-size: .64rem;
+      font-weight: 850;
+    }
+    .spot-link__hero { padding: 22px 0 19px; text-align: center; }
+    .spot-link__hero p { margin: 0 0 5px; font-size: .72rem; font-weight: 800; }
+    .spot-link__hero strong { display: block; font-size: 4.25rem; font-weight: 950; letter-spacing: -.09em; line-height: .98; }
+    .spot-link__hero strong small { margin-left: 5px; font-size: .23em; font-weight: 850; letter-spacing: 0; }
+    .spot-link__estimate { display: inline-flex; gap: 6px; margin-top: 10px; color: #555; font-size: .68rem; font-weight: 750; }
+    .spot-link__estimate b { color: var(--spot-ink); }
+    .spot-link__notice {
+      margin: 4px 0 14px;
+      padding: 13px 14px;
+      border-radius: 5px;
+      color: var(--spot-ink);
+      background: #fbfdeb;
+      line-height: 1.5;
+    }
+    .spot-link__notice strong { display: block; margin-bottom: 3px; font-size: .85rem; }
+    .spot-link__notice p { margin: 0; color: #575757; font-size: .66rem; }
+    .spot-link__list { margin: 0; border-top: 1.5px solid #777; }
+    .spot-link__row { display: flex; min-height: 42px; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1.5px solid #b8b8b8; }
+    .spot-link__row span { color: #595959; font-size: .66rem; }
+    .spot-link__row b { font-size: .7rem; font-weight: 900; text-align: right; }
+    .spot-link__actions { display: grid; gap: 7px; margin-top: 17px; }
+    .spot-link__button {
+      display: flex;
+      min-height: 47px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border-radius: 999px;
+      color: var(--spot-lime);
+      background: #262626;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+    .spot-link__button--lime { color: var(--spot-ink); background: var(--spot-lime); }
+    .spot-link__button--quiet { border: 1.5px solid #c4c4c4; color: var(--spot-ink); background: #fff; }
+    .spot-link__button--disabled { color: #a0a0a0; background: #ededed; }
+    .spot-link__button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+    .spot-link__sync { display: flex; min-height: 30px; align-items: center; justify-content: center; gap: 5px; color: #8a8a8a; font-size: .59rem; }
+    .spot-link__sync::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #53a56f; }
+    .spot-link__help { margin: 11px 0 0; color: #8a8a8a; font-size: .6rem; line-height: 1.5; text-align: center; }
+    .spot-link__halftone {
+      position: relative;
+      display: grid;
+      width: 82px;
+      height: 82px;
+      margin: 4px auto 10px;
+      overflow: hidden;
+      place-items: center;
+      border-radius: 50%;
+      color: #050505;
+      background-color: var(--spot-lime);
+      background-image: radial-gradient(#050505 1px, transparent 1.2px);
+      background-size: 5px 5px;
+      font-size: 2rem;
+      font-weight: 950;
+    }
+    .spot-link__halftone::after { content: ""; position: absolute; inset: 12px; border-radius: 50%; background: rgb(245 252 146 / 84%); }
+    .spot-link__halftone svg { position: relative; z-index: 1; width: 38px; height: 38px; fill: none; stroke: #050505; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
+    .spot-link__call { padding: 20px 0 14px; text-align: center; }
+    .spot-link__call h3 { margin: 0; font-size: 1.25rem; letter-spacing: -.045em; }
+    .spot-link__call p { margin: 5px 0 0; color: #555; font-size: .68rem; line-height: 1.5; }
+    .spot-link__countdown { margin: 7px 0 2px; font-size: 3.1rem; font-weight: 950; letter-spacing: -.08em; line-height: 1; }
+    .spot-link__countdown small { margin-left: 5px; color: #555; font-size: .22em; letter-spacing: 0; }
+    .spot-link__location { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: center; margin: 10px 0; padding: 11px; border-radius: 5px; background: var(--spot-soft); text-align: left; }
+    .spot-link__location svg { width: 26px; height: 26px; fill: none; stroke: #111; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+    .spot-link__location b { display: block; font-size: .72rem; }
+    .spot-link__location span { display: block; margin-top: 2px; color: #686868; font-size: .61rem; }
+    .spot-link__credential { margin: 10px 0 0; padding: 11px; border: 1.5px solid #111; border-radius: 5px; text-align: center; }
+    .spot-link__credential span { display: block; color: #707070; font-size: .6rem; }
+    .spot-link__credential b { display: block; margin-top: 3px; font-size: .88rem; }
+    .spot-link__final { display: grid; min-height: 500px; place-content: center; text-align: center; }
+    .spot-link__final h3 { margin: 0; font-size: 1.28rem; letter-spacing: -.04em; }
+    .spot-link__final p { margin: 8px 12px 22px; color: #666; font-size: .68rem; line-height: 1.55; }
+    .spot-link__final .spot-link__list { min-width: 222px; text-align: left; }
+    .spot-link__stale { margin-top: 18px; padding: 14px; border-left: 4px solid #ed8a28; background: #fff5e8; }
+    .spot-link__stale strong { display: block; margin-bottom: 4px; font-size: .82rem; }
+    .spot-link__stale p { margin: 0; color: #705a42; font-size: .65rem; line-height: 1.5; }
+    .spot-link__sheet { padding: 23px 18px 18px; text-align: center; }
+    .spot-link__sheet h4 { margin: 0; font-size: 1.02rem; }
+    .spot-link__sheet p { margin: 13px 6px 0; color: #555; font-size: .68rem; line-height: 1.55; }
+    .spot-link__sheet .two-buttons { gap: 8px; margin-top: 28px; }
+    .spot-link__sheet .spot-link__button { min-height: 48px; }
+    .proposal-chip { display: inline-flex; align-items: center; margin-left: 7px; padding: 3px 7px; border-radius: 999px; color: #111; background: var(--spot-lime, #f5fc92); font-size: .58rem; font-style: normal; font-weight: 900; vertical-align: middle; }
+
+    @media (max-width: 520px) {
+      .canvas-nav { display: grid !important; width: 100% !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .canvas-nav a { min-width: 0; text-align: center; white-space: normal; }
+    }
+
     @media print {
       .board-scroll { overflow: visible; padding: 0; }
       .board { transform: scale(.28); transform-origin: top left; }
@@ -1184,7 +1313,7 @@
         <div class="canvas-title-block">
           <h1>주점 대기 화면</h1>
         </div>
-        <nav class="canvas-nav" aria-label="화면 바로가기"><a href="#registration-flow">iPad 등록</a><a href="#guest-status-flow">사용자 현황</a><a href="#staff-setup-flow">영업 준비</a><a href="#staff-waiting-flow">대기 손님 입장</a><a href="#walk-in-flow">바로 입장</a><a href="#ipad-exception-flow">연결 예외</a><a href="#staff-settings-flow">운영 설정</a></nav>
+        <nav class="canvas-nav" aria-label="화면 바로가기"><a href="#registration-flow">iPad 등록</a><a href="#guest-status-flow">현재 사용자 현황</a><a href="#guest-link-proposal-flow">개인 링크 제안</a><a href="#staff-setup-flow">영업 준비</a><a href="#staff-waiting-flow">대기 손님 입장</a><a href="#notification-recovery-flow">알림 복구 제안</a><a href="#walk-in-flow">바로 입장</a><a href="#ipad-exception-flow">연결 예외</a><a href="#staff-settings-flow">운영 설정</a></nav>
       </header>
 
       <section class="lane lane--ipad" id="registration-flow">
@@ -1264,13 +1393,13 @@
         </div>
       </section>
 
-      <aside class="handoff handoff--system"><strong>기기 간 인계 · 등록 성공 뒤</strong><p>서버가 “대기 등록 완료 + 내 대기 현황 링크”를 알림 어댑터에 전달합니다.</p><span>현재는 NoOp 어댑터 · 실제 알림톡 미발송</span></aside>
+      <aside class="handoff handoff--system"><strong>기기 간 인계 · 등록 성공 뒤</strong><p>서버가 “대기 등록 완료 + 내 대기 현황 링크”를 알림 인터페이스에 전달합니다.</p><span>local은 미리보기 · 운영 알림톡은 아직 미연결</span></aside>
 
       <section class="lane lane--user" id="guest-status-flow">
-        <header class="lane-label"><div><small>사용자 휴대폰 · 원격 확인</small><h2><span></span>사용자 iPhone · 내 대기 현황</h2></div><p>사용자는 같은 현황 링크에서 순서를 확인하고, 호출 전에는 한 번 미루거나 취소할 수 있습니다.</p></header>
+        <header class="lane-label"><div><small>사용자 휴대폰 · 현재 구현</small><h2><span></span>사용자 iPhone · 현재 내 대기 현황</h2></div><p>현재 구현된 상태 조회·한 번 미루기·사용자 취소 흐름입니다. 아래 개인 링크 개선안과 구분해 봅니다.</p></header>
         <div class="flow">
           <article class="node">
-            <p class="node-label">U-01 · 등록 알림톡</p><p class="node-state">어댑터 전달 예시 · 현재 실제 발송 없음</p>
+            <p class="node-label">U-01 · 등록 알림톡</p><p class="node-state">local 미리보기 가능 · 운영 발송은 아직 미연결</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · 축제 주점</div>
               <div class="bubble"><b>[대기 등록 완료]</b><br>대기번호 17번<br>등록 인원 4명<br>등록 시 예상 약 60분<br><span class="link-button">내 대기 현황 보기</span></div>
@@ -1326,7 +1455,7 @@
           </div>
           <div class="connector connector--event"><span>취소하지 않은 팀은<br>이후 직원 호출</span></div>
           <article class="node">
-            <p class="node-label">U-03 · 호출 알림톡</p><p class="node-state">CALLED · 테이블 미배정 · 현재 실제 발송 없음</p>
+            <p class="node-label">U-03 · 호출 알림톡</p><p class="node-state">CALLED · 테이블 미배정 · 운영 발송은 아직 미연결</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · 축제 주점</div>
               <div class="bubble"><b>[대기 호출 안내]</b><br>전화번호 뒤 4자리 5678 손님, 지금 주점 입구로 와주세요.<br>도착 후 직원이 테이블을 안내합니다.<br><span class="link-button">내 대기 현황 보기</span></div>
@@ -1361,6 +1490,108 @@
               <div><p class="node-label">U-07 · 조회 지연</p><p class="node-state">활성 상태 공통 표시 예외 · 상태 전이 아님</p><div class="device iphone"><div class="screen"><div class="status-page"><div class="page-appbar"><b>축제 주점 A</b><span style="color:var(--yellow);font-weight:800">● 연결 확인 필요</span></div><p class="queue-title">내 대기번호</p><div class="queue-ticket">17<small>번</small></div><div class="status-banner status-banner--stale"><strong>최신 상태를 확인하지 못했습니다</strong><p>표시된 정보는 마지막 확인 결과입니다.</p></div><div class="info-list"><div class="info-row"><span>마지막 업데이트</span><b>1분 전</b></div><div class="info-row"><span>현재 표시 상태</span><b>대기 중</b></div></div><div class="status-sync status-sync--stale">자동 확인을 다시 시도하고 있습니다</div><span class="wire-button wire-button--outline status-action" style="color:var(--blue);border-color:var(--blue)">지금 다시 확인</span><p class="status-action-note">연결되면 다시 5초마다 자동으로 확인합니다.</p></div></div></div></div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <aside class="handoff handoff--branch"><strong>리뷰 대상 · 개인 링크 개선안</strong><p>현재 펍의 검정·라임, 큰 숫자와 선형 아이콘 패턴으로 대기부터 호출·종료·복구까지 다시 정리한 제안입니다.</p><span>승인 전 제안 UX · 서비스에는 아직 미반영</span></aside>
+
+      <section class="lane lane--user" id="guest-link-proposal-flow">
+        <header class="lane-label"><div><small>사용자 휴대폰 · 리뷰 제안</small><h2><span></span>카카오 개인 대기 링크 <em class="proposal-chip">제안 UX</em></h2></div><p>사용자가 링크 하나로 현재 남은 시간, 지금 할 일과 예외 상황의 다음 행동까지 이해하도록 구성합니다.</p></header>
+        <div class="flow">
+          <article class="node">
+            <p class="node-label">P-01 · 등록 알림톡</p><p class="node-state">제안 UX · 등록 직후 같은 개인 링크 전달</p>
+            <div class="device iphone"><div class="screen kakao">
+              <div class="kakao-header">카카오톡 · SPOT</div>
+              <div class="bubble"><b>[대기 등록 완료]</b><br><b>개발 주점 2</b><br>대기번호 17번 · 4명<br>현재 앞에 5팀이 있습니다.<br><span class="link-button">내 대기 현황 보기</span></div>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-02 · 대기 중</p><p class="node-state">제안 UX · WAITING</p>
+            <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
+              <div class="spot-link__header"><strong>SPOT</strong><span>자동 확인 중</span></div>
+              <div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><span>청운관 앞 A-12</span><em class="spot-link__ticket">대기번호 17번</em></div>
+              <div class="spot-link__hero"><p>내 앞 대기</p><strong>5<small>팀</small></strong><div class="spot-link__estimate"><b>약 25~35분</b><span>·</span><span>20:40 전후</span></div></div>
+              <div class="spot-link__list"><div class="spot-link__row"><span>등록 인원</span><b>4명</b></div><div class="spot-link__row"><span>연락처</span><b>끝 5678</b></div></div>
+              <div class="spot-link__sync">방금 업데이트 · 5초마다 확인</div>
+              <div class="spot-link__actions"><span class="spot-link__button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 2 5M20 4v7h-7"/></svg>순서 한 번 미루기</span><span class="spot-link__button spot-link__button--lime">대기 취소</span></div>
+              <p class="spot-link__help">예상 시간은 현장 상황에 따라 달라질 수 있습니다.</p>
+            </div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-03 · 호출 임박 알림톡</p><p class="node-state">제안 UX · 앞 3팀 진입 시 1회</p>
+            <div class="device iphone"><div class="screen kakao">
+              <div class="kakao-header">카카오톡 · SPOT</div>
+              <div class="bubble"><b>[곧 호출 예정]</b><br><b>개발 주점 2</b><br>앞에 3팀이 남았습니다.<br>지금 주점 근처로 이동해 주세요.<br><span class="link-button">현재 순서와 위치 보기</span></div>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-04 · 호출 알림톡</p><p class="node-state">제안 UX · CALLED · 도착 제한시간 포함</p>
+            <div class="device iphone"><div class="screen kakao">
+              <div class="kakao-header">카카오톡 · SPOT</div>
+              <div class="bubble"><b>[지금 입장해 주세요]</b><br><b>개발 주점 2</b><br>5분 안에 청운관 앞 A-12 입구로 와주세요.<br>직원에게 대기번호 17번을 보여주세요.<br><span class="link-button">입구 위치와 남은 시간 보기</span></div>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-05 · 호출됨</p><p class="node-state">제안 UX · CALLED · 기본 5분 카운트다운</p>
+            <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
+              <div class="spot-link__header"><strong>SPOT</strong><span>호출됨</span></div>
+              <div class="spot-link__call"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 28h8l17 8V12l-17 8H8zM16 28l3 10h7l-4-8M38 19c2 2 2 8 0 10"/></svg></div><h3>지금 입장해 주세요</h3><p>아래 시간 안에 주점 입구로 와주세요.</p><div class="spot-link__countdown">04:32<small>남음</small></div></div>
+              <div class="spot-link__location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>청운관 앞 A-12</b><span>경영대학 · 개발 주점 2 입구</span></div></div>
+              <div class="spot-link__credential"><span>입구 직원에게 이 화면을 보여주세요</span><b>대기 17번 · 연락처 끝 5678</b></div>
+              <div class="spot-link__actions"><span class="spot-link__button spot-link__button--lime"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>입구 위치 보기</span></div>
+              <p class="spot-link__help">시간이 지나면 자동으로 미도착 처리됩니다.</p>
+            </div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-06 · 착석</p><p class="node-state">제안 UX · SEATED</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link">
+              <div class="spot-link__header"><strong>SPOT</strong><span>입장 확인</span></div>
+              <div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m12 25 8 8 17-19"/></svg></div><h3>입장이 확인됐어요</h3><p>직원이 안내한 테이블을 이용해 주세요.</p><div class="spot-link__hero" style="padding:0 0 12px"><p>이용 테이블</p><strong>3<small>번</small></strong></div><div class="spot-link__list"><div class="spot-link__row"><span>등록 인원</span><b>4명</b></div><div class="spot-link__row"><span>입장 시각</span><b>19:36</b></div></div></div>
+            </div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-07 · 이용 완료</p><p class="node-state">제안 UX · COMPLETED</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link">
+              <div class="spot-link__header"><strong>SPOT</strong><span>이용 완료</span></div>
+              <div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m12 25 8 8 17-19"/></svg></div><h3>이용이 완료됐어요</h3><p>SPOT과 함께해 주셔서 감사합니다.</p><div class="spot-link__actions"><span class="spot-link__button spot-link__button--lime">축제 메인으로</span></div></div>
+            </div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-08 · 순서 미루기 확인</p><p class="node-state">제안 UX · WAITING에서 1회</p>
+            <div class="device iphone iphone--action"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>자동 확인 중</span></div><div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><em class="spot-link__ticket">대기번호 17번</em></div><div class="spot-link__hero"><p>내 앞 대기</p><strong>5<small>팀</small></strong></div></div><div class="modal-scrim"></div><div class="dialog status-sheet spot-link__sheet"><h4>순서를 맨 뒤로 미룰까요?</h4><p>대기번호는 그대로 유지되고 현재 대기열의 마지막으로 이동합니다. 한 번 미루면 되돌릴 수 없습니다.</p><div class="two-buttons"><span class="spot-link__button spot-link__button--quiet">계속 기다리기</span><span class="spot-link__button">맨 뒤로 미루기</span></div></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-09 · 순서 미루기 완료</p><p class="node-state">제안 UX · WAITING 유지</p>
+            <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
+              <div class="spot-link__header"><strong>SPOT</strong><span>자동 확인 중</span></div><div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><em class="spot-link__ticket">대기번호 17번</em></div>
+              <div class="spot-link__notice"><strong>순서를 맨 뒤로 옮겼어요</strong><p>변경된 예상 시간을 확인해 주세요.</p></div><div class="spot-link__hero"><p>내 앞 대기</p><strong>11<small>팀</small></strong><div class="spot-link__estimate"><b>약 55~65분</b><span>·</span><span>21:10 전후</span></div></div>
+              <div class="spot-link__actions"><span class="spot-link__button spot-link__button--disabled">순서 미루기 사용 완료</span><span class="spot-link__button spot-link__button--lime">대기 취소</span></div>
+            </div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-10 · 대기 취소 확인</p><p class="node-state">제안 UX · WAITING에서만 가능</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>자동 확인 중</span></div><div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><em class="spot-link__ticket">대기번호 17번</em></div><div class="spot-link__hero"><p>내 앞 대기</p><strong>5<small>팀</small></strong></div></div><div class="modal-scrim"></div><div class="dialog status-sheet spot-link__sheet"><h4>대기를 취소할까요?</h4><p>취소하면 현재 대기열에서 빠지며 다시 복구할 수 없습니다.</p><div class="two-buttons"><span class="spot-link__button spot-link__button--quiet">계속 기다리기</span><span class="spot-link__button spot-link__button--lime">대기 취소</span></div></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-11 · 사용자 취소</p><p class="node-state">제안 UX · CANCELLED · 사유 표시</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>최종 상태</span></div><div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m15 15 18 18M33 15 15 33"/></svg></div><h3>대기가 취소됐어요</h3><p>직접 취소한 대기는 복구할 수 없습니다.<br>필요하면 현장에서 다시 등록해 주세요.</p><div class="spot-link__list"><div class="spot-link__row"><span>주점</span><b>개발 주점 2</b></div><div class="spot-link__row"><span>취소 사유</span><b>사용자 취소</b></div></div></div></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-12 · 미도착</p><p class="node-state">제안 UX · 제한시간 만료 → NO_SHOW</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>최종 상태</span></div><div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 10v17M24 35v2"/></svg></div><h3>도착 시간이 지났어요</h3><p>호출 후 5분 안에 도착이 확인되지 않아<br>대기가 자동으로 종료되었습니다.</p><div class="spot-link__credential"><span>현장에 도착했다면 직원에게 말씀해 주세요</span><b>대기 17번 · 연락처 끝 5678</b></div></div></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-13 · 운영 종료</p><p class="node-state">제안 UX · 관리자 취소·재료 소진 포함</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>최종 상태</span></div><div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="15"/><path d="M24 16v9l6 4"/></svg></div><h3>오늘 대기 운영이 종료됐어요</h3><p>주점 사정으로 더 이상 입장을 안내하기 어렵습니다. 불편을 드려 죄송합니다.</p><div class="spot-link__list"><div class="spot-link__row"><span>주점</span><b>개발 주점 2</b></div><div class="spot-link__row"><span>종료 사유</span><b>재료 소진</b></div></div></div></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-14 · 최신 상태 확인 실패</p><p class="node-state">제안 UX · 마지막 정상 화면 유지</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span style="color:#ffd18a">연결 확인 필요</span></div><div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><em class="spot-link__ticket">대기번호 17번</em></div><div class="spot-link__stale"><strong>최신 상태를 확인하지 못했어요</strong><p>아래 정보는 마지막으로 정상 확인한 결과입니다.</p></div><div class="spot-link__hero"><p>마지막 확인된 앞 대기</p><strong>5<small>팀</small></strong></div><div class="spot-link__actions"><span class="spot-link__button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 2 5M20 4v7h-7"/></svg>지금 다시 확인</span></div><p class="spot-link__help">연결되면 다시 5초마다 자동으로 확인합니다.</p></div></div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">P-15 · 링크 만료·분실 복구</p><p class="node-state">제안 UX · 활성 대기는 직원 재전송 가능</p>
+            <div class="device iphone"><div class="screen"><div class="spot-link"><div class="spot-link__header"><strong>SPOT</strong><span>링크 확인 필요</span></div><div class="spot-link__final"><div class="spot-link__halftone"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 29l-3 3a6 6 0 0 1-8-8l6-6a6 6 0 0 1 8 0M30 19l3-3a6 6 0 0 1 8 8l-6 6a6 6 0 0 1-8 0M17 24h14"/></svg></div><h3>이 링크로 확인할 수 없어요</h3><p>대기 중이라면 주점 입구 직원에게 등록한 전화번호 끝 4자리를 말씀해 주세요. 새 링크를 다시 받을 수 있습니다.</p><div class="spot-link__actions"><span class="spot-link__button spot-link__button--lime">축제 메인으로</span></div></div></div></div></div>
+          </article>
         </div>
       </section>
 
@@ -1547,6 +1778,40 @@
         </div>
       </section>
 
+      <section class="lane lane--staff" id="notification-recovery-flow">
+        <header class="lane-label"><div><small>직원 휴대폰 · 리뷰 제안</small><h2><span></span>알림 실패·개인 링크 복구 <em class="proposal-chip">제안 UX</em></h2></div><p>호출 상태는 유지한 채 전송 실패를 직원에게 분명히 보여주고, SMS 대체 전송과 같은 개인 링크 재전송을 제공합니다.</p></header>
+        <div class="flow">
+          <article class="node">
+            <p class="node-label">N-01 · 호출 알림 실패</p><p class="node-state">제안 UX · CALLED 유지 · 전송 실패만 별도 표시</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>개발 주점 2</b><span class="sync-dot">자동 확인 · 방금</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-summary"><span>대기<b>5팀</b></span><span>호출<b>1팀</b></span><span>빈 테이블<b>2개</b></span></div>
+              <div class="section-rule"><span>호출된 팀</span><small class="overdue">알림 확인 필요</small></div>
+              <div class="staff-task staff-task--over"><div class="wire-row"><span class="staff-number">5678 · 4명</span><span class="tag tag--red">알림 실패</span></div><div class="staff-meta"><span class="full-phone">010-1234-5678</span><span>·</span><span class="overdue">4분 32초 남음</span></div><p class="danger-change">카카오 알림톡이 전달되지 않았습니다. 호출 상태와 도착 제한시간은 그대로 진행됩니다.</p><div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">SMS로 다시 보내기</span><span class="wire-button wire-button--outline">전화하기</span></div></div>
+              <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">N-02 · SMS 대체 전송 완료</p><p class="node-state">제안 UX · 같은 개인 링크 · 중복 발송 방지</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>개발 주점 2</b><span class="sync-dot">자동 확인 · 방금</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="success-toast" role="status"><div><strong>5678 손님에게 SMS를 보냈습니다</strong><small>같은 개인 대기 링크가 포함되었습니다</small></div></div>
+              <div class="staff-task staff-task--urgent"><div class="wire-row"><span class="staff-number">5678 · 4명</span><span class="tag tag--green">SMS 전송</span></div><div class="staff-meta"><span class="full-phone">010-1234-5678</span><span>·</span><span>3분 58초 남음</span></div><div class="staff-action-row"><span class="wire-button" style="background:var(--blue)">입장 · 테이블 선택</span><span class="wire-button wire-button--outline">미도착</span></div></div>
+              <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+          <article class="node">
+            <p class="node-label">N-03 · 개인 링크 다시 보내기</p><p class="node-state">제안 UX · 활성 대기에서만 재전송</p>
+            <div class="device iphone"><div class="screen staff-screen">
+              <div class="staff-appbar"><b>개발 주점 2</b><span class="sync-dot">자동 확인 · 방금</span></div><div class="staff-segment"><span class="active">대기팀</span><span>테이블</span></div>
+              <div class="staff-task"><div class="wire-row"><span class="staff-number">5678 · 4명</span><span class="tag tag--blue">대기 중</span></div><div class="staff-meta"><span>앞 5팀</span><span>·</span><span class="full-phone">010-1234-5678</span></div></div>
+              <div class="modal-scrim"></div><div class="dialog staff-sheet"><div class="sheet-handle"></div><div class="staff-modal-head"><div><h4>개인 대기 링크를 다시 보낼까요?</h4><p class="modal-subtitle">5678 손님 · 기존 링크와 같은 대기</p></div><span class="modal-close">×</span></div><p class="source-note" style="margin:14px 0">활성 대기 상태는 바뀌지 않습니다. 최근 발송 이력을 확인해 중복 전송을 막습니다.</p><div class="two-buttons"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">링크 다시 보내기</span></div></div>
+              <nav class="staff-nav"><span class="active">대기팀</span><span>테이블</span><span>설정</span></nav>
+            </div></div>
+          </article>
+        </div>
+      </section>
+
       <section class="lane lane--staff" id="walk-in-flow">
         <header class="lane-label"><div><small>직원 휴대폰 · 바로 입장</small><h2><span></span>대기 없이 입장</h2></div><p>대기하지 않은 손님은 빈 테이블에서 바로 이용을 시작하며 연락처나 인원은 받지 않습니다.</p></header>
         <div class="flow">
@@ -1613,13 +1878,13 @@
       <aside class="handoff handoff--rule"><strong>재진입 지점 · 설정 탭</strong><p>영업 중에도 테이블 수와 기본 이용시간을 각각 수정할 수 있습니다.</p><span>각 상세 화면은 독립 분기이며 저장 뒤 설정 목록으로 복귀</span></aside>
 
       <section class="lane lane--staff" id="staff-settings-flow">
-        <header class="lane-label"><div><small>직원 휴대폰 · 운영 설정</small><h2><span></span>직원 iPhone · 운영 설정 변경</h2></div><p>영업 중에는 테이블 수와 기본 이용시간을 각각 수정하고 저장 뒤 설정 목록으로 돌아옵니다.</p></header>
+        <header class="lane-label"><div><small>직원 휴대폰 · 운영 설정</small><h2><span></span>직원 iPhone · 운영 설정 변경</h2></div><p>테이블 수와 기본 이용시간을 관리합니다. 호출 후 도착시간은 이번 리뷰를 위한 제안 항목입니다.</p></header>
         <div class="flow">
           <article class="node">
             <p class="node-label">S-01 · 설정 탭</p>
             <div class="device iphone"><div class="screen staff-screen">
               <div class="staff-appbar"><b>축제 주점 A</b><span>설정</span></div><div class="screen-heading"><h3>운영 설정</h3><p>변경할 항목을 선택하세요.</p></div>
-              <div class="settings-list"><div class="settings-item"><div><b>테이블 수</b><span>현장 번호 1~N으로 관리</span></div><strong>8개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>입장 시 종료 예정 계산</span></div><strong>60분 ›</strong></div><div class="settings-item"><div><b>주점 정보</b><span>개발팀이 관리</span></div><strong style="color:var(--muted)">읽기 전용</strong></div></div>
+              <div class="settings-list"><div class="settings-item"><div><b>테이블 수</b><span>현장 번호 1~N으로 관리</span></div><strong>8개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>입장 시 종료 예정 계산</span></div><strong>60분 ›</strong></div><div class="settings-item"><div><b>호출 후 도착시간 <em class="proposal-chip">제안</em></b><span>시간 만료 시 자동 미도착</span></div><strong>5분 ›</strong></div><div class="settings-item"><div><b>주점 정보</b><span>개발팀이 관리</span></div><strong style="color:var(--muted)">읽기 전용</strong></div></div>
               <div class="privacy-boundary">현장에 붙인 테이블 번호와 같은 1~N 번호를 사용합니다. 별도 자리 지도는 만들지 않습니다.</div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
             </div></div>
           </article>
@@ -1637,11 +1902,17 @@
               <div class="staff-appbar"><b>기본 이용시간</b><span>설정</span></div><div class="screen-heading"><h3>기본 이용시간</h3><p>새로 입장하는 테이블부터 적용됩니다.</p></div><div class="settings-before-after"><span>현재<br><b>60분</b></span><b>→</b><span>변경<br><b>90분</b></span></div><div class="big-stepper"><span>−</span><strong>90분</strong><span>＋</span></div><div class="presets"><span>30분</span><span>60분</span><span style="border-color:var(--blue);color:var(--blue);background:var(--blue-soft)">90분</span><span>120분</span></div><div class="source-note" style="margin-top:14px">이미 이용 중인 테이블의 종료 예정 시각은 바꾸지 않습니다.</div><div class="onboarding-footer"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">90분으로 저장</span></div>
             </div></div>
           </article>
+          <article class="node">
+            <p class="node-label">S-04 · 호출 후 도착시간</p><p class="node-state">제안 UX · 주점별 설정 · 기본 5분</p>
+            <div class="device iphone"><div class="screen">
+              <div class="staff-appbar"><b>호출 후 도착시간</b><span>설정</span></div><div class="screen-heading"><h3>몇 분 동안 기다릴까요?</h3><p>최종 호출 뒤 손님이 입구에 도착해야 하는 시간입니다.</p></div><div class="settings-before-after"><span>현재<br><b>5분</b></span><b>→</b><span>변경<br><b>5분</b></span></div><div class="big-stepper"><span>−</span><strong>5분</strong><span>＋</span></div><div class="presets"><span style="border-color:var(--blue);color:var(--blue);background:var(--blue-soft)">5분</span><span>10분</span><span>15분</span><span>20분</span></div><div class="danger-change" style="margin-top:14px">시간이 지나면 호출된 팀은 자동으로 미도착 처리됩니다. 직원은 처리 전 시간을 연장할 수 있습니다.</div><div class="onboarding-footer"><span class="wire-button wire-button--outline">취소</span><span class="wire-button" style="background:var(--blue)">5분으로 저장</span></div>
+            </div></div>
+          </article>
           <div class="connector"><span>저장 후 복귀</span></div>
           <article class="node">
             <p class="node-label">S-05 · 변경 완료</p>
             <div class="device iphone"><div class="screen staff-screen">
-              <div class="staff-appbar"><b>축제 주점 A</b><span class="tag tag--green">저장됨</span></div><div class="screen-heading"><h3>운영 설정</h3><p>마지막 변경이 저장되었습니다.</p></div><div class="settings-list"><div class="settings-item"><div><b>테이블 수</b><span>현장 번호 1~N</span></div><strong>10개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>새 입장부터 적용</span></div><strong>90분 ›</strong></div><div class="settings-item"><div><b>주점 정보</b><span>개발팀이 계정에 연결</span></div><strong style="color:var(--muted)">축제 주점 A</strong></div></div><div class="source-note" style="margin-top:14px">테이블 수와 운영 설정 변경은 감사 기록에 남습니다.</div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
+              <div class="staff-appbar"><b>축제 주점 A</b><span class="tag tag--green">저장됨</span></div><div class="screen-heading"><h3>운영 설정</h3><p>마지막 변경이 저장되었습니다.</p></div><div class="settings-list"><div class="settings-item"><div><b>테이블 수</b><span>현장 번호 1~N</span></div><strong>10개 ›</strong></div><div class="settings-item"><div><b>기본 이용시간</b><span>새 입장부터 적용</span></div><strong>90분 ›</strong></div><div class="settings-item"><div><b>호출 후 도착시간 <em class="proposal-chip">제안</em></b><span>만료 시 자동 미도착</span></div><strong>5분 ›</strong></div><div class="settings-item"><div><b>주점 정보</b><span>개발팀이 계정에 연결</span></div><strong style="color:var(--muted)">축제 주점 A</strong></div></div><div class="source-note" style="margin-top:14px">테이블 수와 운영 설정 변경은 감사 기록에 남습니다.</div><nav class="staff-nav"><span>대기팀</span><span>테이블</span><span class="active">설정</span></nav>
             </div></div>
           </article>
         </div>
@@ -1656,12 +1927,21 @@
         { title: "등록에 실패한다", description: "입력값을 지우지 않고 같은 멱등 요청으로 다시 시도합니다.", tone: "exception", codes: ["I-04"] }
       ],
       "guest-status-flow": [
-        { title: "내 순서를 확인한다", description: "등록 결과로 전달된 같은 링크에서 현재 순서와 예상 시간을 확인합니다. 알림 어댑터는 아직 실제 발송과 연결되지 않았습니다.", codes: ["U-01", "U-02"] },
+        { title: "내 순서를 확인한다", description: "등록 결과로 전달된 같은 링크에서 현재 순서와 예상 시간을 확인합니다. local 미리보기는 가능하지만 운영 발송은 아직 연결되지 않았습니다.", codes: ["U-01", "U-02"] },
         { title: "순서를 한 번 미룬다", description: "확인 뒤 WAITING 상태는 유지하고 실제 대기열 순서만 맨 뒤로 옮깁니다.", codes: ["U-02A", "U-02B"] },
         { title: "호출 전에 대기를 취소한다", description: "WAITING 상태에서 한 번 더 확인한 뒤 활성 대기열에서 빠집니다.", codes: ["U-02C", "U-02D"] },
         { title: "호출을 확인하고 입장한다", description: "전화번호 뒤 4자리로 현장에서 본인을 알리고, 직원의 테이블 배정과 실제 이용 완료를 확인합니다.", codes: ["U-03", "U-04", "U-05", "U-06"] },
         { title: "호출 뒤 도착하지 않는다", description: "직원이 미도착을 확정하면 NO_SHOW 최종 상태를 표시합니다.", tone: "exception", codes: ["U-06A"] },
         { title: "최신 상태를 받지 못한다", description: "마지막 정상 상태를 유지하면서 자동 재시도와 수동 확인 수단을 함께 제공합니다.", tone: "exception", codes: ["U-07"] }
+      ],
+      "guest-link-proposal-flow": [
+        { title: "등록 뒤 내 순서를 확인한다", description: "등록 알림의 같은 개인 링크에서 앞 대기팀, 예상 시간 범위와 예상 입장 시각을 확인합니다.", codes: ["P-01", "P-02"] },
+        { title: "호출 전에 주점으로 돌아온다", description: "앞 3팀에서 한 번 미리 알리고, 최종 호출에는 도착 제한시간과 입구 위치를 함께 제공합니다.", codes: ["P-03", "P-04", "P-05"] },
+        { title: "입장하고 이용을 마친다", description: "입구에서 대기번호와 연락처 끝 4자리를 보여준 뒤 직원의 테이블 배정과 이용 완료를 확인합니다.", codes: ["P-06", "P-07"] },
+        { title: "순서를 한 번 미룬다", description: "대기번호는 유지하고 현재 대기열의 맨 뒤로 이동한 결과를 바로 확인합니다.", codes: ["P-08", "P-09"] },
+        { title: "호출 전에 대기를 취소한다", description: "취소 결과와 사유를 남기고 현장 재등록이 필요하다는 다음 행동을 안내합니다.", codes: ["P-10", "P-11"] },
+        { title: "대기가 예외로 끝난다", description: "호출시간 만료와 주점 운영 종료를 구분해 사유와 현장 문의 방법을 보여줍니다.", tone: "exception", codes: ["P-12", "P-13"] },
+        { title: "상태나 링크를 확인하지 못한다", description: "마지막 정상 상태를 유지하거나, 활성 대기라면 직원에게 새 링크를 요청하도록 안내합니다.", tone: "exception", codes: ["P-14", "P-15"] }
       ],
       "staff-setup-flow": [
         { title: "영업 준비를 완료한다", description: "주점 확인, 테이블 수, 기본 이용시간과 손님용 iPad 연결을 순서대로 검토한 뒤 한 번에 저장합니다.", codes: ["O-01", "O-02", "O-03A", "O-03B", "O-04", "O-05A", "O-05B", "O-06"] }
@@ -1670,6 +1950,10 @@
         { title: "호출한 손님을 테이블에 배정한다", description: "직원이 팀을 직접 골라 뒤 4자리로 호출하고, 도착을 확인한 뒤 빈 테이블을 선택합니다.", codes: ["A-01", "A-02", "A-03", "A-04"] },
         { title: "호출한 손님이 오지 않는다", description: "호출됨 상태에서 미도착 여부를 다시 확인한 뒤 대기 목록에서 제거합니다.", tone: "exception", codes: ["A-02B", "A-02C"] }
       ],
+      "notification-recovery-flow": [
+        { title: "호출 알림 실패를 복구한다", description: "호출 상태와 남은 시간은 유지하고 SMS 대체 전송과 전화 연결을 제공합니다.", tone: "exception", codes: ["N-01", "N-02"] },
+        { title: "잃어버린 개인 링크를 다시 보낸다", description: "활성 대기에서만 같은 개인 링크를 재전송하고 최근 발송 이력으로 중복을 막습니다.", codes: ["N-03"] }
+      ],
       "walk-in-flow": [
         { title: "대기 없는 손님의 이용을 시작하고 끝낸다", description: "연락처나 인원을 받지 않고 빈 테이블의 이용시간만 시작하며, 실제 퇴장을 확인한 뒤 비웁니다.", codes: ["T-01", "T-02", "T-03", "T-04"] }
       ],
@@ -1677,7 +1961,7 @@
         { title: "손님용 iPad 연결이 끊긴다", description: "정상일 때는 아무 표시도 하지 않고, 서버가 오프라인을 판정한 경우에만 운영 선택지를 보여줍니다.", tone: "exception", codes: ["E-01"] }
       ],
       "staff-settings-flow": [
-        { title: "운영 중 설정을 바꾼다", description: "테이블 수 또는 기본 이용시간 중 필요한 항목만 수정하고 저장 뒤 설정 목록으로 돌아옵니다.", codes: ["S-01", "S-02", "S-03", "S-05"] }
+        { title: "운영 중 설정을 바꾼다", description: "테이블 수, 기본 이용시간과 제안 중인 호출 후 도착시간을 수정하고 저장 뒤 설정 목록으로 돌아옵니다.", codes: ["S-01", "S-02", "S-03", "S-04", "S-05"] }
       ]
     };
 
