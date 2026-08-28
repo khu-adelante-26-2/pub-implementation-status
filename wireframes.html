@@ -152,7 +152,7 @@
     .kakao { background: #f8e965; }
     .kakao-header { margin: -42px -18px 18px; padding: 44px 18px 13px; background: #f3dc33; font-weight: 850; }
     .bubble { padding: 15px; border-radius: 5px 16px 16px 16px; background: #fff; box-shadow: var(--shadow-sm); line-height: 1.65; }
-    .bubble .link-button { display: block; margin-top: 12px; padding: 8px; border-radius: 6px; background: #eceff1; font-weight: 700; text-align: center; }
+    .bubble .link-button { display: block; margin-top: 12px; padding: 8px; border-radius: 6px; color: inherit; background: #eceff1; font-weight: 700; text-align: center; text-decoration: none; }
 
     .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
     .summary-grid .wire-box { margin: 0; padding: 8px; }
@@ -549,6 +549,7 @@
       background: #262626;
       font-size: .72rem;
       font-weight: 900;
+      text-decoration: none;
     }
     .spot-link__button--lime { color: var(--spot-ink); background: var(--spot-lime); }
     .spot-link__button--quiet { border: 1.5px solid #c4c4c4; color: var(--spot-ink); background: #fff; }
@@ -563,9 +564,11 @@
     .spot-link__call p { margin: 5px 0 0; color: #555; font-size: .68rem; line-height: 1.5; }
     .spot-link__countdown { margin: 9px 0 2px; font-size: 3.05rem; font-weight: 900; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; letter-spacing: .025em; line-height: 1; }
     .spot-link__countdown small { margin-left: 5px; color: #555; font-size: .22em; letter-spacing: 0; }
-    .spot-link__location { margin: 10px 0; padding: 12px 14px; border-radius: 5px; background: var(--spot-soft); text-align: left; }
-    .spot-link__location b { display: block; font-size: .72rem; }
-    .spot-link__location span { display: block; margin-top: 2px; color: #686868; font-size: .61rem; }
+    .spot-link__location { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; margin: 10px 0; padding: 12px 14px; border-radius: 5px; color: var(--spot-ink); background: var(--spot-soft); text-align: left; text-decoration: none; }
+    .spot-link__location-copy b { display: block; font-size: .72rem; }
+    .spot-link__location-copy small { display: block; margin-top: 3px; color: #686868; font-size: .61rem; }
+    .spot-link__map-link { display: flex; align-items: center; gap: 4px; color: #252525; font-size: .63rem; font-style: normal; font-weight: 900; white-space: nowrap; }
+    .spot-link__map-link i { font-size: .85rem; font-style: normal; }
     .spot-link__credential { margin: 10px 0 0; padding: 11px; border: 1.5px solid #111; border-radius: 5px; text-align: center; }
     .spot-link__credential span { display: block; color: #707070; font-size: .6rem; }
     .spot-link__credential b { display: block; margin-top: 3px; font-size: .88rem; }
@@ -604,6 +607,7 @@
     .festival-map .pin--load-free { background: #2f9e57; }
     .festival-map .pin--load-mid { background: #d99a12; }
     .festival-map .pin--load-busy { background: #d94a3d; }
+    .festival-map .pin--selected { width: 31px; height: 31px; border-width: 3px; color: #111; background: var(--brand); box-shadow: 0 0 0 6px rgb(245 252 146 / 22%), 0 4px 11px rgb(0 0 0 / 42%); }
     .festival-map .pin--council { background: #7b5cd6; }
     .festival-map .pin--theater { background: #b07ae0; }
     .festival-map .pin-name { display: flex; align-items: center; gap: 4px; padding: 1px 6px; border-radius: 999px; color: #d3d9e8; background: rgb(28 34 50 / 92%); font-size: .43rem; font-weight: 850; white-space: nowrap; box-shadow: 0 1px 3px rgb(0 0 0 / 16%); }
@@ -628,6 +632,13 @@
     .festival-waiting-banner b { display: block; color: var(--brand); font-size: .67rem; }
     .festival-waiting-banner strong { color: var(--brand); font-size: .86rem; font-variant-numeric: tabular-nums; letter-spacing: .01em; white-space: nowrap; }
     .festival-waiting-banner em { color: #aaa; font-size: .8rem; font-style: normal; }
+    .festival-waiting-banner--called { border: 1.5px solid var(--brand); background: #202018; }
+    .festival-waiting-banner--called b { color: #fff; }
+    .festival-waiting-banner--called strong { letter-spacing: .035em; }
+    .festival-map__venue-card { position: absolute; z-index: 9; right: 12px; bottom: 70px; left: 12px; padding: 12px 14px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 10px; color: #fff; background: rgb(21 21 21 / 96%); box-shadow: 0 8px 20px rgb(0 0 0 / 36%); }
+    .festival-map__venue-card small { display: block; margin-bottom: 3px; color: var(--brand); font-size: .5rem; font-weight: 900; }
+    .festival-map__venue-card b { display: block; font-size: .76rem; }
+    .festival-map__venue-card span { display: block; margin-top: 2px; color: #c9c9c9; font-size: .57rem; }
     .festival-waiting-source { margin-top: 10px; padding: 10px 12px; border-left: 4px solid var(--brand); color: #4e4e4e; background: #fbfdeb; font-size: .64rem; line-height: 1.55; }
 
     @media (max-width: 520px) {
@@ -1565,13 +1576,13 @@
       <aside class="handoff handoff--branch"><strong>리뷰 대상 · 개인 링크 개선안</strong><p>현재 펍의 검정·라임, 큰 숫자와 선형 아이콘 패턴으로 대기부터 호출·종료·복구까지 다시 정리한 제안입니다.</p><span>승인 전 제안 UX · 서비스에는 아직 미반영</span></aside>
 
       <section class="lane lane--user" id="guest-link-proposal-flow">
-        <header class="lane-label"><div><small>사용자 휴대폰 · 리뷰 제안</small><h2><span></span>카카오 개인 대기 링크 <em class="proposal-chip">제안 UX</em></h2></div><p>연락처 뒤 4자리만 현장 식별값으로 씁니다. 활성 대기 링크는 로컬스토리지에 보관하고 5초마다 확인해 축제 웹을 둘러보는 중에도 이어집니다.</p></header>
+        <header class="lane-label"><div><small>사용자 휴대폰 · 리뷰 제안</small><h2><span></span>카카오 개인 대기 링크 <em class="proposal-chip">제안 UX</em></h2></div><p>축제를 둘러보는 동안에도 내 대기 현황을 놓치지 않고, 호출되면 지도에서 입구를 바로 확인합니다.</p></header>
         <div class="flow">
           <article class="node">
             <p class="node-label">P-01 · 등록 알림톡</p><p class="node-state">제안 UX · 등록 직후 같은 개인 링크 전달</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · SPOT</div>
-              <div class="bubble"><b>[대기 등록 완료]</b><br><b>개발 주점 2</b><br>연락처 뒤 4자리 5678 · 4명<br>현재 앞에 5팀이 있습니다.<br><span class="link-button">내 대기 현황 보기</span></div>
+              <div class="bubble"><b>[대기 등록 완료]</b><br><b>개발 주점 2</b><br>연락처 뒤 4자리 5678 · 4명<br>내 앞에 5팀이 있습니다.<br><span class="link-button">내 대기 현황 보기</span></div>
             </div></div>
           </article>
           <article class="node">
@@ -1579,11 +1590,11 @@
             <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
               <div class="spot-link__header"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span>자동 확인 중</span></div>
               <div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><span>청운관 앞 A-12</span><em class="spot-link__ticket">연락처 뒤 4자리 5678</em></div>
-              <div class="spot-link__hero"><p>내 앞 대기</p><strong>5<small>팀</small></strong><div class="spot-link__estimate"><b>약 25~35분</b><span>·</span><span>20:40 전후</span></div></div>
+              <div class="spot-link__hero"><p>내 앞 대기</p><strong>5<small>팀</small></strong><div class="spot-link__estimate"><b>20:40 입장 예정</b></div></div>
               <div class="spot-link__list"><div class="spot-link__row"><span>등록 인원</span><b>4명</b></div><div class="spot-link__row"><span>연락처</span><b>끝 5678</b></div></div>
-              <div class="spot-link__sync">방금 업데이트 · 5초마다 확인</div>
+              <div class="spot-link__sync">방금 업데이트 · 자동 확인 중</div>
               <div class="spot-link__actions"><span class="spot-link__button spot-link__button--lime">축제 둘러보기</span><span class="spot-link__button">순서 한 번 미루기</span><span class="spot-link__button spot-link__button--quiet">대기 취소</span></div>
-              <p class="spot-link__help">예상 시간은 현장 상황에 따라 달라질 수 있습니다.</p>
+              <p class="spot-link__help">현장 상황에 따라 입장 예정 시각이 달라질 수 있어요.</p>
             </div></div></div>
           </article>
           <div class="connector"><span>축제 둘러보기</span></div>
@@ -1617,37 +1628,71 @@
                 <div class="pin-group" style="left:80%;top:64%"><div class="pin pin--load-busy"><span>◑</span></div><div class="pin-name">포차 한잔<i class="pin-load">9팀</i></div></div>
                 <div class="pin-group" style="left:43%;top:84%"><div class="pin pin--theater"><span>◎</span></div><div class="pin-name">평화노천극장</div></div>
               </div>
-              <div class="festival-waiting-banner" role="button" aria-label="내 대기 현황으로 돌아가기"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span><b>개발 주점 2 · 앞 5팀</b>5초마다 대기 현황 확인</span><strong>약 25분 <em>›</em></strong></div>
+              <div class="festival-waiting-banner" role="button" aria-label="내 대기 현황으로 돌아가기"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span><b>개발 주점 2 · 내 앞 5팀</b>대기 현황 자동 확인 중</span><strong>20:40 예정 <em>›</em></strong></div>
               <div class="festival-map__filters"><span class="active">전체</span><span>주점</span><span>먹거리</span><span>총학생회 부스</span><span>무대</span></div>
               <div class="festival-map__metcha"><i>◆</i><b>멧챠<br>카멜레온</b></div><div class="festival-map__locate">◉ 현재 위치로 이동</div>
               <nav class="festival-map__tabs"><span><i>⌂</i>메인</span><span class="active"><i>◎</i>지도</span></nav>
             </div></div></div>
-            <p class="festival-waiting-source">상단 배너는 화면 이동과 무관하게 고정됩니다. 누르면 개인 대기 화면으로 돌아가며, 취소·미도착·이용 완료 시 저장한 활성 대기를 지웁니다.</p>
+            <p class="festival-waiting-source">대기 중에는 어느 축제 화면에서도 상단 배너가 유지됩니다. 누르면 내 대기 현황으로 돌아가며, 입장 확인·취소·미도착 시 배너와 저장한 활성 대기를 지웁니다.</p>
           </article>
           <article class="node">
             <p class="node-label">P-03 · 호출 임박 알림톡</p><p class="node-state">제안 UX · 앞 3팀 진입 시 1회</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · SPOT</div>
-              <div class="bubble"><b>[곧 호출 예정]</b><br><b>개발 주점 2</b><br>앞에 3팀이 남았습니다.<br>지금 주점 근처로 이동해 주세요.<br><span class="link-button">현재 순서와 위치 보기</span></div>
+              <div class="bubble"><b>[곧 호출 예정]</b><br><b>개발 주점 2</b><br>앞에 3팀이 남았습니다.<br>지금 주점 근처로 이동해 주세요.<br><span class="link-button">내 순서와 지도 보기</span></div>
             </div></div>
           </article>
           <article class="node">
             <p class="node-label">P-04 · 호출 알림톡</p><p class="node-state">제안 UX · CALLED · 도착 제한시간 포함</p>
             <div class="device iphone"><div class="screen kakao">
               <div class="kakao-header">카카오톡 · SPOT</div>
-              <div class="bubble"><b>[지금 입장해 주세요]</b><br><b>개발 주점 2</b><br>5분 안에 청운관 앞 A-12 입구로 와주세요.<br>직원에게 연락처 뒤 4자리 5678을 보여주세요.<br><span class="link-button">입구 위치와 남은 시간 보기</span></div>
+              <div class="bubble"><b>[지금 입장해 주세요]</b><br><b>개발 주점 2</b><br>5분 안에 청운관 앞 A-12 입구로 와주세요.<br>직원에게 연락처 뒤 4자리 5678을 보여주세요.<br><a class="link-button" href="#proposal-called-map">지도와 남은 시간 보기</a></div>
             </div></div>
           </article>
           <article class="node">
             <p class="node-label">P-05 · 호출됨</p><p class="node-state">제안 UX · CALLED · 기본 5분 카운트다운</p>
             <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
               <div class="spot-link__header"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span>호출됨</span></div>
-              <div class="spot-link__call"><span class="spot-asset-illustration spot-asset-illustration--megaphone" aria-hidden="true"></span><h3>지금 입장해 주세요</h3><p>아래 시간 안에 주점 입구로 와주세요.</p><div class="spot-link__countdown">04:32<small>남음</small></div></div>
-              <div class="spot-link__location"><b>청운관 앞 A-12</b><span>경영대학 · 개발 주점 2 입구</span></div>
+              <div class="spot-link__call"><span class="spot-asset-illustration spot-asset-illustration--megaphone" aria-hidden="true"></span><h3>지금 입장해 주세요</h3><p>남은 시간 안에 주점 입구로 와주세요.</p><div class="spot-link__countdown">04:32<small>남음</small></div></div>
+              <a class="spot-link__location" href="#proposal-called-map" aria-label="청운관 앞 A-12 개발 주점 2 입구를 지도에서 보기"><span class="spot-link__location-copy"><b>청운관 앞 A-12</b><small>경영대학 · 개발 주점 2 입구</small></span><em class="spot-link__map-link">지도에서 보기 <i>›</i></em></a>
               <div class="spot-link__credential"><span>입구 직원에게 이 화면을 보여주세요</span><b>연락처 뒤 4자리 5678</b></div>
-              <div class="spot-link__actions"><span class="spot-link__button spot-link__button--lime">입구 위치 보기</span></div>
-              <p class="spot-link__help">시간이 지나면 자동으로 미도착 처리됩니다.</p>
+              <p class="spot-link__help">남은 시간이 끝나기 전에 입구에서 도착을 확인해 주세요.</p>
             </div></div></div>
+          </article>
+          <article class="node" id="proposal-called-map">
+            <p class="node-label">P-05A · 호출 후 입구 지도</p><p class="node-state">제안 UX · CALLED 유지 · 지도 위치 선택 · 남은 시간 1초 단위 갱신</p>
+            <div class="device iphone"><div class="screen festival-map-screen"><div class="festival-map">
+              <div class="festival-map__layer">
+                <div class="green-area" style="left:92%;top:34%;width:16%;height:28%"></div>
+                <div class="parking" style="left:0;top:4%;width:45%;height:19%"></div>
+                <div class="court" style="left:47%;top:11%;width:19%;height:12%"></div>
+                <div class="parking" style="left:68%;top:4%;width:22%;height:19%"></div>
+                <div class="road" style="left:0;top:23.5%;width:100%;height:7px"></div>
+                <div class="road" style="left:79%;top:24%;width:7px;height:44%"></div>
+                <div class="road" style="left:64%;top:47%;width:7px;height:28%;transform:rotate(16deg)"></div>
+                <div class="road" style="left:28%;top:44%;width:7px;height:42%"></div>
+                <div class="road" style="left:28%;top:59%;width:28%;height:6px"></div>
+                <div class="road" style="left:-4%;top:34%;width:32%;height:7px;transform:rotate(-18deg)"></div>
+                <div class="bldg" style="left:26%;top:32%;width:36%;height:15%"></div>
+                <div class="bldg" style="left:34%;top:48%;width:25%;height:9%"></div>
+                <div class="bldg" style="left:16%;top:52%;width:9%;height:8%"></div>
+                <div class="pond" style="left:39%;top:62%;width:28%;height:16%"></div>
+                <div class="theater" style="left:19%;top:80%;width:42%;height:15%"></div>
+                <div class="map-text" style="left:63%;top:12%">주차장5</div><div class="map-text" style="left:81%;top:15.5%">주차장3</div>
+                <div class="map-text" style="left:44%;top:37%">전자정보응용<br>과학대학관</div><div class="map-text" style="left:47%;top:51.5%">전자정보<br>대학관</div>
+                <div class="map-text" style="left:19%;top:41.5%">GS25</div><div class="map-text" style="left:53%;top:70%">연못</div><div class="map-text map-text--theater" style="left:40%;top:88%">평화노천극장</div>
+                <div class="poi poi--parking" style="left:70%;top:12.5%">P</div><div class="poi poi--parking" style="left:80%;top:13.5%">P</div><div class="poi poi--bus" style="left:3%;top:23.5%">B</div><div class="poi poi--bus" style="left:82%;top:24.5%">B</div><div class="poi" style="left:19%;top:39%">G</div>
+                <div class="pin-group" style="left:64%;top:53%"><div class="pin pin--load-busy"><span>◑</span></div><div class="pin-name">닭발집<i class="pin-load">6팀</i></div></div>
+                <div class="pin-group" style="left:24%;top:48%"><div class="pin pin--load-free"><span>◑</span></div><div class="pin-name">칵테일바<i class="pin-load">바로</i></div></div>
+                <div class="pin-group" style="left:80%;top:64%"><div class="pin pin--load-busy"><span>◑</span></div><div class="pin-name">포차 한잔<i class="pin-load">9팀</i></div></div>
+                <div class="pin-group" style="left:46%;top:35%"><div class="pin pin--selected"><span>◑</span></div><div class="pin-name">개발 주점 2 입구</div></div>
+              </div>
+              <div class="festival-waiting-banner festival-waiting-banner--called" role="button" aria-label="호출된 내 대기 현황으로 돌아가기"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span><b>지금 입장해 주세요 · 개발 주점 2</b>청운관 앞 A-12 입구로 와주세요</span><strong>04:31 <em>›</em></strong></div>
+              <div class="festival-map__filters"><span>전체</span><span class="active">주점</span><span>먹거리</span><span>총학생회 부스</span><span>무대</span></div>
+              <div class="festival-map__venue-card"><small>호출 장소</small><b>청운관 앞 A-12</b><span>경영대학 · 개발 주점 2 입구</span></div>
+              <nav class="festival-map__tabs"><span><i>⌂</i>메인</span><span class="active"><i>◎</i>지도</span></nav>
+            </div></div></div>
+            <p class="festival-waiting-source">호출된 뒤에도 입장이 확인될 때까지 축제 웹 상단에 배너가 유지됩니다. 상태는 5초마다 확인하고, 서버가 준 도착 마감 시각을 기준으로 남은 시간만 매초 줄여 보여줍니다.</p>
           </article>
           <article class="node">
             <p class="node-label">P-06 · 착석</p><p class="node-state">제안 UX · SEATED</p>
@@ -1671,7 +1716,7 @@
             <p class="node-label">P-09 · 순서 미루기 완료</p><p class="node-state">제안 UX · WAITING 유지</p>
             <div class="device iphone iphone--action"><div class="screen"><div class="spot-link">
               <div class="spot-link__header"><span class="spot-asset-logo" role="img" aria-label="SPOT"></span><span>자동 확인 중</span></div><div class="spot-link__venue"><b>경영대학 · 개발 주점 2</b><em class="spot-link__ticket">연락처 뒤 4자리 5678</em></div>
-              <div class="spot-link__notice"><strong>순서를 맨 뒤로 옮겼어요</strong><p>변경된 예상 시간을 확인해 주세요.</p></div><div class="spot-link__hero"><p>내 앞 대기</p><strong>11<small>팀</small></strong><div class="spot-link__estimate"><b>약 55~65분</b><span>·</span><span>21:10 전후</span></div></div>
+              <div class="spot-link__notice"><strong>순서를 맨 뒤로 옮겼어요</strong><p>새 입장 예정 시각을 확인해 주세요.</p></div><div class="spot-link__hero"><p>내 앞 대기</p><strong>11<small>팀</small></strong><div class="spot-link__estimate"><b>21:10 입장 예정</b></div></div>
               <div class="spot-link__actions"><span class="spot-link__button spot-link__button--disabled">순서 미루기 사용 완료</span><span class="spot-link__button spot-link__button--lime">대기 취소</span></div>
             </div></div></div>
           </article>
@@ -2042,8 +2087,8 @@
         { title: "최신 상태를 받지 못한다", description: "마지막 정상 상태를 유지하면서 자동 재시도와 수동 확인 수단을 함께 제공합니다.", tone: "exception", codes: ["U-07"] }
       ],
       "guest-link-proposal-flow": [
-        { title: "등록 뒤 기다리며 축제를 둘러본다", description: "개인 링크에서 앞 대기팀과 예상 시간을 확인하고 축제 지도로 이동합니다. 활성 대기는 로컬스토리지에 보관하고 상단 고정 배너에서 5초마다 갱신합니다.", codes: ["P-01", "P-02", "P-02A"] },
-        { title: "호출 전에 주점으로 돌아온다", description: "앞 3팀에서 한 번 미리 알리고, 최종 호출에는 도착 제한시간과 입구 위치를 함께 제공합니다.", codes: ["P-03", "P-04", "P-05"] },
+        { title: "등록 뒤 기다리며 축제를 둘러본다", description: "개인 링크에서 앞 대기팀과 입장 예정 시각을 확인하고 축제 지도로 이동합니다. 활성 대기는 로컬스토리지에 보관하고 상단 고정 배너에서 5초마다 갱신합니다.", codes: ["P-01", "P-02", "P-02A"] },
+        { title: "호출되면 지도로 입구를 찾는다", description: "앞 3팀에서 한 번 미리 알리고, 호출 뒤에는 입구 지도로 바로 이동합니다. 상단 배너는 입장 확인 전까지 유지하며 남은 시간은 1초마다 줄어듭니다.", codes: ["P-03", "P-04", "P-05", "P-05A"] },
         { title: "입장하고 이용을 마친다", description: "입구에서 연락처 뒤 4자리를 보여준 뒤 직원의 테이블 배정과 이용 완료를 확인합니다.", codes: ["P-06", "P-07"] },
         { title: "순서를 한 번 미룬다", description: "현재 대기열의 맨 뒤로 이동한 결과를 바로 확인합니다.", codes: ["P-08", "P-09"] },
         { title: "호출 전에 대기를 취소한다", description: "취소 결과와 사유를 남기고 현장 재등록이 필요하다는 다음 행동을 안내합니다.", codes: ["P-10", "P-11"] },
